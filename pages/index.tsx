@@ -4,8 +4,8 @@ import Link from 'next/link';
 const IndexPage = () => (
     <>
         <Head>
-            <title>My page title</title>
-            <meta property="og:title" content="My page title" key="title" />
+            <title>NYAN.STREAM</title>
+            <meta property="og:title" content="NYAN.STREAM" key="title" />
         </Head>
         <h1>Hello Next.js 👋</h1>
         <p>
