@@ -1,57 +1,45 @@
 import Link from 'next/link';
 
-import { IconHamburger } from '../common';
+import type { HeaderMenuItemType } from '../HeaderTypes';
 
-import ImageLogo from '../../../static/images/logo.svg';
+import { IconHamburger } from '../../common';
+
+import HeaderBrandMain from './HeaderBrandMain';
+import HeaderMenuItem from './HeaderMenuItem';
 
 import styles from './Header.module.scss';
 
-type MenuContentItem = {
-    type: 'button' | 'link';
-    title: string;
-    icon: JSX.Element;
-    link?: string;
-    onClick?: () => void;
-};
-
 type PropsType = {
     pageName?: string;
-    leftMenuContent?: MenuContentItem[];
-    rightMenuContent?: MenuContentItem[];
-};
-
-const HeaderBrandMain: React.FC = () => {
-    return (
-        <>
-            <div className={styles.header__brand__logo}>
-                <img src={ImageLogo} alt="Логотип" data-lang-image="logo" />
-            </div>
-            <h1 className={styles.header__brand__text}>NYAN.STREAM</h1>
-        </>
-    );
+    leftMenuContent?: HeaderMenuItemType[];
+    rightMenuContent?: HeaderMenuItemType[];
+    handleSliderTriggerButtonClick: () => void;
 };
 
 const Header: React.FC<PropsType> = props => {
     const { pageName } = props;
     const { leftMenuContent = [], rightMenuContent = [] } = props;
+    const { handleSliderTriggerButtonClick } = props;
 
-    const LeftMenuItems: MenuContentItem[] = [
+    const LeftMenuItems: HeaderMenuItemType[] = [
         {
             type: 'button',
-            title: 't',
+            title: 'test',
             icon: <IconHamburger />,
-            onClick: () => void 0,
+            onClick: handleSliderTriggerButtonClick,
         },
         ...leftMenuContent,
     ];
 
-    const RightMenuItems: MenuContentItem[] = [...rightMenuContent];
+    const RightMenuItems: HeaderMenuItemType[] = [...rightMenuContent];
 
     return (
         <header className={styles.header}>
             <ul className={`${styles.header__menu} ${styles.header__menu_left}`}>
                 {LeftMenuItems.map(MenuItem => (
-                    <li>{MenuItem.icon}</li>
+                    <li>
+                        <HeaderMenuItem {...MenuItem} className={styles.header__menu__item} />
+                    </li>
                 ))}
             </ul>
 
@@ -75,11 +63,15 @@ const Header: React.FC<PropsType> = props => {
                 ) : null}
             </div>
 
-            <ul className={`${styles.header__menu} ${styles.header__menu_right}`}>
-                {RightMenuItems.map(MenuItem => (
-                    <li>{MenuItem.icon}</li>
-                ))}
-            </ul>
+            {RightMenuItems.length !== 0 ? (
+                <ul className={`${styles.header__menu} ${styles.header__menu_right}`}>
+                    {RightMenuItems.map(MenuItem => (
+                        <li>
+                            <HeaderMenuItem {...MenuItem} className={styles.header__menu__item} />
+                        </li>
+                    ))}
+                </ul>
+            ) : null}
         </header>
     );
 };

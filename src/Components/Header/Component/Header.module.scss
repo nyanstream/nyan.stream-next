@@ -1,5 +1,5 @@
-@import '../../styles/inc/mixins';
-@import '../../styles/inc/extend';
+@import '../../../styles/inc/mixins';
+@import '../../../styles/inc/extend';
 
 .header {
     --headerBrandHeight: calc(var(--headerHeight) / 2);
@@ -91,7 +91,7 @@
             padding-left: 5px;
         }
 
-        &__elem {
+        &__item {
             @include flexbox(auto, center, center, auto);
 
             border-radius: 5px;

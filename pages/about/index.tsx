@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import Header from '../../src/Components/Header/Header';
+import Header from '../../src/Components/Header/Component/Header';
 
 const AboutPage: React.FC = () => {
     return (

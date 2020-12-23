@@ -1,0 +1,32 @@
+@import '../../styles/inc/extend';
+
+.content {
+    display: grid;
+
+    grid-template-rows: var(--headerHeight) 1fr;
+    grid-template-columns: 1fr;
+
+    overflow-y: hidden;
+
+    @extend %full-width-tmpl;
+
+    &[data-is-slider-open] {
+        transform: translateX(var(--slider-width));
+    }
+
+    &[data-sidebar-hidden] {
+        .main {
+            grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+            display: none;
+        }
+    }
+
+    &[data-error] {
+        .main {
+            display: none;
+        }
+    }
+}
