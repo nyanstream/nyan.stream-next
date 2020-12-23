@@ -19,8 +19,11 @@
         cursor: default;
 
         & > * {
-            display: contents;
+            display: inline-block;
+            vertical-align: middle;
+        }
 
+        &__item {
             & > * {
                 display: inline-block;
                 vertical-align: middle;
@@ -116,6 +119,16 @@
 
             &:not(:first-child) {
                 margin-left: 5px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 449px) {
+        &__brand {
+            &__text {
+                &_title {
+                    display: none;
+                }
             }
         }
     }

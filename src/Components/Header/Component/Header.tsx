@@ -46,15 +46,17 @@ const Header: React.FC<PropsType> = props => {
             <div className={styles.header__brand} data-with-pagename={pageName ? '' : null}>
                 <div>
                     {pageName ? (
-                        <Link href="/">
-                            <HeaderBrandMain />
+                        <Link href="/" passHref>
+                            <a>
+                                <HeaderBrandMain />
+                            </a>
                         </Link>
                     ) : (
                         <HeaderBrandMain />
                     )}
                 </div>
                 {pageName ? (
-                    <div>
+                    <div className={styles.header__brand__item}>
                         <span className={styles.header__brand__text} data-style="no-hover">
                             &nbsp;/&nbsp;
                         </span>
