@@ -1,0 +1,119 @@
+:root {
+    --slider-width: 200px;
+    --slider-nav-items-offset: 10px;
+}
+
+body {
+    &:not([data-slider-is-open]) {
+        .container {
+            &--slider {
+                transform: translateX(calc(-1 * var(--slider-width)));
+            }
+        }
+
+        &[data-is-edge] {
+            // едж кривой, так что только так
+            .container {
+                &--slider {
+                    @extend %visually-hidden;
+                }
+            }
+        }
+    }
+
+    &[data-slider-is-open] {
+        .container {
+            &[data-content] {
+                transform: translateX(var(--slider-width));
+            }
+        }
+    }
+}
+
+.container {
+    &[data-content],
+    &--slider {
+        @include transition(0.5s);
+    }
+
+    &--slider {
+        display: grid;
+        grid-template-rows: 40px 1fr;
+        grid-template-columns: 1fr;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        width: var(--slider-width);
+        height: 100%;
+
+        background-color: var(--prime-color-10d);
+
+        font-size: var(--font-size);
+
+        user-select: none;
+
+        .slider-content {
+            display: grid;
+            grid-template-rows: 1fr min-content;
+            overflow-y: auto;
+        }
+
+        .nav {
+            width: 100%;
+            color: #fff;
+
+            h3 {
+                font-weight: normal;
+                text-align: center;
+            }
+
+            ul {
+                margin-top: 15px;
+
+                li {
+                    list-style: none;
+                    text-align: center;
+
+                    &:not(:first-child) {
+                        margin-top: 5px;
+                    }
+
+                    &.li {
+                        &--offset {
+                            margin-top: calc(var(--slider-nav-items-offset) + 5px);
+
+                            &:not(:first-of-type)::before {
+                                content: '';
+                                display: block;
+
+                                width: 15px;
+                                height: var(--slider-nav-items-offset);
+
+                                margin: 0 auto;
+
+                                border-top: 2px solid rgba(#fff, 0.7);
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__elem {
+                display: block;
+                width: 100%;
+                padding: 5px;
+
+                @extend %menu-nav-elem;
+            }
+        }
+
+        @import 'slider__footer';
+    }
+
+    &--popup:empty {
+        display: none;
+        width: 100%;
+    }
+}

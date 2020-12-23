@@ -1,0 +1,29 @@
+.copy {
+    $_color: #c4c4c4;
+
+    @include flexbox(auto, center, center, auto);
+
+    text-align: center;
+    line-height: 1.3;
+    color: $_color;
+
+    padding: 20px 5px;
+
+    cursor: default;
+
+    a {
+        color: lighten($_color, 10%);
+
+        &:hover {
+            color: $_color;
+        }
+    }
+
+    &__heart {
+        @include transition(0.2s);
+
+        &:hover {
+            color: #fe5a5a;
+        }
+    }
+}
