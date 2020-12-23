@@ -1,3 +1,5 @@
-const withImages = require('next-images')
+const withPlugins = require('next-compose-plugins');
 
-module.exports = withImages()
+const withImages = require('next-images');
+
+module.exports = withPlugins([withImages, { esModule: true, inlineImageLimit: false }]);
