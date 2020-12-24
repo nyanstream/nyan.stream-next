@@ -9,6 +9,7 @@ export {
     //
     FaRubleSign as IconRuble,
     FaCog as IconGear,
+    FaTimes as IconTimes,
     //
     FaMoon as IconMoon,
     FaSun as IconSun,

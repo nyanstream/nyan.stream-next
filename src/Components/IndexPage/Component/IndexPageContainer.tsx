@@ -1,16 +1,17 @@
 import { useState } from 'react';
 
-import type { HeaderMenuItemType } from '../Header/HeaderTypes';
+import type { HeaderMenuItemType } from '../../Header/HeaderTypes';
+import type { PlayerType } from '../IndexPageTypes';
 
-import Container from '../Container/Container';
+import Container from '../../Container/Container';
 
 import Player from './Player/PlayerContainer';
 import Sidebar from './Sidebar/SidebarContainer';
 import Settings from './Settings/SettingsContainer';
 
-import { IconRuble, IconGear } from '../common';
-import { IconMoon, IconSun } from '../common';
-import { IconChevronLeft, IconChevronRight } from '../common';
+import { IconRuble, IconGear } from '../../common';
+import { IconMoon, IconSun } from '../../common';
+import { IconChevronLeft, IconChevronRight } from '../../common';
 
 import styles from './IndexPage.module.scss';
 
@@ -18,6 +19,8 @@ const IndexPageContainer: React.FC = () => {
     const [ContainerTheme, setContainerTheme] = useState<'sun' | 'moon'>('sun');
     const [IsSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState<boolean>(false);
+
+    const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('twitch-main');
 
     const LeftMenuContent: HeaderMenuItemType[] = [
         {
@@ -55,8 +58,8 @@ const IndexPageContainer: React.FC = () => {
 
     return (
         <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': ContainerTheme }}>
-            <main className={styles.index}>
-                <Player />
+            <main className={styles.index} data-is-sidebar-hidde={IsSidebarHidden ? '' : null}>
+                <Player {...{ SelectedPlayer }} />
                 <Sidebar />
                 <Settings {...{ IsSettingsOpen }} />
             </main>
