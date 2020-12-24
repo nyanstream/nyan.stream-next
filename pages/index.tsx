@@ -1,11 +1,7 @@
-import Container from '../src/Components/Container/Container';
+import IndexPageContainer from '../src/Components/IndexPage/IndexPageContainer';
 
 const IndexPage: React.FC = () => {
-    return (
-        <Container>
-            <></>
-        </Container>
-    );
+    return <IndexPageContainer />;
 };
 
 export default IndexPage;

@@ -11,22 +11,24 @@ import styles from './Header.module.scss';
 
 type PropsType = {
     pageName?: string;
+    IsSliderOpen: boolean;
     leftMenuContent?: HeaderMenuItemType[];
     rightMenuContent?: HeaderMenuItemType[];
     handleSliderTriggerButtonClick: () => void;
 };
 
 const Header: React.FC<PropsType> = props => {
-    const { pageName } = props;
+    const { pageName, IsSliderOpen } = props;
     const { leftMenuContent = [], rightMenuContent = [] } = props;
     const { handleSliderTriggerButtonClick } = props;
 
     const LeftMenuItems: HeaderMenuItemType[] = [
         {
+            id: 'slider_trigger',
             type: 'button',
-            title: 'test',
+            title: 'Скрыть/показать боковое меню',
             icon: <IconHamburger />,
-            onClick: handleSliderTriggerButtonClick,
+            onClick: IsSliderOpen ? () => void 0 : handleSliderTriggerButtonClick,
         },
         ...leftMenuContent,
     ];
@@ -37,7 +39,7 @@ const Header: React.FC<PropsType> = props => {
         <header className={styles.header}>
             <ul className={`${styles.header__menu} ${styles.header__menu_left}`}>
                 {LeftMenuItems.map(MenuItem => (
-                    <li>
+                    <li key={MenuItem.id}>
                         <HeaderMenuItem {...MenuItem} className={styles.header__menu__item} />
                     </li>
                 ))}
@@ -68,7 +70,7 @@ const Header: React.FC<PropsType> = props => {
             {RightMenuItems.length !== 0 ? (
                 <ul className={`${styles.header__menu} ${styles.header__menu_right}`}>
                     {RightMenuItems.map(MenuItem => (
-                        <li>
+                        <li key={MenuItem.id}>
                             <HeaderMenuItem {...MenuItem} className={styles.header__menu__item} />
                         </li>
                     ))}

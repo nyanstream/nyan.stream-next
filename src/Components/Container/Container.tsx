@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
+import Head from 'next/head';
+
 import CONFIG from '../../config';
 
-import Head from 'next/head';
+import type { HeaderMenuItemType } from '../Header/HeaderTypes';
 
 import Content from '../Content/Content';
 import Slider from '../Slider/Slider';
@@ -13,10 +15,13 @@ import styles from './Container.module.scss';
 
 type PropsType = {
     pageName?: string;
+    leftMenuContent?: HeaderMenuItemType[];
+    rightMenuContent?: HeaderMenuItemType[];
 };
 
 const Container: React.FC<PropsType> = props => {
     const { pageName } = props;
+    const { leftMenuContent, rightMenuContent } = props;
     const { children } = props;
 
     const { host: ProjectHost } = CONFIG;
@@ -26,6 +31,10 @@ const Container: React.FC<PropsType> = props => {
     const [IsSliderOpen, setIsSliderOpen] = useState<boolean>(false);
 
     const handleSliderTriggerButtonClick = () => {
+        setIsSliderOpen(!IsSliderOpen);
+    };
+
+    const handleContentClick = () => {
         setIsSliderOpen(!IsSliderOpen);
     };
 
@@ -59,8 +68,13 @@ const Container: React.FC<PropsType> = props => {
             </Head>
             <div className={styles.container}>
                 <Slider {...{ IsSliderOpen }} />
-                <Content {...{ IsSliderOpen }}>
-                    <Header {...{ pageName }} {...{ handleSliderTriggerButtonClick }} />
+                <Content {...{ IsSliderOpen }} {...{ handleContentClick }}>
+                    <Header
+                        {...{ pageName }}
+                        {...{ leftMenuContent, rightMenuContent }}
+                        {...{ IsSliderOpen }}
+                        {...{ handleSliderTriggerButtonClick }}
+                    />
                     {children}
                 </Content>
             </div>
