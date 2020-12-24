@@ -1,11 +1,39 @@
+@import '../../styles/vars';
+
 .container {
+    --prime-color: #{$primeColor};
+    --prime-color-5d: #{darken($primeColor, 5%)};
+    --prime-color-10d: #{darken($primeColor, 10%)};
+
+    --font-size: 14px;
+
+    --headerHeight: 40px;
+
     --slider-width: 200px;
     --slider-nav-items-offset: 10px;
 
+    --tab-hover-color: #{darken($primeColor, 8%)};
+    --tab-focus-color: #{darken($primeColor, 6%)};
+    --tab-active-color: #{darken($primeColor, 13%)};
+
     width: 100%;
     height: 100%;
+
     overflow: hidden;
+
     font-size: 0;
+
+    &[data-theme='moon'] {
+        $primeColor: #464646;
+
+        --prime-color: #{$primeColor};
+        --prime-color-5d: #{darken($primeColor, 5%)};
+        --prime-color-10d: #{darken($primeColor, 10%)};
+
+        --tab-hover-color: #{darken($primeColor, 8%)};
+        --tab-focus-color: #{darken($primeColor, 6%)};
+        --tab-active-color: #{darken($primeColor, 13%)};
+    }
 
     & > * {
         transition: all 0.5s ease-in-out;

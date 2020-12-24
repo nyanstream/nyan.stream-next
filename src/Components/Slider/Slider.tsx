@@ -6,11 +6,13 @@ type PropsType = {
     IsSliderOpen: boolean;
 };
 
-const Slider: React.FC<PropsType> = ({ IsSliderOpen }) => (
-    <div className={styles.slider} data-is-slider-open={IsSliderOpen ? '' : null}>
-        <SliderHeader />
-        <div className="slider__content"></div>
-    </div>
-);
+const Slider: React.FC<PropsType> = ({ IsSliderOpen }) => {
+    return (
+        <div className={styles.slider} data-is-slider-open={IsSliderOpen ? '' : null}>
+            <SliderHeader />
+            <div className="slider__content"></div>
+        </div>
+    );
+};
 
 export default Slider;

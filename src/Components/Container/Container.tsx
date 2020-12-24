@@ -17,12 +17,13 @@ type PropsType = {
     pageName?: string;
     leftMenuContent?: HeaderMenuItemType[];
     rightMenuContent?: HeaderMenuItemType[];
+    customParentProps?: any;
 };
 
 const Container: React.FC<PropsType> = props => {
     const { pageName } = props;
     const { leftMenuContent, rightMenuContent } = props;
-    const { children } = props;
+    const { children, customParentProps } = props;
 
     const { host: ProjectHost } = CONFIG;
 
@@ -66,7 +67,8 @@ const Container: React.FC<PropsType> = props => {
                 />
                 <link rel="canonical" href={`${ProjectHost}${Router.pathname}`} />
             </Head>
-            <div className={styles.container}>
+
+            <div className={styles.container} {...customParentProps}>
                 <Slider {...{ IsSliderOpen }} />
                 <Content {...{ IsSliderOpen }} {...{ handleContentClick }}>
                     <Header

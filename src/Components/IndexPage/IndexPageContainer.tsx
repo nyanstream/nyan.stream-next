@@ -15,7 +15,7 @@ import { IconChevronLeft, IconChevronRight } from '../common';
 import styles from './IndexPage.module.scss';
 
 const IndexPageContainer: React.FC = () => {
-    const [IsMoonThemeEnabled, setIsMoonThemeEnabled] = useState<boolean>(false);
+    const [ContainerTheme, setContainerTheme] = useState<'sun' | 'moon'>('sun');
     const [IsSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState<boolean>(false);
 
@@ -33,9 +33,9 @@ const IndexPageContainer: React.FC = () => {
         {
             id: 'theme_trigger',
             type: 'button',
-            title: IsMoonThemeEnabled ? 'Ночной режим' : 'Дневной режим',
-            icon: IsMoonThemeEnabled ? <IconSun /> : <IconMoon />,
-            onClick: () => setIsMoonThemeEnabled(!IsMoonThemeEnabled),
+            title: ContainerTheme === 'moon' ? 'Ночной режим' : 'Дневной режим',
+            icon: ContainerTheme === 'moon' ? <IconSun /> : <IconMoon />,
+            onClick: () => (ContainerTheme === 'moon' ? setContainerTheme('sun') : setContainerTheme('moon')),
         },
         {
             id: 'settings_trigger',
@@ -54,7 +54,7 @@ const IndexPageContainer: React.FC = () => {
     ];
 
     return (
-        <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent}>
+        <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': ContainerTheme }}>
             <main className={styles.index}>
                 <Player />
                 <Sidebar />
