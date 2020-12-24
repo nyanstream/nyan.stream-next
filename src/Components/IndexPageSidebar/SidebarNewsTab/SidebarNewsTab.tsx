@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import { getNews } from '../../../../../api';
-import type { NewsQueryResponseType } from '../../../../../api/types';
+import { getNews } from '../../../api';
+import type { NewsQueryResponseType } from '../../../api/types';
 
-import useAPI from '../../../../../hooks/useAPI';
+import useAPI from '../../../hooks/useAPI';
 
-import { getDateFormated } from '../../../../../utilities/dates';
+import { getDateFormated } from '../../../utilities/dates';
 
 import styles from './SidebarNewsTab.module.scss';
 

@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
-import CONFIG from '../../../../config';
+import CONFIG from '../../../config';
 
-import type { PlayerType } from '../../IndexPageTypes';
+import type { PlayerType } from '../PlayerTypes';
 
-import { IconTimes } from '../../../common';
+import { IconTimes } from '../../common';
 
 import styles from './Player.module.scss';
 

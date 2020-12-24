@@ -1,4 +1,4 @@
-import { SidebarTabType, SidebarTabItemDataType } from '../../../IndexPageTypes';
+import { SidebarTabType, SidebarTabItemDataType } from '../SidebarTypes';
 
 import styles from './SidebarRadioButtons.module.scss';
 

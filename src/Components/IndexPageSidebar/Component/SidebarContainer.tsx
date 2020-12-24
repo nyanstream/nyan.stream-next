@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import { SidebarTabType } from '../../IndexPageTypes';
+import { SidebarTabType } from '../SidebarTypes';
 
-import SidebarRadioButtons from './SidebarRadioButtons/SidebarRadioButtons';
-import SidebarChatTab from './SidebarChatTab/SidebarChatTab';
-import SidebarScheduleTab from './SidebarScheduleTab/SidebarScheduleTab';
-import SidebarNewsTab from './SidebarNewsTab/SidebarNewsTab';
+import SidebarRadioButtons from '../SidebarRadioButtons/SidebarRadioButtons';
+import SidebarChatTab from '../SidebarChatTab/SidebarChatTab';
+import SidebarScheduleTab from '../SidebarScheduleTab/SidebarScheduleTab';
+import SidebarNewsTab from '../SidebarNewsTab/SidebarNewsTab';
 
 import styles from './Sidebar.module.scss';
 

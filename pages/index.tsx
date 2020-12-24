@@ -1,4 +1,4 @@
-import IndexPageContainer from '../src/Components/IndexPage/Component/IndexPageContainer';
+import IndexPageContainer from '../src/Components/IndexPage/IndexPageContainer';
 
 const IndexPage: React.FC = () => {
     return <IndexPageContainer />;

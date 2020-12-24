@@ -1,17 +1,17 @@
 import { useState } from 'react';
 
-import type { HeaderMenuItemType } from '../../Header/HeaderTypes';
-import type { PlayerType } from '../IndexPageTypes';
+import type { HeaderMenuItemType } from '../Header/HeaderTypes';
+import type { PlayerType } from '../IndexPagePlayer/PlayerTypes';
 
-import Container from '../../Container/Container';
+import Container from '../Container/Container';
 
-import Player from './Player/PlayerContainer';
-import Sidebar from './Sidebar/SidebarContainer';
+import Player from '../IndexPagePlayer/Component/PlayerContainer';
+import Sidebar from '../IndexPageSidebar/Component/SidebarContainer';
 import Settings from './Settings/SettingsContainer';
 
-import { IconRuble, IconGear } from '../../common';
-import { IconMoon, IconSun } from '../../common';
-import { IconChevronLeft, IconChevronRight } from '../../common';
+import { IconRuble, IconGear } from '../common';
+import { IconMoon, IconSun } from '../common';
+import { IconChevronLeft, IconChevronRight } from '../common';
 
 import styles from './IndexPage.module.scss';
 
