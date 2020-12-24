@@ -1,0 +1,6 @@
+.sidebar__tabs__tab {
+    &_news {
+        font-size: var(--font-size);
+        overflow: auto;
+    }
+}

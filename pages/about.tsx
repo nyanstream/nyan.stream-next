@@ -1,4 +1,4 @@
-import Container from '../../src/Components/Container/Container';
+import Container from '../src/Components/Container/Container';
 
 const AboutPage: React.FC = () => {
     return (

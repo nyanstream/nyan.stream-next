@@ -1,0 +1,21 @@
+@import '../../../../styles/inc/mixins';
+
+.sidebar {
+    --tabCellHeight: 25px;
+
+    background-color: #fff;
+
+    &__tabs {
+        width: 100%;
+        height: calc(100% - var(--tabCellHeight));
+
+        overflow: hidden;
+
+        &__tab {
+            width: 100%;
+            height: 100%;
+
+            overflow: hidden;
+        }
+    }
+}

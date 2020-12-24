@@ -1,5 +1,31 @@
+import { useState } from 'react';
+
+import { SidebarTabType } from '../../IndexPageTypes';
+
+import SidebarRadioButtons from './SidebarRadioButtons/SidebarRadioButtons';
+import SidebarChatTab from './SidebarChatTab/SidebarChatTab';
+import SidebarScheduleTab from './SidebarScheduleTab/SidebarScheduleTab';
+import SidebarNewsTab from './SidebarNewsTab/SidebarNewsTab';
+
+import styles from './Sidebar.module.scss';
+
 const SidebarContainer: React.FC = () => {
-    return <aside className="sidebar"></aside>;
+    const [CurrentSidebarTab, setCurrentSidebarTab] = useState<SidebarTabType>('chat');
+
+    const handleSidebarRadioButtonClick = (tabName: SidebarTabType) => {
+        setCurrentSidebarTab(tabName);
+    };
+
+    return (
+        <aside className={styles.sidebar}>
+            <SidebarRadioButtons {...{ CurrentSidebarTab }} {...{ handleSidebarRadioButtonClick }} />
+            <div className={styles.sidebar__tabs}>
+                <SidebarChatTab className={styles.sidebar__tabs__tab} isVisible={CurrentSidebarTab === 'chat'} />
+                <SidebarScheduleTab className={styles.sidebar__tabs__tab} isVisible={CurrentSidebarTab === 'schedule'} />
+                <SidebarNewsTab className={styles.sidebar__tabs__tab} isVisible={CurrentSidebarTab === 'news'} />
+            </div>
+        </aside>
+    );
 };
 
 export default SidebarContainer;
