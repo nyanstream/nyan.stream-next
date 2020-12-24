@@ -58,9 +58,9 @@ const IndexPageContainer: React.FC = () => {
 
     return (
         <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': ContainerTheme }}>
-            <main className={styles.index} data-is-sidebar-hidde={IsSidebarHidden ? '' : null}>
+            <main className={styles.index} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
                 <Player {...{ SelectedPlayer }} />
-                <Sidebar />
+                <Sidebar {...{ IsSidebarHidden }} />
                 <Settings {...{ IsSettingsOpen }} />
             </main>
         </Container>

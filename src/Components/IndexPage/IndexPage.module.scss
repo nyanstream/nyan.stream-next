@@ -6,4 +6,17 @@
     grid-template-rows: 100%;
 
     overflow-y: hidden;
+
+    &[data-is-sidebar-hidden] {
+        grid-template-columns: 1fr;
+    }
+
+    @media screen and (max-width: 949px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 65%;
+
+        &[data-is-sidebar-hidden] {
+            grid-template-rows: 1fr;
+        }
+    }
 }

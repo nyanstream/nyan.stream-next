@@ -9,7 +9,13 @@ import SidebarNewsTab from '../SidebarNewsTab/SidebarNewsTab';
 
 import styles from './Sidebar.module.scss';
 
-const SidebarContainer: React.FC = () => {
+type PropsType = {
+    IsSidebarHidden: boolean;
+};
+
+const SidebarContainer: React.FC<PropsType> = props => {
+    const { IsSidebarHidden } = props;
+
     const [CurrentSidebarTab, setCurrentSidebarTab] = useState<SidebarTabType>('chat');
 
     const handleSidebarRadioButtonClick = (tabName: SidebarTabType) => {
@@ -17,7 +23,7 @@ const SidebarContainer: React.FC = () => {
     };
 
     return (
-        <aside className={styles.sidebar}>
+        <aside className={styles.sidebar} hidden={IsSidebarHidden}>
             <SidebarRadioButtons {...{ CurrentSidebarTab }} {...{ handleSidebarRadioButtonClick }} />
             <div className={styles.sidebar__tabs}>
                 <SidebarChatTab className={styles.sidebar__tabs__tab} isVisible={CurrentSidebarTab === 'chat'} />
