@@ -1,5 +1,7 @@
 .sidebar__tabs__tab {
     &_chat {
+        overflow: hidden;
+
         iframe {
             width: 100%;
             height: 100%;

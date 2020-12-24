@@ -50,9 +50,9 @@ const Container: React.FC<PropsType> = props => {
                 <meta property="og:locale" content="ru_RU" key="oglocale" />
                 <meta property="og:type" content="website" key="ogwebsite" />
                 <meta property="og:title" content={ProjectName} key="ogtitle" />
-                <meta property="og:site_name" content={ProjectName} />
-                <meta property="og:url" content={ProjectHost}></meta>
-                <meta property="og:description" content={ProjectDescription} />
+                <meta property="og:site_name" content={ProjectName} key="ogsitename" />
+                <meta property="og:url" content={ProjectHost} key="ogurl" />
+                <meta property="og:description" content={ProjectDescription} key="ogdescription" />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
@@ -66,6 +66,10 @@ const Container: React.FC<PropsType> = props => {
                     }}
                 />
                 <link rel="canonical" href={`${ProjectHost}${Router.pathname}`} />
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css?family=Montserrat:700,800|Roboto:400,500&subset=cyrillic&display=swap"
+                />
             </Head>
 
             <div className={styles.container} {...customParentProps}>
