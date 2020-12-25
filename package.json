@@ -10,7 +10,7 @@
         "dev": "next",
         "build": "next build && next export",
         "start": "next start",
-        "lint": "eslint --ext .ts,.tsx",
+        "lint": "eslint --ext .js,.ts,.tsx",
         "prettier": "prettier --write **/*.{json,js,ts,tsx,scss}",
         "lint-staged": "lint-staged"
     },
