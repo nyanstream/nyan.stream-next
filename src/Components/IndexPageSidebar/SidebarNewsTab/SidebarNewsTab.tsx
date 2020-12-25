@@ -59,7 +59,7 @@ const SidebarNewsTab: React.FC<PropsType> = ({ className, isVisible }) => {
                             <div className={styles.news__posts__post__body}>
                                 {PostData.pic ? (
                                     <a href={PostData.pic.big} className={styles.news__posts__post__image} target="_blank" rel="nofollow noopener">
-                                        <img src={PostData.pic.small} alt="post image" />
+                                        <img src={`https://images.weserv.nl/?url=${encodeURIComponent(PostData.pic.small)}`} alt="post image" />
                                     </a>
                                 ) : null}
                                 <p>{PostData.text}</p>
