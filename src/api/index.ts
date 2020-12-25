@@ -1,18 +1,17 @@
 import CONFIG from '../config';
 
-import type { NewsQueryResponseType, NotificationQueryResponseType } from './types';
+import type { ScheduleQueryResponseType, NewsQueryResponseType, NotificationQueryResponseType } from './types';
 
-const API = <T>(method: string): Promise<T> => {
-    return fetch(`${CONFIG.api_host}/api/${method}`, { cache: 'no-store' }).then(response => {
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-        return response.json() as Promise<T>;
-    });
+const API = async <T>(method: string): Promise<T> => {
+    const response = await fetch(`${CONFIG.api_host}/api/${method}`, { cache: 'no-store' });
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
+    return await (response.json() as Promise<T>);
 };
 
 export const getSchedule = async () => {
-    return await API<NewsQueryResponseType>('sched');
+    return await API<ScheduleQueryResponseType>('sched');
 };
 
 export const getNews = async () => {
