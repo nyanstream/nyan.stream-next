@@ -7,7 +7,7 @@ type PropsType = {
 
 const SidebarChatTab: React.FC<PropsType> = ({ className, isVisible }) => {
     return (
-        <section className={`${className} ${styles.sidebar__tabs__tab_chat}`} hidden={!isVisible}>
+        <section className={`${className} ${styles.chat}`} hidden={!isVisible}>
             <iframe src="https://thenyan.chatovod.ru" title="Чат" />
         </section>
     );

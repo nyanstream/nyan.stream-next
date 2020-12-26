@@ -9,6 +9,8 @@ import { getDateFormated } from '../../../utilities/dates';
 import { getSchedule } from '../../../api';
 import type { ScheduleQueryResponseType } from '../../../api/types';
 
+import { Link } from '../../common';
+
 import styles from './SidebarScheduleTab.module.scss';
 
 type PropsType = {
@@ -135,6 +137,11 @@ const SidebarScheduleTab: React.FC<PropsType> = ({ className, isVisible }) => {
                                 {airPhrase ? (
                                     <div className={styles.schedule__items__item__phrase}>
                                         <span>{airPhrase}</span>
+                                    </div>
+                                ) : null}
+                                {AirData.link ? (
+                                    <div className={styles.schedule__items__item__link}>
+                                        <Link href={AirData.link}>Ссылка</Link>
                                     </div>
                                 ) : null}
                             </div>

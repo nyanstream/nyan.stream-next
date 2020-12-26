@@ -1,12 +1,16 @@
 type PropsType = {
     href: string;
+    className?: string;
 };
 
-export const Link: React.FC<PropsType> = ({ href, children }) => {
+export const Link: React.FC<PropsType> = props => {
+    const { href, className } = props;
+    const { children } = props;
+
     const IsExternalLink = href.startsWith('http');
 
     return (
-        <a href={href} target={IsExternalLink ? '_blank' : undefined} rel={IsExternalLink ? 'nofollow noopener' : undefined}>
+        <a {...{ href, className }} target={IsExternalLink ? '_blank' : undefined} rel={IsExternalLink ? 'nofollow noopener' : undefined}>
             {children}
         </a>
     );

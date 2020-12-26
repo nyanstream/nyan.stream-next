@@ -7,6 +7,8 @@ import useAPI from '../../../hooks/useAPI';
 
 import { getDateFormated } from '../../../utilities/dates';
 
+import { Link } from '../../common';
+
 import styles from './SidebarNewsTab.module.scss';
 
 type PropsType = {
@@ -33,6 +35,10 @@ const SidebarNewsTab: React.FC<PropsType> = ({ className, isVisible }) => {
 
     useAPI(newsQuery, 10);
 
+    const formatPostDate = (date: Date) => {
+        return getDateFormated({ date, extraConfig: { hour: 'numeric', minute: 'numeric' } });
+    };
+
     return (
         <section className={`${className} ${styles.news}`} hidden={!isVisible}>
             <div className={styles.news__status}>
@@ -45,9 +51,9 @@ const SidebarNewsTab: React.FC<PropsType> = ({ className, isVisible }) => {
                     {NewsData.posts.map(PostData => (
                         <div key={PostData.id} className={styles.news__posts__post}>
                             <div className={styles.news__posts__post__meta}>
-                                <a href={`https://vk.com/wall-${NewsData.com?.id}_${PostData.id}`} target="_blank" rel="nofollow noopener">
-                                    {getDateFormated({ date: new Date(PostData.time * 1000), extraConfig: { hour: 'numeric', minute: 'numeric' } })}
-                                </a>
+                                <Link href={`https://vk.com/wall-${NewsData.com?.id}_${PostData.id}`}>
+                                    {formatPostDate(new Date(PostData.time * 1000))}
+                                </Link>
                                 {PostData.type === 'copy' ? (
                                     <>
                                         {' '}
@@ -58,9 +64,9 @@ const SidebarNewsTab: React.FC<PropsType> = ({ className, isVisible }) => {
 
                             <div className={styles.news__posts__post__body}>
                                 {PostData.pic ? (
-                                    <a href={PostData.pic.big} className={styles.news__posts__post__image} target="_blank" rel="nofollow noopener">
+                                    <Link href={PostData.pic.big} className={styles.news__posts__post__image}>
                                         <img src={`https://images.weserv.nl/?url=${encodeURIComponent(PostData.pic.small)}`} alt="post image" />
-                                    </a>
+                                    </Link>
                                 ) : null}
                                 <p>{PostData.text}</p>
                             </div>
