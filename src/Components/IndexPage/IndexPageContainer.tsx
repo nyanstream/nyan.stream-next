@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
+import { storageGet, storageSet } from '../../utilities/storage';
+
+import { ThemeType } from '../Container/ContainerTypes';
 import type { HeaderMenuItemType } from '../Header/HeaderTypes';
 import type { PlayerType } from '../IndexPagePlayer/PlayerTypes';
 
@@ -12,15 +15,25 @@ import Settings from '../IndexPageSettings/Component/SettingsContainer';
 import { IconRuble, IconGear } from '../common';
 import { IconMoon, IconSun } from '../common';
 import { IconChevronLeft, IconChevronRight } from '../common';
+import { IconChevronDown, IconChevronUp } from '../common';
 
 import styles from './IndexPage.module.scss';
 
 const IndexPageContainer: React.FC = () => {
-    const [ContainerTheme, setContainerTheme] = useState<'sun' | 'moon'>('sun');
+    const [ContainerTheme, setContainerTheme] = useState<ThemeType>('sun');
     const [IsSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState<boolean>(false);
 
     const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('wasd');
+
+    useEffect(() => {
+        setContainerTheme(storageGet<ThemeType>('nyan_theme', 'sun'));
+    }, []);
+
+    const handleThemeChange = (theme: ThemeType) => {
+        setContainerTheme(theme);
+        storageSet('nyan_theme', theme);
+    };
 
     const LeftMenuContent: HeaderMenuItemType[] = [
         {
@@ -38,7 +51,7 @@ const IndexPageContainer: React.FC = () => {
             type: 'button',
             title: ContainerTheme === 'moon' ? 'Ночной режим' : 'Дневной режим',
             icon: ContainerTheme === 'moon' ? <IconSun /> : <IconMoon />,
-            onClick: () => (ContainerTheme === 'moon' ? setContainerTheme('sun') : setContainerTheme('moon')),
+            onClick: () => (ContainerTheme === 'moon' ? handleThemeChange('sun') : handleThemeChange('moon')),
         },
         {
             id: 'settings_trigger',
