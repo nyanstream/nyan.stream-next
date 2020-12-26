@@ -1,0 +1,12 @@
+*.scss text eol=crlf
+*.css text eol=crlf
+*.js text eol=crlf
+*.ts text eol=crlf
+*.tsx text eol=crlf
+*.json text eol=crlf
+*.md text eol=crlf
+*.svg text eol=crlf
+*.txt text eol=crlf
+*.htaccess text eol=crlf
+*.config text eol=crlf
+*.editorconfig text eol=crlf
