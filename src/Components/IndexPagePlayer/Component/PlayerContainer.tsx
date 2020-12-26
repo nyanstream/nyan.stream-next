@@ -1,6 +1,4 @@
-import { useMemo } from 'react';
-
-import CONFIG from '../../../config';
+import { useMemo, useState, useEffect } from 'react';
 
 import type { PlayerType } from '../PlayerTypes';
 
@@ -15,14 +13,26 @@ type PropsType = {
 const PlayerContainer: React.FC<PropsType> = props => {
     const { SelectedPlayer } = props;
 
-    const { host: AppHost } = CONFIG;
+    const [ProjectHost, setProjectHost] = useState<string>('');
+
+    useEffect(() => {
+        setProjectHost(window.location.hostname);
+    }, []);
 
     const PlayerURL = useMemo<string>(() => {
-        const AppHostURL = new URL(AppHost);
+        if (ProjectHost === '') {
+            return '';
+        }
 
-        const getTwitchPlayerURL = (nickName: string) => `https://player.twitch.tv/?channel=${nickName}&parent=${AppHostURL.hostname}&autoplay=true`;
+        const getTwitchPlayerURL = (nickName: string) => `https://player.twitch.tv/?channel=${nickName}&parent=${ProjectHost}&autoplay=true`;
 
         switch (SelectedPlayer) {
+            case 'wasd':
+                return 'https://wasd.tv/embed/thenyan';
+
+            case 'twitch-main':
+                return getTwitchPlayerURL('nyan_stream');
+
             case 'twitch-backup':
                 return getTwitchPlayerURL('zdesneanime');
 
@@ -31,12 +41,8 @@ const PlayerContainer: React.FC<PropsType> = props => {
 
             case 'gg':
                 return 'https://goodgame.ru/player?144937#autoplay';
-
-            default:
-            case 'twitch-main':
-                return getTwitchPlayerURL('nyan_stream');
         }
-    }, [SelectedPlayer]);
+    }, [ProjectHost, SelectedPlayer]);
 
     return (
         <div className={styles.player}>
