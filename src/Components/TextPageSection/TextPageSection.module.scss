@@ -1,0 +1,49 @@
+.section {
+    width: 100%;
+    max-width: 1100px;
+
+    background-color: rgba(#fff, 0.9);
+
+    margin: 0 auto;
+    padding: 1em 2em;
+
+    line-height: 1.65em;
+
+    &:not(:first-child) {
+        margin-top: 15px;
+    }
+
+    &__heading {
+        margin: 0.3em 0 0.4em;
+
+        & > a[href^='#'] {
+            margin-left: 0.3em;
+            border: 0;
+        }
+    }
+
+    p {
+        &:not(:first-of-type):not([data-no-top-margin]) {
+            margin-top: 10px;
+        }
+    }
+
+    ul {
+        &:not([data-no-top-margin]) {
+            margin-top: 10px;
+        }
+
+        li {
+            list-style-type: square;
+            margin: 0.1em 0;
+
+            &::after {
+                content: ';';
+            }
+
+            &:last-child::after {
+                content: '.';
+            }
+        }
+    }
+}

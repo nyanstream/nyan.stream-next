@@ -20,7 +20,7 @@ const IndexPageContainer: React.FC = () => {
     const [IsSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState<boolean>(false);
 
-    const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('twitch-main');
+    const [SelectedPlayer] = useState<PlayerType>('twitch-main');
 
     const LeftMenuContent: HeaderMenuItemType[] = [
         {
@@ -58,7 +58,7 @@ const IndexPageContainer: React.FC = () => {
 
     return (
         <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': ContainerTheme }}>
-            <main className={styles.index} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
+            <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
                 <Player {...{ SelectedPlayer }} />
                 <Sidebar {...{ IsSidebarHidden }} />
                 <Settings {...{ IsSettingsOpen }} />
