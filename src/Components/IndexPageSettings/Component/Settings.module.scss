@@ -1,0 +1,89 @@
+.settings {
+    --settingsPadding: 2.5px 5px;
+
+    position: fixed;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px;
+
+    z-index: 1000;
+
+    &,
+    &__backdrop {
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+    }
+
+    &__backdrop {
+        position: absolute;
+
+        background-color: rgba(#000, 0.4);
+    }
+
+    &__content {
+        width: 100%;
+        max-width: 350px;
+
+        background-color: #fff;
+        border: 2px solid var(--prime-color);
+
+        padding: 10px;
+
+        font-size: var(--font-size);
+
+        z-index: 1001;
+
+        &__controls {
+            margin-top: 10px;
+
+            text-align: center;
+
+            button {
+                padding: var(--settingsPadding);
+            }
+        }
+    }
+
+    h3,
+    menu {
+        text-align: center;
+    }
+
+    table,
+    menu {
+        margin-top: 10px;
+    }
+
+    table {
+        width: 100%;
+
+        td {
+            padding: var(--settingsPadding);
+            vertical-align: middle;
+
+            &:nth-child(2) {
+                min-width: 170px;
+            }
+        }
+    }
+
+    select,
+    textarea {
+        width: 100%;
+    }
+
+    select {
+        padding: var(--settingsPadding);
+    }
+
+    textarea {
+        resize: none;
+        padding: 5px;
+    }
+}

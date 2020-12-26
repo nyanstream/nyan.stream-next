@@ -7,7 +7,7 @@ import Container from '../Container/Component/Container';
 
 import Player from '../IndexPagePlayer/Component/PlayerContainer';
 import Sidebar from '../IndexPageSidebar/Component/SidebarContainer';
-import Settings from './Settings/SettingsContainer';
+import Settings from '../IndexPageSettings/Component/SettingsContainer';
 
 import { IconRuble, IconGear } from '../common';
 import { IconMoon, IconSun } from '../common';
@@ -20,7 +20,7 @@ const IndexPageContainer: React.FC = () => {
     const [IsSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState<boolean>(false);
 
-    const [SelectedPlayer] = useState<PlayerType>('twitch-main');
+    const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('wasd');
 
     const LeftMenuContent: HeaderMenuItemType[] = [
         {
@@ -56,12 +56,22 @@ const IndexPageContainer: React.FC = () => {
         },
     ];
 
+    const handleCloseSettingsTriggerClick = () => {
+        setIsSettingsOpen(false);
+    };
+
+    const handlePlayerChange = (playerName: PlayerType) => {
+        setSelectedPlayer(playerName);
+    };
+
     return (
         <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': ContainerTheme }}>
             <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
                 <Player {...{ SelectedPlayer }} />
                 <Sidebar {...{ IsSidebarHidden }} />
-                <Settings {...{ IsSettingsOpen }} />
+                {IsSettingsOpen ? (
+                    <Settings {...{ IsSettingsOpen, SelectedPlayer }} {...{ handleCloseSettingsTriggerClick, handlePlayerChange }} />
+                ) : null}
             </main>
         </Container>
     );
