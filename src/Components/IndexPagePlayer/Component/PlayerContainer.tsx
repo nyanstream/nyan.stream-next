@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 
 import type { PlayerType } from '../PlayerTypes';
 
-import { IconTimes } from '../../common';
+import PlayerNotification from '../PlayerNotification/PlayerNotification';
 
 import styles from './Player.module.scss';
 
@@ -49,12 +49,7 @@ const PlayerContainer: React.FC<PropsType> = props => {
             <div className={styles.player__embed}>
                 <iframe src={PlayerURL} title="Player" />
             </div>
-            <div className={styles.player__noti} aria-label="Оповещение">
-                <div className={styles.player__noti__content}></div>
-                <button className={styles.player__noti__hideBtn} title="Скрыть оповещение">
-                    <IconTimes />
-                </button>
-            </div>
+            <PlayerNotification />
         </div>
     );
 };

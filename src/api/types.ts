@@ -33,6 +33,7 @@ export type NewsQueryResponseType = {
 
 export type NotificationQueryResponseType = {
     enabled: boolean;
-    time: number;
-    text: string;
+    time?: number;
+    text?: string;
+    color?: string;
 };
