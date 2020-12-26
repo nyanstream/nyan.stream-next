@@ -3,15 +3,16 @@ import { useRouter } from 'next/router';
 
 import Head from 'next/head';
 
-import CONFIG from '../../config';
+import CONFIG from '../../../config';
 
-import type { HeaderMenuItemType } from '../Header/HeaderTypes';
+import type { MetaTagType, HeadLinkType } from '../ContainerTypes';
+import type { HeaderMenuItemType } from '../../Header/HeaderTypes';
 
-import { ImageFavicon, ImageShare, ImageLogoTableau } from '../../static/images';
+import { ImageFavicon, ImageShare, ImageLogoTableau } from '../../../static/images';
 
-import Content from '../Content/Content';
-import Slider from '../Slider/Slider';
-import Header from '../Header/Component/Header';
+import Content from '../../Content/Content';
+import Slider from '../../Slider/Slider';
+import Header from '../../Header/Component/Header';
 
 import styles from './Container.module.scss';
 
@@ -20,17 +21,6 @@ type PropsType = {
     leftMenuContent?: HeaderMenuItemType[];
     rightMenuContent?: HeaderMenuItemType[];
     customParentProps?: any;
-};
-
-type MetaTagType = {
-    name: string;
-    content: string;
-};
-
-type HeadLinkType = {
-    id?: string;
-    rel?: string;
-    href: string;
 };
 
 const Container: React.FC<PropsType> = props => {

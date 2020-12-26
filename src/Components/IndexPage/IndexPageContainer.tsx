@@ -3,7 +3,7 @@ import { useState } from 'react';
 import type { HeaderMenuItemType } from '../Header/HeaderTypes';
 import type { PlayerType } from '../IndexPagePlayer/PlayerTypes';
 
-import Container from '../Container/Container';
+import Container from '../Container/Component/Container';
 
 import Player from '../IndexPagePlayer/Component/PlayerContainer';
 import Sidebar from '../IndexPageSidebar/Component/SidebarContainer';
