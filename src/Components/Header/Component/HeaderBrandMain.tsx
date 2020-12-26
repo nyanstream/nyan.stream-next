@@ -1,4 +1,4 @@
-import ImageLogo from '../../../static/images/logo.svg';
+import { ImageLogo } from '../../../static/images';
 
 import styles from './Header.module.scss';
 

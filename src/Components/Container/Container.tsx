@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
 
 import Head from 'next/head';
@@ -6,6 +6,8 @@ import Head from 'next/head';
 import CONFIG from '../../config';
 
 import type { HeaderMenuItemType } from '../Header/HeaderTypes';
+
+import { ImageFavicon, ImageShare, ImageLogoTableau } from '../../static/images';
 
 import Content from '../Content/Content';
 import Slider from '../Slider/Slider';
@@ -20,16 +22,86 @@ type PropsType = {
     customParentProps?: any;
 };
 
+type MetaTagType = {
+    name: string;
+    content: string;
+};
+
+type HeadLinkType = {
+    id?: string;
+    rel?: string;
+    href: string;
+};
+
 const Container: React.FC<PropsType> = props => {
     const { pageName } = props;
     const { leftMenuContent, rightMenuContent } = props;
     const { children, customParentProps } = props;
 
-    const { host: ProjectHost } = CONFIG;
+    const { title: ProjectTitle, description: ProjectDescription, prime_color: ProjectColor, host: ProjectHost } = CONFIG;
 
     const Router = useRouter();
 
+    const PageTitle = useMemo(() => `${ProjectTitle} ${pageName ? ` / ${pageName}` : ''}`, [Router.pathname]);
+
     const [IsSliderOpen, setIsSliderOpen] = useState<boolean>(false);
+
+    const CommonMeta = useMemo<MetaTagType[]>(
+        () => [
+            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+            { name: 'description', content: ProjectDescription },
+            {
+                name: 'description',
+                content:
+                    'nyan stream, nyanstream, нян стрим, нянстрим, anime, аниме, онлайн телевидение, online tv, аниме смотреть онлайн, мокрые котики, смотреть аниме с субтитрами',
+            },
+            { name: 'theme-color', content: ProjectColor },
+            { name: 'google-site-verification', content: 'CZKFsMeBuqFJ1KPYIaKptrBMmgolcM3bBbu6wt1Pf_g' },
+            { name: 'yandex-verification', content: 'eab231fe75b6da62' },
+            { name: 'yandex-tableau-widget', content: `logo=${ProjectHost}${ImageLogoTableau}, color=${ProjectColor}` },
+        ],
+        []
+    );
+
+    const OpenGraphMeta = useMemo<MetaTagType[]>(
+        () => [
+            { name: 'locale', content: 'ru_RU' },
+            { name: 'type', content: 'website' },
+            { name: 'title', content: PageTitle },
+            { name: 'site_name', content: ProjectTitle },
+            { name: 'url', content: ProjectHost },
+            { name: 'description', content: ProjectDescription },
+            { name: 'image', content: ImageShare },
+        ],
+        [PageTitle]
+    );
+
+    const TwitterMeta = useMemo<MetaTagType[]>(
+        () => [
+            { name: 'title', content: PageTitle },
+            { name: 'description', content: ProjectDescription },
+            { name: 'card', content: 'summary_large_image' },
+            { name: 'image', content: ImageShare },
+        ],
+        [PageTitle]
+    );
+
+    const CommonLinks = useMemo<HeadLinkType[]>(
+        () => [
+            { rel: 'shortcut icon', href: ImageFavicon },
+            { rel: 'sitemap', href: '/sitemap.xml' },
+            { rel: 'canonical', href: `${ProjectHost}${Router.pathname}` },
+        ],
+        [Router.pathname]
+    );
+
+    const PreconnectLinks = useMemo<HeadLinkType[]>(
+        () => [
+            { id: 'link_gstatic', href: 'fonts.gstatic.com' },
+            { id: 'link_weserv', href: 'images.weserv.nl' },
+        ],
+        []
+    );
 
     const handleSliderTriggerButtonClick = () => {
         setIsSliderOpen(!IsSliderOpen);
@@ -39,20 +111,19 @@ const Container: React.FC<PropsType> = props => {
         setIsSliderOpen(!IsSliderOpen);
     };
 
-    const ProjectName = 'NYAN.STREAM';
-    const ProjectDescription = 'Небольшое сообщество людей, которые иногда собираются вместе и смотрят различные мультимедиа';
-
     return (
         <>
             <Head>
-                <title>NYAN.STREAM{pageName ? ` ${pageName}` : ''}</title>
-                <meta name="description" content={ProjectDescription} key="description" />
-                <meta property="og:locale" content="ru_RU" key="oglocale" />
-                <meta property="og:type" content="website" key="ogwebsite" />
-                <meta property="og:title" content={ProjectName} key="ogtitle" />
-                <meta property="og:site_name" content={ProjectName} key="ogsitename" />
-                <meta property="og:url" content={ProjectHost} key="ogurl" />
-                <meta property="og:description" content={ProjectDescription} key="ogdescription" />
+                <title>{PageTitle}</title>
+                {CommonMeta.map(TagInfo => (
+                    <meta key={TagInfo.name} name={TagInfo.name} content={TagInfo.content} />
+                ))}
+                {OpenGraphMeta.map(TagInfo => (
+                    <meta key={`og:${TagInfo.name}`} property={`og:${TagInfo.name}`} content={TagInfo.content} />
+                ))}
+                {TwitterMeta.map(TagInfo => (
+                    <meta key={`twitter:${TagInfo.name}`} name={`twitter:${TagInfo.name}`} content={TagInfo.content} />
+                ))}
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
@@ -60,16 +131,18 @@ const Container: React.FC<PropsType> = props => {
                             '@context': 'https://schema.org',
                             '@type': 'WebSite',
                             url: ProjectHost,
-                            name: ProjectName,
+                            name: ProjectTitle,
                             description: ProjectDescription,
                         }),
                     }}
                 />
-                <link rel="canonical" href={`${ProjectHost}${Router.pathname}`} />
-                <link
-                    rel="stylesheet"
-                    href="https://fonts.googleapis.com/css?family=Montserrat:700,800|Roboto:400,500&subset=cyrillic&display=swap"
-                />
+                {CommonLinks.map(LinkInfo => (
+                    <link key={LinkInfo.rel} rel={LinkInfo.rel} href={LinkInfo.href} />
+                ))}
+                {PreconnectLinks.map(LinkInfo => (
+                    <link key={LinkInfo.id} rel="preconnect" href={`https://${LinkInfo.href}`} />
+                ))}
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" />
             </Head>
 
             <div className={styles.container} {...customParentProps}>
