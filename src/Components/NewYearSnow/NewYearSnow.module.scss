@@ -1,0 +1,89 @@
+// credits: https://codepen.io/iamjamie/pen/wzbEXG
+
+$s--near: 20s;
+$s--mid: ($s--near * 2);
+$s--far: ($s--near * 3);
+
+$ease--out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+@keyframes falling {
+    0% {
+        transform: translate3D(-7.5%, -100%, 0);
+    }
+
+    100% {
+        transform: translate3D(7.5%, 100%, 0);
+    }
+}
+
+%on-top {
+    z-index: 100;
+    pointer-events: none;
+}
+
+.snow {
+    $s: &;
+
+    &__container {
+        @extend %on-top;
+
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+
+        background: transparent;
+
+        &[data-hidden] {
+            display: none;
+        }
+    }
+
+    @extend %on-top;
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    animation: falling linear infinite both;
+    transform: translate3D(0, -100%, 0);
+
+    &_near {
+        animation-duration: $s--near;
+
+        background-image: url('/static/images/ny-2020/snow-large.png?v=#{$VERSION}');
+        background-size: contain;
+
+        & + #{$s}_alt {
+            animation-delay: ($s--near / 2);
+        }
+    }
+
+    &_mid {
+        animation-duration: $s--mid;
+
+        background-image: url('/static/images/ny-2020/snow-medium.png?v=#{$VERSION}');
+        background-size: contain;
+
+        & + #{$s}_alt {
+            animation-delay: ($s--mid / 2);
+        }
+    }
+
+    &_far {
+        animation-duration: $s--far;
+
+        background-image: url('/static/images/ny-2020/snow-small.png?v=#{$VERSION}');
+        background-size: contain;
+
+        & + #{$s}_alt {
+            animation-delay: ($s--far / 2);
+        }
+    }
+}

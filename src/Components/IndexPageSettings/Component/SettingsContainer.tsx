@@ -5,13 +5,15 @@ import styles from './Settings.module.scss';
 
 type PropsType = {
     SelectedPlayer: PlayerType;
+    IsSnowEnabled: boolean;
     handleCloseSettingsTriggerClick: () => void;
     handlePlayerChange: (playerName: PlayerType) => void;
+    handleSnowCheckboxEventResult: (enabled: boolean) => void;
 };
 
 const SettingsContainer: React.FC<PropsType> = props => {
-    const { SelectedPlayer } = props;
-    const { handleCloseSettingsTriggerClick, handlePlayerChange } = props;
+    const { SelectedPlayer, IsSnowEnabled } = props;
+    const { handleCloseSettingsTriggerClick, handlePlayerChange, handleSnowCheckboxEventResult } = props;
 
     const Players: SelectOptionType<PlayerType>[] = [
         {
@@ -84,6 +86,19 @@ const SettingsContainer: React.FC<PropsType> = props => {
                                             </option>
                                         ))}
                                     </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label htmlFor="is_snow_enabled">Включить снег?</label>
+                                </td>
+                                <td>
+                                    <input
+                                        id="is_snow_enabled"
+                                        type="checkbox"
+                                        checked={IsSnowEnabled}
+                                        onChange={event => handleSnowCheckboxEventResult(event.target.checked)}
+                                    />
                                 </td>
                             </tr>
                         </tbody>
