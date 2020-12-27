@@ -1,4 +1,6 @@
 .schedule {
+    $s: &;
+
     font-size: var(--font-size);
     overflow: auto;
 
@@ -91,6 +93,28 @@
 
         span {
             white-space: nowrap;
+        }
+    }
+
+    &[data-theme='moon'] {
+        #{$s}__items {
+            &__item {
+                &[data-status='finished'] {
+                    opacity: 0.4;
+                }
+
+                &[data-status='current'] {
+                    background-color: #91914f;
+                }
+
+                &[data-status='next'] {
+                    background-color: #7a7a7a;
+                }
+
+                &[data-status='not-today'] {
+                    opacity: 0.6;
+                }
+            }
         }
     }
 }

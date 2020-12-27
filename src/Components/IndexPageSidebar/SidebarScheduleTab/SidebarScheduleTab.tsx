@@ -9,6 +9,8 @@ import { getDateFormated } from '../../../utilities/dates';
 import { getSchedule } from '../../../api';
 import type { ScheduleQueryResponseType } from '../../../api/types';
 
+import type { ThemeType } from '../../Container/ContainerTypes';
+
 import { Link } from '../../common';
 
 import styles from './SidebarScheduleTab.module.scss';
@@ -16,9 +18,13 @@ import styles from './SidebarScheduleTab.module.scss';
 type PropsType = {
     className: string;
     isVisible: boolean;
+    ContainerTheme: ThemeType;
 };
 
-const SidebarScheduleTab: React.FC<PropsType> = ({ className, isVisible }) => {
+const SidebarScheduleTab: React.FC<PropsType> = props => {
+    const { className, isVisible } = props;
+    const { ContainerTheme } = props;
+
     const [ScheduleData, setScheduleData] = useState<ScheduleQueryResponseType | null>(null);
     const [IsResponseError, setIsResponseError] = useState<boolean>(false);
 
@@ -63,7 +69,7 @@ const SidebarScheduleTab: React.FC<PropsType> = ({ className, isVisible }) => {
     };
 
     return (
-        <section className={`${className} ${styles.schedule}`} hidden={!isVisible}>
+        <section className={`${className} ${styles.schedule}`} data-theme={ContainerTheme} hidden={!isVisible}>
             <div className={styles.schedule__status}>Последняя проверка: {ResponseTime ? formatResponseTime(ResponseTime) : null}</div>
             {ScheduleData && OnlyNeededAirsData.length === 0 ? <div className={styles.schedule__empty}>Расписание пустое ¯\_(ツ)_/¯</div> : null}
             <ul className={styles.schedule__items} hidden={OnlyNeededAirsData.length === 0}>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { SidebarTabType } from '../SidebarTypes';
+import type { SidebarTabType } from '../SidebarTypes';
+import type { ThemeType } from '../../Container/ContainerTypes';
 
 import SidebarRadioButtons from '../SidebarRadioButtons/SidebarRadioButtons';
 import SidebarChatTab from '../SidebarChatTab/SidebarChatTab';
@@ -11,10 +12,11 @@ import styles from './Sidebar.module.scss';
 
 type PropsType = {
     IsSidebarHidden: boolean;
+    ContainerTheme: ThemeType;
 };
 
 const SidebarContainer: React.FC<PropsType> = props => {
-    const { IsSidebarHidden } = props;
+    const { IsSidebarHidden, ContainerTheme } = props;
 
     const [CurrentSidebarTab, setCurrentSidebarTab] = useState<SidebarTabType>('chat');
 
@@ -23,11 +25,11 @@ const SidebarContainer: React.FC<PropsType> = props => {
     };
 
     return (
-        <aside className={styles.sidebar} hidden={IsSidebarHidden}>
+        <aside className={styles.sidebar} data-theme={ContainerTheme} hidden={IsSidebarHidden}>
             <SidebarRadioButtons {...{ CurrentSidebarTab }} {...{ handleSidebarRadioButtonClick }} />
             <div className={styles.sidebar__tabs}>
                 <SidebarChatTab className={styles.sidebar__tabs__tab} isVisible={CurrentSidebarTab === 'chat'} />
-                <SidebarScheduleTab className={styles.sidebar__tabs__tab} isVisible={CurrentSidebarTab === 'schedule'} />
+                <SidebarScheduleTab className={styles.sidebar__tabs__tab} isVisible={CurrentSidebarTab === 'schedule'} {...{ ContainerTheme }} />
                 <SidebarNewsTab className={styles.sidebar__tabs__tab} isVisible={CurrentSidebarTab === 'news'} />
             </div>
         </aside>

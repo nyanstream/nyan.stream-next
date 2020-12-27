@@ -94,7 +94,7 @@ const IndexPageContainer: React.FC = () => {
             <NewYearSnow enabled={IsSnowEnabled} />
             <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
                 <Player {...{ SelectedPlayer }} />
-                <Sidebar {...{ IsSidebarHidden }} />
+                <Sidebar {...{ IsSidebarHidden, ContainerTheme }} />
                 {IsSettingsOpen ? (
                     <Settings
                         {...{ IsSettingsOpen, SelectedPlayer, IsSnowEnabled }}

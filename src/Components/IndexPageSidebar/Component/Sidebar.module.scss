@@ -1,9 +1,13 @@
 @import '../../../styles/inc/mixins';
 
 .sidebar {
+    $s: &;
+
     --tabCellHeight: 25px;
 
     background-color: #fff;
+
+    @include transition(0.5s);
 
     &__tabs {
         width: 100%;
@@ -34,6 +38,23 @@
         &:not([data-style*='no-default-hover']) {
             &:hover {
                 background-color: rgba($textColor, 0.1);
+            }
+        }
+    }
+
+    &[data-theme='moon'] {
+        background-color: var(--prime-color-5d);
+
+        #{$s}__tabs {
+            color: #ddd;
+
+            a {
+                color: #ddd;
+                border-bottom: 1px solid #ddd;
+
+                &:hover {
+                    background-color: rgba(#ddd, 0.1);
+                }
             }
         }
     }
