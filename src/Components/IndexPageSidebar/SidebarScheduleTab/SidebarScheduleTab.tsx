@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import dayjs from 'dayjs';
 import ReactMarkdown from 'react-markdown';
 
@@ -28,6 +28,8 @@ const SidebarScheduleTab: React.FC<PropsType> = props => {
     const [ScheduleData, setScheduleData] = useState<ScheduleQueryResponseType | null>(null);
     const [IsResponseError, setIsResponseError] = useState<boolean>(false);
 
+    const [ResponseTime, setResponseTime] = useState<Date | null>(null);
+
     const scheduleQuery = () => {
         getSchedule()
             .then(data => {
@@ -43,7 +45,9 @@ const SidebarScheduleTab: React.FC<PropsType> = props => {
 
     useAPI(scheduleQuery, 10);
 
-    const ResponseTime = useMemo<Date>(() => new Date(), [ScheduleData]);
+    useEffect(() => {
+        setResponseTime(new Date());
+    }, [ScheduleData]);
 
     const OnlyNeededAirsData = useMemo<ScheduleQueryResponseType>(() => {
         return ScheduleData ? ScheduleData.filter(AirData => !AirData.secret && dayjs().diff(AirData.s * 1000, 'day') <= 1) : [];
