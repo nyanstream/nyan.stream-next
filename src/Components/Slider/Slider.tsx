@@ -83,7 +83,7 @@ const Slider: React.FC<PropsType> = props => {
                 </ul>
                 <footer className={styles.slider__footer}>
                     <p>
-                        <Link href="/">NYAN.STREAM</Link>© {new Date().getFullYear()}
+                        <Link href="/">NYAN.STREAM</Link> © {new Date().getFullYear()}
                     </p>
                     <p>
                         <span>сделано с</span> <span className={styles.slider__footer__heart}>♥</span>
