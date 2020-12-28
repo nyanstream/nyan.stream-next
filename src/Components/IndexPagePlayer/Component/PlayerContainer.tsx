@@ -47,7 +47,7 @@ const PlayerContainer: React.FC<PropsType> = props => {
     return (
         <div className={styles.player}>
             <div className={styles.player__embed}>
-                <iframe src={PlayerURL} title="Player" />
+                <iframe src={PlayerURL} title="Player" allowFullScreen />
             </div>
             <PlayerNotification />
         </div>
