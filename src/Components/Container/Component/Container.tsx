@@ -87,9 +87,10 @@ const Container: React.FC<PropsType> = props => {
 
     const PreconnectLinks = useMemo<HeadLinkType[]>(
         () => [
+            { id: 'link_cdn', href: 'cdn.blyat.science' },
+            { id: 'link_github', href: 'nyanstream.github.io' },
             { id: 'link_gstatic', href: 'fonts.gstatic.com' },
             { id: 'link_weserv', href: 'images.weserv.nl' },
-            { id: 'link_github', href: 'nyanstream.github.io' },
         ],
         []
     );
