@@ -89,6 +89,7 @@ const Container: React.FC<PropsType> = props => {
         () => [
             { id: 'link_gstatic', href: 'fonts.gstatic.com' },
             { id: 'link_weserv', href: 'images.weserv.nl' },
+            { id: 'link_github', href: 'nyanstream.github.io' },
         ],
         []
     );
