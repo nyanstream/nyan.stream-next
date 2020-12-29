@@ -61,7 +61,7 @@ const Container: React.FC<PropsType> = props => {
             { name: 'site_name', content: ProjectTitle },
             { name: 'url', content: ProjectHost },
             { name: 'description', content: ProjectDescription },
-            { name: 'image', content: ImageShare },
+            { name: 'image', content: `${ProjectHost}${ImageShare}` },
         ],
         [PageTitle]
     );
@@ -71,7 +71,7 @@ const Container: React.FC<PropsType> = props => {
             { name: 'title', content: PageTitle },
             { name: 'description', content: ProjectDescription },
             { name: 'card', content: 'summary_large_image' },
-            { name: 'image', content: ImageShare },
+            { name: 'image', content: `${ProjectHost}${ImageShare}` },
         ],
         [PageTitle]
     );
