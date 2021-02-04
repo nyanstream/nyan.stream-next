@@ -1,8 +1,8 @@
 {
     "name": "nyan.stream",
-    "description": "Source code of NYAN.STREAM project.",
+    "description": "Source code of NYAN.STREAM website.",
     "private": true,
-    "version": "3.0.0-dev",
+    "version": "3.0.1",
     "author": "Dmitry <dmitry@cojam.ru> (https://e965.ru)",
     "repository": "github:nyanstream/nyan.stream",
     "license": "MIT",
