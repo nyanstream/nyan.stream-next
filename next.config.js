@@ -9,7 +9,7 @@ module.exports = withPlugins([withImages({ esModule: false, inlineImageLimit: fa
         // TODO: primeColor из конфига
         additionalData: `
             $VERSION: ${encodeURIComponent(package.version)};
-            $primeColor: #ad2929;
+            $primeColor: #4d539c;
         `,
     },
 });

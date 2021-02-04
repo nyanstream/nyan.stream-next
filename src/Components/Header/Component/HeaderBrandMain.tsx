@@ -1,4 +1,4 @@
-import { ImageLogoNY as ImageLogo } from '../../../static/images';
+import { ImageLogo } from '../../../static/images';
 
 import styles from './Header.module.scss';
 

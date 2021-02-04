@@ -12,8 +12,6 @@ import Player from '../IndexPagePlayer/Component/PlayerContainer';
 import Sidebar from '../IndexPageSidebar/Component/SidebarContainer';
 import Settings from '../IndexPageSettings/Component/SettingsContainer';
 
-import NewYearSnow from '../NewYearSnow/NewYearSnow';
-
 import { IconRuble, IconGear } from '../common';
 import { IconMoon, IconSun } from '../common';
 import { IconChevronLeft, IconChevronRight } from '../common';
@@ -91,7 +89,6 @@ const IndexPageContainer: React.FC = () => {
 
     return (
         <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': ContainerTheme }}>
-            <NewYearSnow enabled={IsSnowEnabled} />
             <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
                 <Player {...{ SelectedPlayer }} />
                 <Sidebar {...{ IsSidebarHidden, ContainerTheme }} />
