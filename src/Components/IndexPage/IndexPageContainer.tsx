@@ -23,7 +23,6 @@ const IndexPageContainer: React.FC = () => {
     const [ContainerTheme, setContainerTheme] = useState<ThemeType>('sun');
     const [IsSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState<boolean>(false);
-    const [IsSnowEnabled, setIsSnowEnabled] = useState<boolean>(false);
 
     const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('wasd');
 
@@ -31,18 +30,9 @@ const IndexPageContainer: React.FC = () => {
         setContainerTheme(storageGet<ThemeType>('nyan_theme', 'sun'));
     }, []);
 
-    useEffect(() => {
-        setIsSnowEnabled(storageGet<'true' | 'false'>('nyan_ny_snow', 'true') === 'true');
-    }, []);
-
     const handleThemeChange = (theme: ThemeType) => {
         setContainerTheme(theme);
         storageSet('nyan_theme', theme);
-    };
-
-    const handleSnowCheckboxEventResult = (enabled: boolean) => {
-        setIsSnowEnabled(enabled);
-        storageSet('nyan_ny_snow', String(enabled));
     };
 
     const LeftMenuContent: HeaderMenuItemType[] = [
@@ -93,10 +83,7 @@ const IndexPageContainer: React.FC = () => {
                 <Player {...{ SelectedPlayer }} />
                 <Sidebar {...{ IsSidebarHidden, ContainerTheme }} />
                 {IsSettingsOpen ? (
-                    <Settings
-                        {...{ IsSettingsOpen, SelectedPlayer, IsSnowEnabled }}
-                        {...{ handleCloseSettingsTriggerClick, handlePlayerChange, handleSnowCheckboxEventResult }}
-                    />
+                    <Settings {...{ IsSettingsOpen, SelectedPlayer }} {...{ handleCloseSettingsTriggerClick, handlePlayerChange }} />
                 ) : null}
             </main>
         </Container>
