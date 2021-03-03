@@ -1,12 +1,38 @@
-*.scss text eol=crlf
-*.css text eol=crlf
-*.js text eol=crlf
-*.ts text eol=crlf
-*.tsx text eol=crlf
-*.json text eol=crlf
-*.md text eol=crlf
-*.svg text eol=crlf
-*.txt text eol=crlf
-*.htaccess text eol=crlf
-*.config text eol=crlf
-*.editorconfig text eol=crlf
+* text=auto
+
+*.* text eol=crlf
+
+# images
+*.png binary
+*.jpg binary
+*.webp binary
+*.gif binary
+*.ico binary
+
+# video
+*.mp4 binary
+*.webm binary
+*.ogv binary
+
+# audio
+*.mp3 binary
+*.ogg binary
+*.wav binary
+
+# fonts
+*.ttf binary
+*.otf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+
+# archive
+*.zip binary
+*.rar binary
+*.7z binary
+
+# other
+*.pdf binary
+*.wasm binary
+*.exe binary
+*.deb binary
