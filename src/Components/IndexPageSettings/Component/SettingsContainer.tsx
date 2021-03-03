@@ -5,13 +5,12 @@ import styles from './Settings.module.scss';
 
 type PropsType = {
     SelectedPlayer: PlayerType;
-    IsSnowEnabled: boolean;
     handleCloseSettingsTriggerClick: () => void;
     handlePlayerChange: (playerName: PlayerType) => void;
 };
 
 const SettingsContainer: React.FC<PropsType> = props => {
-    const { SelectedPlayer, IsSnowEnabled } = props;
+    const { SelectedPlayer } = props;
     const { handleCloseSettingsTriggerClick, handlePlayerChange } = props;
 
     const Players: SelectOptionType<PlayerType>[] = [
