@@ -8,6 +8,8 @@ import CONFIG from '../../../config';
 import type { MetaTagType, HeadLinkType } from '../ContainerTypes';
 import type { HeaderMenuItemType } from '../../Header/HeaderTypes';
 
+import ContentSecurityPolicy from '../../../csp';
+
 import { ImageFavicon, ImageShare, ImageLogoTableau } from '../../../static/images';
 
 import Content from '../../Content/Content';
@@ -128,12 +130,16 @@ const Container: React.FC<PropsType> = props => {
                         }),
                     }}
                 />
+
+                <meta httpEquiv="Content-Security-Policy" content={ContentSecurityPolicy} />
+
                 {CommonLinks.map(LinkInfo => (
                     <link key={LinkInfo.rel} rel={LinkInfo.rel} href={LinkInfo.href} />
                 ))}
                 {PreconnectLinks.map(LinkInfo => (
                     <link key={LinkInfo.id} rel="preconnect" href={`https://${LinkInfo.href}`} />
                 ))}
+
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" />
             </Head>
 
