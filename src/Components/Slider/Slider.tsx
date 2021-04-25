@@ -75,7 +75,7 @@ const Slider: React.FC<PropsType> = props => {
                     ) : null}
                     {SliderLinks.map(LinkData => (
                         <li key={LinkData.id} className={styles.slider__links__item} data-offset={LinkData.offset ? '' : null}>
-                            <a href={LinkData.link} target="_blank" rel="nofollow noopener">
+                            <a href={LinkData.link} target="_blank" rel="nofollow noopener noreferrer">
                                 {LinkData.title}
                             </a>
                         </li>

@@ -13,7 +13,7 @@ const HeaderMenuItem: React.FC<PropsType> = ({ id, type, title, icon, link, onCl
 
     if (type === 'link' && link) {
         return (
-            <a {...{ className, title }} data-id={id} href={link} target="_blank" rel="nofollow noopener">
+            <a {...{ className, title }} data-id={id} href={link} target="_blank" rel="nofollow noopener noreferrer">
                 {icon}
             </a>
         );

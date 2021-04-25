@@ -10,7 +10,7 @@ export const Link: React.FC<PropsType> = props => {
     const IsExternalLink = href.startsWith('http');
 
     return (
-        <a {...{ href, className }} target={IsExternalLink ? '_blank' : undefined} rel={IsExternalLink ? 'nofollow noopener' : undefined}>
+        <a {...{ href, className }} target={IsExternalLink ? '_blank' : undefined} rel={IsExternalLink ? 'nofollow noopener noreferrer' : undefined}>
             {children}
         </a>
     );
