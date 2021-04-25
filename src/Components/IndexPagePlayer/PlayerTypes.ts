@@ -1,1 +1,1 @@
-export type PlayerType = 'wasd' | 'twitch-main' | 'twitch-backup' | 'gg' | 'asianwave';
+export type PlayerType = 'wasd' | 'twitch-main' | 'twitch-backup' | 'twitch-backup-second' | 'gg' | 'asianwave';

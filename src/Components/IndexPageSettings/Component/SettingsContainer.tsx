@@ -15,16 +15,20 @@ const SettingsContainer: React.FC<PropsType> = props => {
 
     const Players: SelectOptionType<PlayerType>[] = [
         {
-            value: 'wasd',
-            text: 'WASD.TV',
-        },
-        {
             value: 'twitch-main',
             text: 'Twitch',
         },
         {
             value: 'twitch-backup',
-            text: 'Twitch 2',
+            text: 'Twitch (запасной)',
+        },
+        {
+            value: 'twitch-backup-second',
+            text: 'Twitch (запасной 2)',
+        },
+        {
+            value: 'wasd',
+            text: 'WASD.TV',
         },
         {
             value: 'gg',

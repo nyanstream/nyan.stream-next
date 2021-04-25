@@ -31,9 +31,12 @@ const PlayerContainer: React.FC<PropsType> = props => {
                 return 'https://wasd.tv/embed/thenyan';
 
             case 'twitch-main':
-                return getTwitchPlayerURL('nyan_stream');
+                return getTwitchPlayerURL('tehnyan');
 
             case 'twitch-backup':
+                return getTwitchPlayerURL('nyan_stream');
+
+            case 'twitch-backup-second':
                 return getTwitchPlayerURL('zdesneanime');
 
             case 'asianwave':
