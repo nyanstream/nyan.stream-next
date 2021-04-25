@@ -5,6 +5,9 @@ const withPlugins = require('next-compose-plugins');
 const withImages = require('next-images');
 
 module.exports = withPlugins([withImages({ esModule: false, inlineImageLimit: false })], {
+    future: {
+        webpack5: true,
+    },
     sassOptions: {
         // TODO: primeColor из конфига
         additionalData: `
