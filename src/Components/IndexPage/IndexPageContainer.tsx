@@ -24,7 +24,7 @@ const IndexPageContainer: React.FC = () => {
     const [IsSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState<boolean>(false);
 
-    const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('gg');
+    const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('twitch-main');
 
     useEffect(() => {
         setContainerTheme(storageGet<ThemeType>('nyan_theme', 'sun'));
