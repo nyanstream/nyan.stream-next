@@ -24,8 +24,7 @@ const AboutPage: React.FC = () => {
             <TextPageSection id="contact" title="Связь">
                 <p>
                     Связаться с нами можно посредством почты <Link href="mailto:nyan@cojam.ru">nyan@cojam.ru</Link> или с помощью{' '}
-                    <Link href="https://vk.me/thenyan">личных сообщений</Link>
-                    нашего сообщества ВК.
+                    <Link href="https://vk.me/thenyan">личных сообщений</Link> нашего сообщества ВК.
                 </p>
             </TextPageSection>
 
