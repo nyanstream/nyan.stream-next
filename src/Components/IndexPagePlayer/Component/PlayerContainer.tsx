@@ -31,19 +31,13 @@ const PlayerContainer: React.FC<PropsType> = props => {
                 return 'https://wasd.tv/embed/thenyan';
 
             case 'twitch-main':
-                return getTwitchPlayerURL('tehnyan');
-
-            case 'twitch-backup':
                 return getTwitchPlayerURL('nyan_stream');
 
-            case 'twitch-backup-second':
+            case 'twitch-backup':
                 return getTwitchPlayerURL('zdesneanime');
 
             case 'asianwave':
                 return getTwitchPlayerURL('asianwave');
-
-            case 'gg':
-                return 'https://goodgame.ru/player?144937#autoplay';
         }
     }, [ProjectHost, SelectedPlayer]);
 
