@@ -1,13 +1,13 @@
+// @ts-check
+
 const package = require('./package.json');
 
 const withPlugins = require('next-compose-plugins');
 
-const withImages = require('next-images');
-
-module.exports = withPlugins([withImages({ esModule: false, inlineImageLimit: false })], {
-    future: {
-        webpack5: true,
-    },
+/**
+ * @type {import('next/dist/next-server/server/config').NextConfig}
+ **/
+const NextConfig = {
     sassOptions: {
         // TODO: primeColor из конфига
         additionalData: `
@@ -15,4 +15,6 @@ module.exports = withPlugins([withImages({ esModule: false, inlineImageLimit: fa
             $primeColor: #4d539c;
         `,
     },
-});
+};
+
+module.exports = withPlugins([], NextConfig);

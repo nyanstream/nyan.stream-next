@@ -50,7 +50,7 @@ const Container: React.FC<PropsType> = props => {
             { name: 'theme-color', content: ProjectColor },
             { name: 'google-site-verification', content: 'CZKFsMeBuqFJ1KPYIaKptrBMmgolcM3bBbu6wt1Pf_g' },
             { name: 'yandex-verification', content: 'eab231fe75b6da62' },
-            { name: 'yandex-tableau-widget', content: `logo=${ProjectHost}${ImageLogoTableau}, color=${ProjectColor}` },
+            { name: 'yandex-tableau-widget', content: `logo=${ProjectHost}${ImageLogoTableau.src}, color=${ProjectColor}` },
         ],
         []
     );
@@ -63,7 +63,7 @@ const Container: React.FC<PropsType> = props => {
             { name: 'site_name', content: ProjectTitle },
             { name: 'url', content: ProjectHost },
             { name: 'description', content: ProjectDescription },
-            { name: 'image', content: `${ProjectHost}${ImageShare}` },
+            { name: 'image', content: `${ProjectHost}${ImageShare.src}` },
         ],
         [PageTitle]
     );
@@ -73,14 +73,14 @@ const Container: React.FC<PropsType> = props => {
             { name: 'title', content: PageTitle },
             { name: 'description', content: ProjectDescription },
             { name: 'card', content: 'summary_large_image' },
-            { name: 'image', content: `${ProjectHost}${ImageShare}` },
+            { name: 'image', content: `${ProjectHost}${ImageShare.src}` },
         ],
         [PageTitle]
     );
 
     const CommonLinks = useMemo<HeadLinkType[]>(
         () => [
-            { rel: 'shortcut icon', href: ImageFavicon },
+            { rel: 'shortcut icon', href: ImageFavicon.src },
             { rel: 'sitemap', href: '/sitemap.xml' },
             { rel: 'canonical', href: `${ProjectHost}${Router.pathname}` },
         ],
@@ -139,8 +139,6 @@ const Container: React.FC<PropsType> = props => {
                 {PreconnectLinks.map(LinkInfo => (
                     <link key={LinkInfo.id} rel="preconnect" href={`https://${LinkInfo.href}`} />
                 ))}
-
-                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" />
             </Head>
 
             <div className={styles.container} {...customParentProps}>
