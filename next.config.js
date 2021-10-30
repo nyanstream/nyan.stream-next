@@ -5,7 +5,7 @@ const package = require('./package.json');
 const withPlugins = require('next-compose-plugins');
 
 /**
- * @type {import('next/dist/next-server/server/config').NextConfig}
+ * @type {import('next').NextConfig}
  **/
 const NextConfig = {
     sassOptions: {
