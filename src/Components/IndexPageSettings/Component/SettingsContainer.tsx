@@ -26,10 +26,6 @@ const SettingsContainer: React.FC<PropsType> = props => {
             value: 'twitch-backup',
             text: 'Twitch (запасной)',
         },
-        {
-            value: 'asianwave',
-            text: 'Asian Wave',
-        },
     ];
 
     const Locales: SelectOptionType<string>[] = [
@@ -59,7 +55,8 @@ const SettingsContainer: React.FC<PropsType> = props => {
                                     <select
                                         id="player_selector"
                                         value={SelectedPlayer}
-                                        onChange={e => handlePlayerChange(e.target.value as PlayerType)}>
+                                        onChange={e => handlePlayerChange(e.target.value as PlayerType)}
+                                    >
                                         {Players.map(PlayerInfo => (
                                             <option key={PlayerInfo.value} value={PlayerInfo.value}>
                                                 {PlayerInfo.text}

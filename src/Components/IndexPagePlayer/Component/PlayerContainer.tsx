@@ -35,9 +35,6 @@ const PlayerContainer: React.FC<PropsType> = props => {
 
             case 'twitch-backup':
                 return getTwitchPlayerURL('zdesneanime');
-
-            case 'asianwave':
-                return getTwitchPlayerURL('asianwave');
         }
     }, [ProjectHost, SelectedPlayer]);
 
