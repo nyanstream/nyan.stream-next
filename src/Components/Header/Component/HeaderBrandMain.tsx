@@ -18,8 +18,6 @@ const HeaderBrandMain: React.FC = () => {
         }
     }, []);
 
-    console.log(ImageLogo);
-
     return (
         <div className={styles.header__brand__item}>
             <div className={styles.header__brand__logo}>
