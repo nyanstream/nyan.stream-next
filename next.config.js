@@ -12,7 +12,7 @@ const NextConfig = {
         // TODO: primeColor из конфига
         additionalData: `
             $VERSION: ${encodeURIComponent(package.version)};
-            $primeColor: #4d539c;
+            $primeColor: #ad2929;
         `,
     },
 };
