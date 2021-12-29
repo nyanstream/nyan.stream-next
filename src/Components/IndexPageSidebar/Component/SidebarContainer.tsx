@@ -27,9 +27,12 @@ const SidebarContainer: React.FC<PropsType> = props => {
     return (
         <aside className={styles.sidebar} data-theme={ContainerTheme} hidden={IsSidebarHidden}>
             <SidebarRadioButtons {...{ CurrentSidebarTab }} {...{ handleSidebarRadioButtonClick }} />
+
             <div className={styles.sidebar__tabs}>
                 <SidebarChatTab className={styles.sidebar__tabs__tab} isVisible={CurrentSidebarTab === 'chat'} />
+
                 <SidebarScheduleTab className={styles.sidebar__tabs__tab} isVisible={CurrentSidebarTab === 'schedule'} {...{ ContainerTheme }} />
+
                 <SidebarNewsTab className={styles.sidebar__tabs__tab} isVisible={CurrentSidebarTab === 'news'} />
             </div>
         </aside>

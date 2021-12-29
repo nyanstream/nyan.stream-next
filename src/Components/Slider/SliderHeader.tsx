@@ -2,7 +2,7 @@ import { HeaderMenuItemType } from '../Header/HeaderTypes';
 
 import HeaderMenuItem from '../Header/Component/HeaderMenuItem';
 
-import { IconVK, IconTelegram, IconDiscord, IconGithub } from '../common';
+import { IconVK, IconTelegram, IconGithub } from '../common';
 
 import styles from './Slider.module.scss';
 import headerStyles from '../Header/Component/Header.module.scss';
@@ -29,13 +29,6 @@ const SliderHeader: React.FC = () => {
             title: 'Канал в Telegram',
             icon: <IconTelegram />,
             link: 'https://t.me/thenyan',
-        },
-        {
-            id: 'discord_link',
-            type: 'link',
-            title: 'Сервер в Discord',
-            icon: <IconDiscord />,
-            link: 'https://discord.gg/96cq8w8',
         },
     ];
 

@@ -99,11 +99,11 @@ const Container: React.FC<PropsType> = props => {
 
     const handleSliderTriggerButtonClick = useCallback(() => {
         setIsSliderOpen(!IsSliderOpen);
-    }, []);
+    }, [IsSliderOpen]);
 
     const handleContentClick = useCallback(() => {
         setIsSliderOpen(!IsSliderOpen);
-    }, []);
+    }, [IsSliderOpen]);
 
     return (
         <>

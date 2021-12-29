@@ -14,7 +14,7 @@ import Settings from '../IndexPageSettings/Component/SettingsContainer';
 
 import NewYearSnow from '../NewYearSnow/NewYearSnow';
 
-import { IconRuble, IconGear } from '../common';
+import { IconRuble, IconDiscord, IconGear } from '../common';
 import { IconMoon, IconSun } from '../common';
 import { IconChevronLeft, IconChevronRight } from '../common';
 // import { IconChevronDown, IconChevronUp } from '../common';
@@ -54,6 +54,13 @@ const IndexPageContainer: React.FC = () => {
             title: 'Поддержать проект',
             icon: <IconRuble />,
             link: 'https://www.donationalerts.ru/r/thenyan',
+        },
+        {
+            id: 'discord_link',
+            type: 'link',
+            title: 'Сервер в Discord',
+            icon: <IconDiscord />,
+            link: 'https://discord.gg/96cq8w8',
         },
     ];
 
