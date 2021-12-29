@@ -7,7 +7,7 @@ import styles from './Header.module.scss';
 const HeaderBrandMain: React.FC = () => {
     // перезагрузка плеера по двойному клику на логотип
     const doubleClickOnBrandHandler = useCallback(() => {
-        const PlayerNode = document.querySelector('[data-is="player"]');
+        const PlayerNode = document.querySelector('[data-player]');
 
         if (PlayerNode) {
             const PlayerFrame = PlayerNode.querySelector('iframe');

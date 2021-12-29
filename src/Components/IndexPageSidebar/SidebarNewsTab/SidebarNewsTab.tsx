@@ -18,7 +18,7 @@ type PropsType = {
 
 const SidebarNewsTab: React.FC<PropsType> = ({ className, isVisible }) => {
     const [NewsData, setNewsData] = useState<Partial<NewsQueryResponseType>>({});
-    const [IsResponseError, setIsResponseError] = useState<boolean>(false);
+    const [IsResponseError, setIsResponseError] = useState(false);
 
     const newsQuery = () => {
         getNews()

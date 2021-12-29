@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { storageGet, storageSet } from '../../utilities/storage';
 
@@ -23,9 +23,9 @@ import styles from './IndexPage.module.scss';
 
 const IndexPageContainer: React.FC = () => {
     const [ContainerTheme, setContainerTheme] = useState<ThemeType>('sun');
-    const [IsSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
-    const [IsSidebarHidden, setIsSidebarHidden] = useState<boolean>(false);
-    const [IsSnowEnabled, setIsSnowEnabled] = useState<boolean>(false);
+    const [IsSettingsOpen, setIsSettingsOpen] = useState(false);
+    const [IsSidebarHidden, setIsSidebarHidden] = useState(false);
+    const [IsSnowEnabled, setIsSnowEnabled] = useState(false);
 
     const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('wasd');
 
@@ -37,15 +37,15 @@ const IndexPageContainer: React.FC = () => {
         setIsSnowEnabled(storageGet<'true' | 'false'>('nyan_ny_snow', 'true') === 'true');
     }, []);
 
-    const handleThemeChange = (theme: ThemeType) => {
+    const handleThemeChange = useCallback((theme: ThemeType) => {
         setContainerTheme(theme);
         storageSet('nyan_theme', theme);
-    };
+    }, []);
 
-    const handleSnowCheckboxEventResult = (enabled: boolean) => {
+    const handleSnowCheckboxEventResult = useCallback((enabled: boolean) => {
         setIsSnowEnabled(enabled);
         storageSet('nyan_ny_snow', String(enabled));
-    };
+    }, []);
 
     const LeftMenuContent: HeaderMenuItemType[] = [
         {
@@ -63,7 +63,7 @@ const IndexPageContainer: React.FC = () => {
             type: 'button',
             title: ContainerTheme === 'moon' ? 'Ночной режим' : 'Дневной режим',
             icon: ContainerTheme === 'moon' ? <IconSun /> : <IconMoon />,
-            onClick: () => (ContainerTheme === 'moon' ? handleThemeChange('sun') : handleThemeChange('moon')),
+            onClick: () => handleThemeChange(ContainerTheme === 'moon' ? 'sun' : 'moon'),
         },
         {
             id: 'settings_trigger',
@@ -81,20 +81,23 @@ const IndexPageContainer: React.FC = () => {
         },
     ];
 
-    const handleCloseSettingsTriggerClick = () => {
+    const handleCloseSettingsTriggerClick = useCallback(() => {
         setIsSettingsOpen(false);
-    };
+    }, []);
 
-    const handlePlayerChange = (playerName: PlayerType) => {
+    const handlePlayerChange = useCallback((playerName: PlayerType) => {
         setSelectedPlayer(playerName);
-    };
+    }, []);
 
     return (
         <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': ContainerTheme }}>
             <NewYearSnow enabled={IsSnowEnabled} />
+
             <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
                 <Player {...{ SelectedPlayer }} />
+
                 <Sidebar {...{ IsSidebarHidden, ContainerTheme }} />
+
                 {IsSettingsOpen ? (
                     <Settings
                         {...{ IsSettingsOpen, SelectedPlayer, IsSnowEnabled }}

@@ -1,4 +1,4 @@
-type ScheduleItemType = {
+export type ScheduleItemType = {
     s: number; // время начала
     d: number; // длительность события
     title: string;

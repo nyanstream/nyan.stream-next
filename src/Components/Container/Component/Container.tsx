@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/router';
 
 import Head from 'next/head';
@@ -36,7 +36,7 @@ const Container: React.FC<PropsType> = props => {
 
     const PageTitle = useMemo(() => `${ProjectTitle} ${pageName ? ` / ${pageName}` : ''}`, [Router.pathname]);
 
-    const [IsSliderOpen, setIsSliderOpen] = useState<boolean>(false);
+    const [IsSliderOpen, setIsSliderOpen] = useState(false);
 
     const CommonMeta = useMemo<MetaTagType[]>(
         () => [
@@ -97,27 +97,31 @@ const Container: React.FC<PropsType> = props => {
         []
     );
 
-    const handleSliderTriggerButtonClick = () => {
+    const handleSliderTriggerButtonClick = useCallback(() => {
         setIsSliderOpen(!IsSliderOpen);
-    };
+    }, []);
 
-    const handleContentClick = () => {
+    const handleContentClick = useCallback(() => {
         setIsSliderOpen(!IsSliderOpen);
-    };
+    }, []);
 
     return (
         <>
             <Head>
                 <title>{PageTitle}</title>
+
                 {CommonMeta.map(TagInfo => (
                     <meta key={TagInfo.name} name={TagInfo.name} content={TagInfo.content} />
                 ))}
+
                 {OpenGraphMeta.map(TagInfo => (
                     <meta key={`og:${TagInfo.name}`} property={`og:${TagInfo.name}`} content={TagInfo.content} />
                 ))}
+
                 {TwitterMeta.map(TagInfo => (
                     <meta key={`twitter:${TagInfo.name}`} name={`twitter:${TagInfo.name}`} content={TagInfo.content} />
                 ))}
+
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
@@ -136,6 +140,7 @@ const Container: React.FC<PropsType> = props => {
                 {CommonLinks.map(LinkInfo => (
                     <link key={LinkInfo.rel} rel={LinkInfo.rel} href={LinkInfo.href} />
                 ))}
+
                 {PreconnectLinks.map(LinkInfo => (
                     <link key={LinkInfo.id} rel="preconnect" href={`https://${LinkInfo.href}`} />
                 ))}
@@ -143,6 +148,7 @@ const Container: React.FC<PropsType> = props => {
 
             <div className={styles.container} {...customParentProps}>
                 <Slider {...{ IsSliderOpen }} />
+
                 <Content {...{ IsSliderOpen }} {...{ handleContentClick }}>
                     <Header
                         {...{ pageName }}

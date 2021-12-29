@@ -66,6 +66,7 @@ const Slider: React.FC<PropsType> = props => {
     return (
         <div className={styles.slider} data-is-slider-open={IsSliderOpen ? '' : null}>
             <SliderHeader />
+
             <div className={styles.slider__content}>
                 <ul className={styles.slider__links}>
                     {!IsIndexPage ? (
@@ -73,6 +74,7 @@ const Slider: React.FC<PropsType> = props => {
                             <Link href="/">Перейти на главную</Link>
                         </li>
                     ) : null}
+
                     {SliderLinks.map(LinkData => (
                         <li key={LinkData.id} className={styles.slider__links__item} data-offset={LinkData.offset ? '' : null}>
                             <a href={LinkData.link} target="_blank" rel="nofollow noopener noreferrer">
@@ -81,13 +83,16 @@ const Slider: React.FC<PropsType> = props => {
                         </li>
                     ))}
                 </ul>
+
                 <footer className={styles.slider__footer}>
                     <p>
                         <Link href="/">NYAN.STREAM</Link> © {new Date().getFullYear()}
                     </p>
+
                     <p>
                         <span>сделано с</span> <span className={styles.slider__footer__heart}>♥</span>
                     </p>
+
                     {IsIndexPage ? (
                         <p style={{ marginTop: 5 }}>
                             <Link href="/about">о проекте</Link>

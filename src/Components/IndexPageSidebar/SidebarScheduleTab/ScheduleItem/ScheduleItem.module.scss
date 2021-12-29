@@ -1,0 +1,86 @@
+.scheduleItem {
+    list-style: none;
+
+    padding: 5px 10px;
+
+    &:not(:first-child) {
+        margin-top: 10px;
+    }
+
+    &__title {
+        font-size: 1.2em;
+    }
+
+    &[data-status='finished'] {
+        opacity: 0.4;
+    }
+
+    &[data-status='current'] {
+        background-color: #ffffa5;
+    }
+
+    &[data-status='next'] {
+        background-color: #e7e7e7;
+    }
+
+    &[data-status='not-today'] {
+        opacity: 0.6;
+    }
+
+    &__data {
+        margin-top: 5px;
+
+        font-size: 0.9em;
+
+        & > * {
+            display: inline-block;
+
+            &:not(:first-child) {
+                &::before {
+                    content: '\00B7';
+
+                    margin: 0 4px;
+
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    &__duration,
+    &__phrase {
+        span {
+            display: inline-block;
+
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    &__duration {
+        cursor: default;
+
+        span {
+            cursor: help;
+        }
+    }
+
+    &[data-theme='moon'] {
+        &[data-status='finished'] {
+            opacity: 0.4;
+        }
+
+        &[data-status='current'] {
+            background-color: #91914f;
+        }
+
+        &[data-status='next'] {
+            background-color: #7a7a7a;
+        }
+
+        &[data-status='not-today'] {
+            opacity: 0.6;
+        }
+    }
+}

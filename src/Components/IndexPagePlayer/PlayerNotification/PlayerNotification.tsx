@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import { storageGet, storageSet } from '../../../utilities/storage';
@@ -14,12 +14,14 @@ import styles from './PlayerNotification.module.scss';
 
 const PlayerNotification: React.FC = () => {
     const [NotificationData, setNotificationData] = useState<NotificationQueryResponseType>({ enabled: false });
-    const [IsResponseError, setIsResponseError] = useState<boolean>(false);
+    const [IsResponseError, setIsResponseError] = useState(false);
 
     const [HiddenNotifications, setHiddenNotifications] = useState<number[]>([]);
 
+    const StorageItemName = 'nyan_noti';
+
     useEffect(() => {
-        setHiddenNotifications(JSON.parse(storageGet('nyan_noti', '[]')));
+        setHiddenNotifications(JSON.parse(storageGet(StorageItemName, '[]')));
     }, []);
 
     const notificationQuery = () => {
@@ -37,28 +39,40 @@ const PlayerNotification: React.FC = () => {
 
     useAPI(notificationQuery, 5);
 
-    const handleHideNotificationBtnClick = (time: number) => {
-        const NewHiddenNotifications: number[] = [...HiddenNotifications, time];
-        setHiddenNotifications(NewHiddenNotifications);
-        storageSet('nyan_noti', JSON.stringify(NewHiddenNotifications));
-    };
+    const handleHideNotificationBtnClick = useCallback(
+        (time: number | undefined) => {
+            if (time) {
+                const NewHiddenNotifications: number[] = [...HiddenNotifications, time];
+                setHiddenNotifications(NewHiddenNotifications);
+                storageSet(StorageItemName, JSON.stringify(NewHiddenNotifications));
+            }
+        },
+        [HiddenNotifications, StorageItemName]
+    );
 
-    return NotificationData.enabled && !HiddenNotifications.includes(NotificationData.time ?? -1) && NotificationData.text ? (
+    if (!NotificationData.enabled || HiddenNotifications.includes(NotificationData.time ?? -1) || !NotificationData.text) {
+        return null;
+    }
+
+    return (
         <div
             className={styles.notification}
             style={NotificationData.color ? { backgroundColor: NotificationData.color } : {}}
-            aria-label="Оповещение">
+            aria-label="Оповещение"
+        >
             <div className={styles.notification__content}>
                 <ReactMarkdown>{NotificationData.text}</ReactMarkdown>
             </div>
+
             <button
                 className={styles.notification__hideBtn}
                 title="Скрыть оповещение"
-                onClick={() => (NotificationData.time ? handleHideNotificationBtnClick(NotificationData.time) : void 0)}>
+                onClick={() => handleHideNotificationBtnClick(NotificationData.time)}
+            >
                 <IconTimes />
             </button>
         </div>
-    ) : null;
+    );
 };
 
 export default PlayerNotification;

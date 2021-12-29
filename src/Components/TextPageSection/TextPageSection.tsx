@@ -13,6 +13,7 @@ const TextPageContainer: React.FC<PropsType> = props => {
         <section className={styles.section} id={id}>
             <h2 className={styles.section__heading}>
                 <span>{title}</span>
+
                 <a href={`#${id}`} aria-hidden="true">
                     #
                 </a>

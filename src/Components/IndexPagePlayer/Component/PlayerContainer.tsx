@@ -39,10 +39,11 @@ const PlayerContainer: React.FC<PropsType> = props => {
     }, [ProjectHost, SelectedPlayer]);
 
     return (
-        <div className={styles.player} data-is="player">
+        <div className={styles.player} data-player>
             <div className={styles.player__embed}>
                 <iframe src={PlayerURL} title="Player" allowFullScreen />
             </div>
+
             <PlayerNotification />
         </div>
     );

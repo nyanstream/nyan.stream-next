@@ -4,17 +4,7 @@
 
 type DateFormatedFnParams = {
     date: Date;
-    extraConfig?: {
-        era?: 'narrow' | 'short' | 'long';
-        weekday?: 'narrow' | 'short' | 'long';
-        year?: 'numeric' | '2-digit';
-        month?: 'numeric' | '2-digit' | 'narrow' | 'short' | 'long';
-        day?: 'numeric' | '2-digit';
-        hour?: 'numeric' | '2-digit';
-        minute?: 'numeric' | '2-digit';
-        second?: 'numeric' | '2-digit';
-        timeZoneName?: 'short' | 'long';
-    };
+    extraConfig?: Intl.DateTimeFormatOptions;
     locale?: string;
 };
 

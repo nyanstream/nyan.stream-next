@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import type { SidebarTabType } from '../SidebarTypes';
 import type { ThemeType } from '../../Container/ContainerTypes';
@@ -20,9 +20,9 @@ const SidebarContainer: React.FC<PropsType> = props => {
 
     const [CurrentSidebarTab, setCurrentSidebarTab] = useState<SidebarTabType>('chat');
 
-    const handleSidebarRadioButtonClick = (tabName: SidebarTabType) => {
+    const handleSidebarRadioButtonClick = useCallback((tabName: SidebarTabType) => {
         setCurrentSidebarTab(tabName);
-    };
+    }, []);
 
     return (
         <aside className={styles.sidebar} data-theme={ContainerTheme} hidden={IsSidebarHidden}>
