@@ -1,17 +1,13 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useContext } from 'react';
 
-import type { PlayerType } from '../PlayerTypes';
+import { PlayerSettingsContext } from '@/components/providers';
 
-import PlayerNotification from '../PlayerNotification/PlayerNotification';
+import PlayerNotification from './PlayerNotification/PlayerNotification';
 
 import styles from './Player.module.scss';
 
-type PropsType = {
-    SelectedPlayer: PlayerType;
-};
-
-const PlayerContainer: React.FC<PropsType> = props => {
-    const { SelectedPlayer } = props;
+const PlayerContainer: React.FC = () => {
+    const { SelectedPlayer } = useContext(PlayerSettingsContext);
 
     const [ProjectHost, setProjectHost] = useState<string>('');
 
@@ -49,4 +45,4 @@ const PlayerContainer: React.FC<PropsType> = props => {
     );
 };
 
-export default PlayerContainer;
+export { PlayerContainer };

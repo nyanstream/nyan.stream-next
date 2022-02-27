@@ -58,8 +58,7 @@ const PlayerNotification: React.FC = () => {
         <div
             className={styles.notification}
             style={NotificationData.color ? { backgroundColor: NotificationData.color } : {}}
-            aria-label="Оповещение"
-        >
+            aria-label="Оповещение">
             <div className={styles.notification__content}>
                 <ReactMarkdown>{NotificationData.text}</ReactMarkdown>
             </div>
@@ -67,8 +66,7 @@ const PlayerNotification: React.FC = () => {
             <button
                 className={styles.notification__hideBtn}
                 title="Скрыть оповещение"
-                onClick={() => handleHideNotificationBtnClick(NotificationData.time)}
-            >
+                onClick={() => handleHideNotificationBtnClick(NotificationData.time)}>
                 <IconTimes />
             </button>
         </div>

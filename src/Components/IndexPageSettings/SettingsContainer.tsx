@@ -1,20 +1,20 @@
-import { useCallback } from 'react';
+import { useCallback, useContext } from 'react';
 
-import { SelectOptionType } from '../SettingsTypes';
-import { PlayerType } from '../../IndexPagePlayer/PlayerTypes';
+import { SelectOptionType } from './SettingsTypes';
+
+import { PlayerSettingsContext } from '@/components/providers';
+import type { PlayerType } from '@/components/providers/PlayerSettingsProvider/types';
 
 import styles from './Settings.module.scss';
 
 type PropsType = {
-    SelectedPlayer: PlayerType;
     handleCloseSettingsTriggerClick: () => void;
-    handlePlayerChange: (playerName: PlayerType) => void;
-    handleSnowCheckboxEventResult: (enabled: boolean) => void;
 };
 
 const SettingsContainer: React.FC<PropsType> = props => {
-    const { SelectedPlayer } = props;
-    const { handleCloseSettingsTriggerClick, handlePlayerChange, handleSnowCheckboxEventResult } = props;
+    const { SelectedPlayer, setSelectedPlayer } = useContext(PlayerSettingsContext);
+
+    const { handleCloseSettingsTriggerClick } = props;
 
     const Players: SelectOptionType<PlayerType>[] = [
         {
@@ -61,8 +61,7 @@ const SettingsContainer: React.FC<PropsType> = props => {
                                     <select
                                         id="player_selector"
                                         value={SelectedPlayer}
-                                        onChange={e => handlePlayerChange(e.target.value as PlayerType)}
-                                    >
+                                        onChange={event => setSelectedPlayer(event.target.value as PlayerType)}>
                                         {Players.map(PlayerInfo => (
                                             <option key={PlayerInfo.value} value={PlayerInfo.value}>
                                                 {PlayerInfo.text}
@@ -99,4 +98,4 @@ const SettingsContainer: React.FC<PropsType> = props => {
     );
 };
 
-export default SettingsContainer;
+export { SettingsContainer };

@@ -19,16 +19,21 @@ const SidebarRadioButtons: React.FC<PropsType> = props => {
 
     return (
         <ul className={styles.sidebar__radio}>
-            {Tabs.map(TabData => (
-                <li key={TabData.key}>
-                    <button
-                        role="radio"
-                        data-active={TabData.key === CurrentSidebarTab ? '' : null}
-                        onClick={() => handleSidebarRadioButtonClick(TabData.key)}>
-                        {TabData.title}
-                    </button>
-                </li>
-            ))}
+            {Tabs.map(TabData => {
+                const IsTabActive = TabData.key === CurrentSidebarTab;
+
+                return (
+                    <li key={TabData.key}>
+                        <button
+                            role="radio"
+                            aria-checked={IsTabActive ? 'true' : 'false'}
+                            data-active={IsTabActive ? '' : null}
+                            onClick={() => handleSidebarRadioButtonClick(TabData.key)}>
+                            {TabData.title}
+                        </button>
+                    </li>
+                );
+            })}
         </ul>
     );
 };

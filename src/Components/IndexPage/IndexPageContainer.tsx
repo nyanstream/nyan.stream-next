@@ -1,21 +1,22 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import { storageGet, storageSet } from '../../utilities/storage';
+import { storageGet, storageSet } from '@/utilities/storage';
 
-import { ThemeType } from '../Container/ContainerTypes';
-import type { HeaderMenuItemType } from '../Header/HeaderTypes';
-import type { PlayerType } from '../IndexPagePlayer/PlayerTypes';
+import { ThemeType } from '@/components/Container/ContainerTypes';
+import type { HeaderMenuItemType } from '@/components/Header/HeaderTypes';
 
-import Container from '../Container/Component/Container';
+import Container from '@/components/Container/Component/Container';
 
-import Player from '../IndexPagePlayer/Component/PlayerContainer';
-import Sidebar from '../IndexPageSidebar/Component/SidebarContainer';
-import Settings from '../IndexPageSettings/Component/SettingsContainer';
+import { PlayerContainer } from 'src/Components/IndexPagePlayer';
+import Sidebar from '@/components/IndexPageSidebar/Component/SidebarContainer';
+import { SettingsContainer } from '@/components/IndexPageSettings';
 
-import { IconRuble, IconDiscord, IconGear } from '../common';
-import { IconMoon, IconSun } from '../common';
-import { IconChevronLeft, IconChevronRight } from '../common';
-// import { IconChevronDown, IconChevronUp } from '../common';
+import { PlayerSettingsContextProvider } from '@/components/providers';
+
+import { IconRuble, IconDiscord, IconGear } from '@/components/common';
+import { IconMoon, IconSun } from '@/components/common';
+import { IconChevronLeft, IconChevronRight } from '@/components/common';
+// import { IconChevronDown, IconChevronUp } from '@/components/common';
 
 import styles from './IndexPage.module.scss';
 
@@ -23,8 +24,6 @@ const IndexPageContainer: React.FC = () => {
     const [ContainerTheme, setContainerTheme] = useState<ThemeType>('sun');
     const [IsSettingsOpen, setIsSettingsOpen] = useState(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState(false);
-
-    const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('wasd');
 
     useEffect(() => {
         setContainerTheme(storageGet<ThemeType>('nyan_theme', 'sun'));
@@ -80,23 +79,19 @@ const IndexPageContainer: React.FC = () => {
         setIsSettingsOpen(false);
     }, []);
 
-    const handlePlayerChange = useCallback((playerName: PlayerType) => {
-        setSelectedPlayer(playerName);
-    }, []);
-
     return (
-        <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': ContainerTheme }}>
-            <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
-                <Player {...{ SelectedPlayer }} />
+        <PlayerSettingsContextProvider>
+            <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': ContainerTheme }}>
+                <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
+                    <PlayerContainer />
 
-                <Sidebar {...{ IsSidebarHidden, ContainerTheme }} />
+                    <Sidebar {...{ IsSidebarHidden, ContainerTheme }} />
 
-                {IsSettingsOpen ? (
-                    <Settings {...{ IsSettingsOpen, SelectedPlayer }} {...{ handleCloseSettingsTriggerClick, handlePlayerChange }} />
-                ) : null}
-            </main>
-        </Container>
+                    {IsSettingsOpen ? <SettingsContainer {...{ handleCloseSettingsTriggerClick }} /> : null}
+                </main>
+            </Container>
+        </PlayerSettingsContextProvider>
     );
 };
 
-export default IndexPageContainer;
+export { IndexPageContainer };
