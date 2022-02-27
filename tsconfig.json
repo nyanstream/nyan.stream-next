@@ -6,7 +6,7 @@
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": true,
         "jsx": "preserve",
-        "lib": ["dom", "es2017"],
+        "lib": ["dom", "ESNext"],
         "module": "esnext",
         "moduleResolution": "node",
         "noEmit": true,
@@ -17,7 +17,18 @@
         "skipLibCheck": true,
         "strict": true,
         "target": "esnext",
-        "incremental": true
+        "incremental": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/pages/*": ["pages/*"],
+            "@/components/*": ["src/components/*"],
+            "@/hooks/*": ["src/hooks/*"],
+            "@/utilities/*": ["src/utilities/*"],
+            "@/api/*": ["src/api/*"],
+            "@/styles/*": ["src/styles/*"],
+            "@/static/*": ["src/static/*"],
+            "@/config": ["src/config.ts"]
+        }
     },
     "exclude": ["node_modules"],
     "include": ["**/*.ts", "**/*.tsx"]
