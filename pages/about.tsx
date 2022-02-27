@@ -1,7 +1,7 @@
-import { Link } from '../src/Components/common';
+import { Link } from '@/components/common';
 
-import TextPageContainer from '../src/Components/TextPage/TextPageContainer';
-import TextPageSection from '../src/Components/TextPageSection/TextPageSection';
+import TextPageContainer from '@/components/TextPage/TextPageContainer';
+import TextPageSection from '@/components/TextPageSection/TextPageSection';
 
 const AboutPage: React.FC = () => {
     return (

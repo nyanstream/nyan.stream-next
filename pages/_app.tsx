@@ -7,13 +7,13 @@ import dayjsPluginRelativeTime from 'dayjs/plugin/relativeTime';
 import dayjsPluginDuration from 'dayjs/plugin/duration';
 import dayjsLocaleRu from 'dayjs/locale/ru';
 
-import '../src/styles/every.scss';
+import '@/styles/every.scss';
 
 dayjs.extend(dayjsPluginRelativeTime);
 dayjs.extend(dayjsPluginDuration);
 dayjs.locale(dayjsLocaleRu);
 
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     return (
         <IconContext.Provider value={{ className: 'nyan-icon' }}>
             <Component {...pageProps} />
@@ -21,4 +21,4 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     );
 };
 
-export default MyApp;
+export default App;
