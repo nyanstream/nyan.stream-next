@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { ImageLogo } from '../../../static/images';
 
@@ -18,8 +18,16 @@ const HeaderBrandMain: React.FC = () => {
         }
     }, []);
 
-    const IsIndexPage = window.location.pathname === '/';
-    const PageTitle = IsIndexPage ? '#нетВойне' : 'NYAN.STREAM';
+    const PageTitle = useMemo(() => {
+        const OriginalTitle = 'NYAN.STREAM';
+
+        if (typeof window === 'undefined') return OriginalTitle;
+
+        const IsIndexPage = window.location.pathname === '/';
+
+        if (IsIndexPage) return '#нетВойне';
+        return OriginalTitle;
+    }, []);
 
     return (
         <div className={styles.header__brand__item}>
