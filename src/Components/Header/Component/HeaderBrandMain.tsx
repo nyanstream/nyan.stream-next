@@ -18,12 +18,15 @@ const HeaderBrandMain: React.FC = () => {
         }
     }, []);
 
+    const IsIndexPage = window.location.pathname === '/';
+    const PageTitle = IsIndexPage ? '#нетВойне' : 'NYAN.STREAM';
+
     return (
         <div className={styles.header__brand__item}>
             <div className={styles.header__brand__logo}>
                 <img src={ImageLogo.src} alt="Логотип" data-lang-image="logo" onDoubleClick={doubleClickOnBrandHandler} />
             </div>
-            <h1 className={`${styles.header__brand__text} ${styles.header__brand__text_title}`}>#нетВойне</h1>
+            <h1 className={`${styles.header__brand__text} ${styles.header__brand__text_title}`}>{PageTitle}</h1>
         </div>
     );
 };
