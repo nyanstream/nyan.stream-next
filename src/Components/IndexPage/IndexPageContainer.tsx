@@ -12,8 +12,6 @@ import Player from '../IndexPagePlayer/Component/PlayerContainer';
 import Sidebar from '../IndexPageSidebar/Component/SidebarContainer';
 import Settings from '../IndexPageSettings/Component/SettingsContainer';
 
-import NewYearSnow from '../NewYearSnow/NewYearSnow';
-
 import { IconRuble, IconDiscord, IconGear } from '../common';
 import { IconMoon, IconSun } from '../common';
 import { IconChevronLeft, IconChevronRight } from '../common';
@@ -25,7 +23,6 @@ const IndexPageContainer: React.FC = () => {
     const [ContainerTheme, setContainerTheme] = useState<ThemeType>('sun');
     const [IsSettingsOpen, setIsSettingsOpen] = useState(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState(false);
-    const [IsSnowEnabled, setIsSnowEnabled] = useState(false);
 
     const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('wasd');
 
@@ -33,18 +30,9 @@ const IndexPageContainer: React.FC = () => {
         setContainerTheme(storageGet<ThemeType>('nyan_theme', 'sun'));
     }, []);
 
-    useEffect(() => {
-        setIsSnowEnabled(storageGet<'true' | 'false'>('nyan_ny_snow', 'true') === 'true');
-    }, []);
-
     const handleThemeChange = useCallback((theme: ThemeType) => {
         setContainerTheme(theme);
         storageSet('nyan_theme', theme);
-    }, []);
-
-    const handleSnowCheckboxEventResult = useCallback((enabled: boolean) => {
-        setIsSnowEnabled(enabled);
-        storageSet('nyan_ny_snow', String(enabled));
     }, []);
 
     const LeftMenuContent: HeaderMenuItemType[] = [
@@ -98,18 +86,13 @@ const IndexPageContainer: React.FC = () => {
 
     return (
         <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': ContainerTheme }}>
-            <NewYearSnow enabled={IsSnowEnabled} />
-
             <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
                 <Player {...{ SelectedPlayer }} />
 
                 <Sidebar {...{ IsSidebarHidden, ContainerTheme }} />
 
                 {IsSettingsOpen ? (
-                    <Settings
-                        {...{ IsSettingsOpen, SelectedPlayer, IsSnowEnabled }}
-                        {...{ handleCloseSettingsTriggerClick, handlePlayerChange, handleSnowCheckboxEventResult }}
-                    />
+                    <Settings {...{ IsSettingsOpen, SelectedPlayer }} {...{ handleCloseSettingsTriggerClick, handlePlayerChange }} />
                 ) : null}
             </main>
         </Container>
