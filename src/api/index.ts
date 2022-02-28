@@ -1,9 +1,9 @@
-import CONFIG from '../config';
+import { ApiHost } from '@/config';
 
 import type { ScheduleQueryResponseType, NewsQueryResponseType, NotificationQueryResponseType } from './types';
 
 const API = async <T>(method: string): Promise<T> => {
-    const response = await fetch(`${CONFIG.api_host}/api/${method}`, { cache: 'no-store' });
+    const response = await fetch(`${ApiHost}/api/${method}`, { cache: 'no-store' });
     if (!response.ok) {
         throw new Error(response.statusText);
     }

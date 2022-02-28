@@ -3,7 +3,14 @@ import { useRouter } from 'next/router';
 
 import Head from 'next/head';
 
-import CONFIG from '../../../config';
+import {
+    Title as ProjectTitle,
+    Description as ProjectDescription,
+    PrimeColor as ProjectColor,
+    Host as ProjectHost,
+    GoogleSiteVerification,
+    YandexVerification,
+} from '@/config';
 
 import type { MetaTagType, HeadLinkType } from '../ContainerTypes';
 import type { HeaderMenuItemType } from '../../Header/HeaderTypes';
@@ -30,11 +37,9 @@ const Container: React.FC<PropsType> = props => {
     const { leftMenuContent, rightMenuContent } = props;
     const { children, customParentProps } = props;
 
-    const { title: ProjectTitle, description: ProjectDescription, prime_color: ProjectColor, host: ProjectHost } = CONFIG;
-
     const Router = useRouter();
 
-    const PageTitle = useMemo(() => `${ProjectTitle} ${pageName ? ` / ${pageName}` : ''}`, [Router.pathname]);
+    const PageTitle = useMemo(() => `${ProjectTitle} ${pageName ? ` / ${pageName}` : ''}`, [pageName]);
 
     const [IsSliderOpen, setIsSliderOpen] = useState(false);
 
@@ -48,8 +53,8 @@ const Container: React.FC<PropsType> = props => {
                     'nyan stream, nyanstream, нян стрим, нянстрим, anime, аниме, онлайн телевидение, online tv, аниме смотреть онлайн, мокрые котики, смотреть аниме с субтитрами',
             },
             { name: 'theme-color', content: ProjectColor },
-            { name: 'google-site-verification', content: 'CZKFsMeBuqFJ1KPYIaKptrBMmgolcM3bBbu6wt1Pf_g' },
-            { name: 'yandex-verification', content: 'eab231fe75b6da62' },
+            { name: 'google-site-verification', content: GoogleSiteVerification },
+            { name: 'yandex-verification', content: YandexVerification },
             { name: 'yandex-tableau-widget', content: `logo=${ProjectHost}${ImageLogoTableau.src}, color=${ProjectColor}` },
         ],
         []
@@ -81,7 +86,7 @@ const Container: React.FC<PropsType> = props => {
     const CommonLinks = useMemo<HeadLinkType[]>(
         () => [
             { rel: 'shortcut icon', href: ImageFavicon.src },
-            { rel: 'sitemap', href: '/sitemap.xml' },
+            { rel: 'sitemap', href: `${ProjectHost}/sitemap.xml` },
             { rel: 'canonical', href: `${ProjectHost}${Router.pathname}` },
         ],
         [Router.pathname]
