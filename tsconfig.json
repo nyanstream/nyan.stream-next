@@ -20,12 +20,20 @@
         "incremental": true,
         "baseUrl": ".",
         "paths": {
+            "@/pages": ["pages"],
             "@/pages/*": ["pages/*"],
+            "@/components": ["src/components"],
             "@/components/*": ["src/components/*"],
+            "@/hooks": ["src/hooks"],
             "@/hooks/*": ["src/hooks/*"],
+            "@/providers": ["src/providers"],
+            "@/providers/*": ["src/providers/*"],
+            "@/utilities": ["src/utilities"],
             "@/utilities/*": ["src/utilities/*"],
+            "@/api": ["src/api"],
             "@/api/*": ["src/api/*"],
             "@/styles/*": ["src/styles/*"],
+            "@/static": ["src/static"],
             "@/static/*": ["src/static/*"],
             "@/config": ["src/config.ts"]
         }

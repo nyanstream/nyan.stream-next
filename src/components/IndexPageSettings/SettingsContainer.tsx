@@ -2,8 +2,8 @@ import { useCallback, useContext } from 'react';
 
 import { SelectOptionType } from './SettingsTypes';
 
-import { PlayerSettingsContext } from '@/components/providers';
-import type { PlayerType } from '@/components/providers/PlayerSettingsProvider/types';
+import { PlayerSettingsContext } from '@/providers';
+import type { PlayerType } from '@/providers/PlayerSettingsProvider/types';
 
 import styles from './Settings.module.scss';
 

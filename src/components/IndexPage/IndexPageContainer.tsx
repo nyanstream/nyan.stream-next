@@ -7,11 +7,11 @@ import type { HeaderMenuItemType } from '@/components/Header/HeaderTypes';
 
 import Container from '@/components/Container/Component/Container';
 
-import { PlayerContainer } from 'src/Components/IndexPagePlayer';
+import { PlayerContainer } from '@/components/IndexPagePlayer';
 import Sidebar from '@/components/IndexPageSidebar/Component/SidebarContainer';
 import { SettingsContainer } from '@/components/IndexPageSettings';
 
-import { PlayerSettingsContextProvider } from '@/components/providers';
+import { PlayerSettingsContextProvider } from '@/providers';
 
 import { IconRuble, IconDiscord, IconGear } from '@/components/common';
 import { IconMoon, IconSun } from '@/components/common';

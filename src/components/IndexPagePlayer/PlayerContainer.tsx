@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect, useContext } from 'react';
 
-import { PlayerSettingsContext } from '@/components/providers';
+import { PlayerSettingsContext } from '@/providers';
 
 import PlayerNotification from './PlayerNotification/PlayerNotification';
 
