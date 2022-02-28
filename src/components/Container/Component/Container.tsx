@@ -10,14 +10,13 @@ import {
     Host as ProjectHost,
     GoogleSiteVerification,
     YandexVerification,
+    ContentSecurityPolicy,
 } from '@/config';
 
 import type { MetaTagType, HeadLinkType } from '../ContainerTypes';
 import type { HeaderMenuItemType } from '../../Header/HeaderTypes';
 
-import ContentSecurityPolicy from '../../../csp';
-
-import { ImageFavicon, ImageShare, ImageLogoTableau } from '../../../static/images';
+import { ImageFavicon, ImageShare, ImageLogoTableau } from '@/static/images';
 
 import Content from '../../Content/Content';
 import Slider from '../../Slider/Slider';
@@ -87,9 +86,9 @@ const Container: React.FC<PropsType> = props => {
         () => [
             { rel: 'shortcut icon', href: ImageFavicon.src },
             { rel: 'sitemap', href: `${ProjectHost}/sitemap.xml` },
-            { rel: 'canonical', href: `${ProjectHost}${Router.pathname}` },
+            { rel: 'canonical', href: `${ProjectHost}${Router.route}` },
         ],
-        [Router.pathname]
+        [Router.route]
     );
 
     const PreconnectLinks = useMemo<HeadLinkType[]>(

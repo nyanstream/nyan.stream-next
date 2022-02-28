@@ -1,10 +1,13 @@
 import { useCallback, useMemo } from 'react';
+import { useRouter } from 'next/router';
 
-import { ImageLogo } from '../../../static/images';
+import { ImageLogo } from '@/static/images';
 
 import styles from './Header.module.scss';
 
 const HeaderBrandMain: React.FC = () => {
+    const Router = useRouter();
+
     // перезагрузка плеера по двойному клику на логотип
     const doubleClickOnBrandHandler = useCallback(() => {
         const PlayerNode = document.querySelector('[data-player]');
@@ -19,15 +22,12 @@ const HeaderBrandMain: React.FC = () => {
     }, []);
 
     const PageTitle = useMemo(() => {
-        const OriginalTitle = 'NYAN.STREAM';
+        if (Router.route === '/') {
+            return '#нетВойне';
+        }
 
-        if (typeof window === 'undefined') return OriginalTitle;
-
-        const IsIndexPage = window.location.pathname === '/';
-
-        if (IsIndexPage) return '#нетВойне';
-        return OriginalTitle;
-    }, []);
+        return 'NYAN.STREAM';
+    }, [Router.route]);
 
     return (
         <div className={styles.header__brand__item}>
