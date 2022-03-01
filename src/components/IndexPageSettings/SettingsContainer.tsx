@@ -1,8 +1,8 @@
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 
 import { SelectOptionType } from './SettingsTypes';
 
-import { PlayerSettingsContext } from '@/providers';
+import { usePlayerSettings } from '@/hooks';
 import type { PlayerType } from '@/providers/PlayerSettingsProvider/types';
 
 import styles from './Settings.module.scss';
@@ -12,7 +12,7 @@ type PropsType = {
 };
 
 const SettingsContainer: React.FC<PropsType> = props => {
-    const { SelectedPlayer, setSelectedPlayer } = useContext(PlayerSettingsContext);
+    const { SelectedPlayer, setSelectedPlayer } = usePlayerSettings();
 
     const { handleCloseSettingsTriggerClick } = props;
 

@@ -2,13 +2,13 @@ import { useMemo, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import dayjs from 'dayjs';
 
-import { getDateFormated } from '../../../../utilities/dates';
+import { getDateFormated } from '@/utilities/dates';
 
-import type { ScheduleItemType } from '../../../../api/types';
+import type { ScheduleItemType } from '@/api/types';
 
-import type { ThemeType } from '../../../Container/ContainerTypes';
+import { useTheme } from '@/hooks';
 
-import { Link } from '../../../common';
+import { Link } from '@/components/common';
 
 import styles from './ScheduleItem.module.scss';
 
@@ -17,13 +17,13 @@ type PropsType = {
     AirData: ScheduleItemType;
     AirsArray: ScheduleItemType[];
     NextAirsData: ScheduleItemType[];
-    ContainerTheme: ThemeType;
 };
 
 const ScheduleItem: React.FC<PropsType> = props => {
     const { AirIndex, AirData } = props;
     const { AirsArray, NextAirsData } = props;
-    const { ContainerTheme } = props;
+
+    const { Theme } = useTheme();
 
     const AirStartTime = AirData.s * 1000;
     const AirEndTime = AirStartTime + AirData.d * 1000;
@@ -112,7 +112,7 @@ const ScheduleItem: React.FC<PropsType> = props => {
     }, []);
 
     return (
-        <li className={styles.scheduleItem} data-status={AirStatus} data-theme={ContainerTheme}>
+        <li className={styles.scheduleItem} data-status={AirStatus} data-theme={Theme}>
             <div className={styles.scheduleItem__title}>
                 <ReactMarkdown>{AirData.title}</ReactMarkdown>
             </div>

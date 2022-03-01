@@ -8,8 +8,6 @@ import { getDateFormated } from '../../../utilities/dates';
 import { getSchedule } from '../../../api';
 import type { ScheduleQueryResponseType } from '../../../api/types';
 
-import type { ThemeType } from '../../Container/ContainerTypes';
-
 import ScheduleItem from './ScheduleItem/ScheduleItem';
 
 import styles from './SidebarScheduleTab.module.scss';
@@ -17,12 +15,10 @@ import styles from './SidebarScheduleTab.module.scss';
 type PropsType = {
     className: string;
     isVisible: boolean;
-    ContainerTheme: ThemeType;
 };
 
 const SidebarScheduleTab: React.FC<PropsType> = props => {
     const { className, isVisible } = props;
-    const { ContainerTheme } = props;
 
     const [ScheduleData, setScheduleData] = useState<ScheduleQueryResponseType | null>(null);
 
@@ -69,7 +65,7 @@ const SidebarScheduleTab: React.FC<PropsType> = props => {
 
             <ul className={styles.schedule__items} hidden={OnlyNeededAirsData.length === 0}>
                 {OnlyNeededAirsData.map((AirData, AirIndex, AirsArray) => (
-                    <ScheduleItem key={AirIndex} {...{ AirData, AirIndex, AirsArray, NextAirsData, ContainerTheme }} />
+                    <ScheduleItem key={AirIndex} {...{ AirData, AirIndex, AirsArray, NextAirsData }} />
                 ))}
             </ul>
         </section>

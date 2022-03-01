@@ -1,17 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
-import { storageGet, storageSet } from '@/utilities/storage';
-
-import { ThemeType } from '@/components/Container/ContainerTypes';
 import type { HeaderMenuItemType } from '@/components/Header/HeaderTypes';
 
 import Container from '@/components/Container/Component/Container';
 
 import { PlayerContainer } from '@/components/IndexPagePlayer';
-import Sidebar from '@/components/IndexPageSidebar/Component/SidebarContainer';
+import { SidebarContainer } from '@/components/IndexPageSidebar';
 import { SettingsContainer } from '@/components/IndexPageSettings';
 
-import { PlayerSettingsContextProvider } from '@/providers';
+import { useTheme } from '@/hooks';
 
 import { IconRuble, IconDiscord, IconGear } from '@/components/common';
 import { IconMoon, IconSun } from '@/components/common';
@@ -21,18 +18,10 @@ import { IconChevronLeft, IconChevronRight } from '@/components/common';
 import styles from './IndexPage.module.scss';
 
 const IndexPageContainer: React.FC = () => {
-    const [ContainerTheme, setContainerTheme] = useState<ThemeType>('sun');
     const [IsSettingsOpen, setIsSettingsOpen] = useState(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState(false);
 
-    useEffect(() => {
-        setContainerTheme(storageGet<ThemeType>('nyan_theme', 'sun'));
-    }, []);
-
-    const handleThemeChange = useCallback((theme: ThemeType) => {
-        setContainerTheme(theme);
-        storageSet('nyan_theme', theme);
-    }, []);
+    const { Theme, setTheme } = useTheme();
 
     const LeftMenuContent: HeaderMenuItemType[] = [
         {
@@ -55,9 +44,9 @@ const IndexPageContainer: React.FC = () => {
         {
             id: 'theme_trigger',
             type: 'button',
-            title: ContainerTheme === 'moon' ? 'Ночной режим' : 'Дневной режим',
-            icon: ContainerTheme === 'moon' ? <IconSun /> : <IconMoon />,
-            onClick: () => handleThemeChange(ContainerTheme === 'moon' ? 'sun' : 'moon'),
+            title: Theme === 'moon' ? 'Ночной режим' : 'Дневной режим',
+            icon: Theme === 'moon' ? <IconSun /> : <IconMoon />,
+            onClick: () => setTheme(Theme === 'moon' ? 'sun' : 'moon'),
         },
         {
             id: 'settings_trigger',
@@ -80,17 +69,15 @@ const IndexPageContainer: React.FC = () => {
     }, []);
 
     return (
-        <PlayerSettingsContextProvider>
-            <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': ContainerTheme }}>
-                <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
-                    <PlayerContainer />
+        <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': Theme }}>
+            <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
+                <PlayerContainer />
 
-                    <Sidebar {...{ IsSidebarHidden, ContainerTheme }} />
+                <SidebarContainer {...{ IsSidebarHidden }} />
 
-                    {IsSettingsOpen ? <SettingsContainer {...{ handleCloseSettingsTriggerClick }} /> : null}
-                </main>
-            </Container>
-        </PlayerSettingsContextProvider>
+                {IsSettingsOpen ? <SettingsContainer {...{ handleCloseSettingsTriggerClick }} /> : null}
+            </main>
+        </Container>
     );
 };
 

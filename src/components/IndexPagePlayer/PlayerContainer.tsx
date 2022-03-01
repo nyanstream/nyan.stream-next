@@ -1,13 +1,13 @@
-import { useMemo, useState, useEffect, useContext } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
-import { PlayerSettingsContext } from '@/providers';
+import { usePlayerSettings } from '@/hooks';
 
 import PlayerNotification from './PlayerNotification/PlayerNotification';
 
 import styles from './Player.module.scss';
 
 const PlayerContainer: React.FC = () => {
-    const { SelectedPlayer } = useContext(PlayerSettingsContext);
+    const { SelectedPlayer } = usePlayerSettings();
 
     const [ProjectHost, setProjectHost] = useState<string>('');
 
