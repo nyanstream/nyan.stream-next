@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
-import { useRouter } from 'next/router';
 
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 import {
@@ -13,14 +13,16 @@ import {
     ContentSecurityPolicy,
 } from '@/config';
 
-import type { MetaTagType, HeadLinkType } from '../ContainerTypes';
-import type { HeaderMenuItemType } from '../../Header/HeaderTypes';
+import { useTheme } from '@/hooks';
+
+import type { MetaTagType, HeadLinkType } from './ContainerTypes';
+import type { HeaderMenuItemType } from '@/components/Header/HeaderTypes';
 
 import { ImageFavicon, ImageShare, ImageLogoTableau } from '@/static/images';
 
-import Content from '../../Content/Content';
-import Slider from '../../Slider/Slider';
-import Header from '../../Header/Component/Header';
+import Content from '@/components/Content/Content';
+import Slider from '@/components/Slider/Slider';
+import Header from '@/components/Header/Component/Header';
 
 import styles from './Container.module.scss';
 
@@ -28,13 +30,15 @@ type PropsType = {
     pageName?: string;
     leftMenuContent?: HeaderMenuItemType[];
     rightMenuContent?: HeaderMenuItemType[];
-    customParentProps?: any;
+    customParentProps?: Record<string, any>;
 };
 
 const Container: React.FC<PropsType> = props => {
     const { pageName } = props;
     const { leftMenuContent, rightMenuContent } = props;
     const { children, customParentProps } = props;
+
+    const { Theme } = useTheme();
 
     const Router = useRouter();
 
@@ -150,7 +154,7 @@ const Container: React.FC<PropsType> = props => {
                 ))}
             </Head>
 
-            <div className={styles.container} {...customParentProps}>
+            <div className={styles.container} data-theme={Theme} {...customParentProps}>
                 <Slider {...{ IsSliderOpen }} />
 
                 <Content {...{ IsSliderOpen }} {...{ handleContentClick }}>
@@ -167,4 +171,4 @@ const Container: React.FC<PropsType> = props => {
     );
 };
 
-export default Container;
+export { Container };

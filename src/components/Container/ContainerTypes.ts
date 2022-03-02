@@ -8,5 +8,3 @@ export type HeadLinkType = {
     rel?: string;
     href: string;
 };
-
-export type ThemeType = 'sun' | 'moon';

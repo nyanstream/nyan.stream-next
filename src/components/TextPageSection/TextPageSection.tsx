@@ -1,3 +1,5 @@
+import { useTheme } from '@/hooks';
+
 import styles from './TextPageSection.module.scss';
 
 type PropsType = {
@@ -5,12 +7,14 @@ type PropsType = {
     id: string;
 };
 
-const TextPageContainer: React.FC<PropsType> = props => {
+const TextPageSection: React.FC<PropsType> = props => {
     const { title, id } = props;
     const { children } = props;
 
+    const { Theme } = useTheme();
+
     return (
-        <section className={styles.section} id={id}>
+        <section className={styles.section} id={id} data-theme={Theme}>
             <h2 className={styles.section__heading}>
                 <span>{title}</span>
 
@@ -23,4 +27,4 @@ const TextPageContainer: React.FC<PropsType> = props => {
     );
 };
 
-export default TextPageContainer;
+export { TextPageSection };

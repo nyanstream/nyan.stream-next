@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 
 import type { HeaderMenuItemType } from '@/components/Header/HeaderTypes';
 
-import Container from '@/components/Container/Component/Container';
+import { Container } from '@/components/Container';
 
 import { PlayerContainer } from '@/components/IndexPagePlayer';
 import { SidebarContainer } from '@/components/IndexPageSidebar';
@@ -69,7 +69,7 @@ const IndexPageContainer: React.FC = () => {
     }, []);
 
     return (
-        <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent} customParentProps={{ 'data-theme': Theme }}>
+        <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent}>
             <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
                 <PlayerContainer />
 

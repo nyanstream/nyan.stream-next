@@ -6,8 +6,11 @@
     --tabCellHeight: 25px;
 
     background-color: #fff;
+    color: var(--text-color);
 
     @include transition(0.5s);
+
+    @import '../../styles/inc/links-style';
 
     &__tabs {
         width: 100%;
@@ -21,41 +24,7 @@
         }
     }
 
-    a {
-        $textColor: #000;
-
-        padding: 0 0.5px;
-
-        color: $textColor;
-        text-decoration: none;
-
-        @include transition(0.3s);
-
-        &:not([data-style*='no-border']) {
-            border-bottom: 1px solid $textColor;
-        }
-
-        &:not([data-style*='no-default-hover']) {
-            &:hover {
-                background-color: rgba($textColor, 0.1);
-            }
-        }
-    }
-
     &[data-theme='moon'] {
         background-color: var(--prime-color-5d);
-
-        #{$s}__tabs {
-            color: #ddd;
-
-            a {
-                color: #ddd;
-                border-bottom: 1px solid #ddd;
-
-                &:hover {
-                    background-color: rgba(#ddd, 0.1);
-                }
-            }
-        }
     }
 }

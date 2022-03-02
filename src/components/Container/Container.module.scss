@@ -1,3 +1,5 @@
+@import '../../styles/inc/mixins';
+
 .container {
     --prime-color: #{$primeColor};
     --prime-color-5d: #{darken($primeColor, 5%)};
@@ -13,6 +15,9 @@
     --tab-hover-color: #{darken($primeColor, 8%)};
     --tab-focus-color: #{darken($primeColor, 6%)};
     --tab-active-color: #{darken($primeColor, 13%)};
+
+    --text-color: #000;
+    --link-hover-color: #{rgba(#000, 0.05)};
 
     width: 100%;
     height: 100%;
@@ -31,6 +36,9 @@
         --tab-hover-color: #{darken($primeColor, 8%)};
         --tab-focus-color: #{darken($primeColor, 6%)};
         --tab-active-color: #{darken($primeColor, 13%)};
+
+        --text-color: #bfbfbf;
+        --link-hover-color: #{rgba(#bfbfbf, 0.1)};
     }
 
     & > * {
