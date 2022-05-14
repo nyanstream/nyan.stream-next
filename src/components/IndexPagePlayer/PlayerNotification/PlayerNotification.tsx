@@ -1,18 +1,19 @@
 import { useState, useEffect, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 
-import { storageGet, storageSet } from '../../../utilities/storage';
+import type { ReactComponent } from '@/utilities/types';
+import { storageGet, storageSet } from '@/utilities/storage';
 
-import { getNotification } from '../../../api';
-import type { NotificationQueryResponseType } from '../../../api/types';
+import { getNotification } from '@/api';
+import type { NotificationQueryResponseType } from '@/api/types';
 
-import useAPI from '../../../hooks/useAPI';
+import useAPI from '@/hooks/useAPI';
 
-import { IconTimes } from '../../common';
+import { IconTimes } from '@/components/common';
 
 import styles from './PlayerNotification.module.scss';
 
-const PlayerNotification: React.FC = () => {
+const PlayerNotification: ReactComponent = () => {
     const [NotificationData, setNotificationData] = useState<NotificationQueryResponseType>({ enabled: false });
     const [IsResponseError, setIsResponseError] = useState(false);
 

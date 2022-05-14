@@ -1,9 +1,11 @@
+import type { ReactComponent } from '@/utilities/types';
+
 import { Link } from '@/components/common';
 
 import { TextPageContainer } from '@/components/TextPage';
 import { TextPageSection } from '@/components/TextPageSection';
 
-const AboutPage: React.FC = () => {
+const AboutPage: ReactComponent = () => {
     return (
         <TextPageContainer pageName="О проекте">
             <TextPageSection id="about" title="О проекте">

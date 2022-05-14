@@ -1,3 +1,5 @@
+import type { ReactComponent } from '@/utilities/types';
+
 import styles from './Content.module.scss';
 
 type PropsType = {
@@ -5,7 +7,7 @@ type PropsType = {
     handleContentClick: () => void;
 };
 
-const Content: React.FC<PropsType> = props => {
+const Content: ReactComponent<PropsType> = props => {
     const { IsSliderOpen } = props;
     const { handleContentClick } = props;
     const { children } = props;

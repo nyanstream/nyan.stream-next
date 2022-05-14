@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
+import type { ReactComponent } from '@/utilities/types';
+
 import SliderHeader from './SliderHeader';
 
 import styles from './Slider.module.scss';
@@ -10,7 +12,7 @@ type PropsType = {
     IsSliderOpen: boolean;
 };
 
-const Slider: React.FC<PropsType> = props => {
+const Slider: ReactComponent<PropsType> = props => {
     const { IsSliderOpen } = props;
 
     const Router = useRouter();

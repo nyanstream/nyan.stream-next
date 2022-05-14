@@ -7,7 +7,13 @@ const withPlugins = require('next-compose-plugins');
 /**
  * @type {import('next').NextConfig}
  **/
+
 const NextConfig = {
+    experimental: {
+        images: {
+            layoutRaw: true,
+        },
+    },
     sassOptions: {
         // TODO: primeColor из конфига
         additionalData: `

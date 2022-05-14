@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
+import type { ReactComponent } from '@/utilities/types';
+
 import { storageGet, storageSet } from '@/utilities/storage';
 
 import type { ThemeType } from './types';
@@ -7,7 +9,7 @@ import { ThemeContextContext } from './ThemeContext';
 
 const StorageItemName = 'nyan_theme';
 
-export const ThemeContextContextProvider: React.FC = ({ children }) => {
+export const ThemeContextContextProvider: ReactComponent = ({ children }) => {
     const [Theme, setTheme] = useState<ThemeType>('sun');
 
     useEffect(() => {

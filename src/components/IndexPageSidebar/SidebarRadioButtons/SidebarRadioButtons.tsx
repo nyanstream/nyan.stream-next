@@ -1,3 +1,5 @@
+import type { ReactComponent } from '@/utilities/types';
+
 import { SidebarTabType, SidebarTabItemDataType } from '../SidebarTypes';
 
 import styles from './SidebarRadioButtons.module.scss';
@@ -7,7 +9,7 @@ type PropsType = {
     handleSidebarRadioButtonClick: (tabName: SidebarTabType) => void;
 };
 
-const SidebarRadioButtons: React.FC<PropsType> = props => {
+const SidebarRadioButtons: ReactComponent<PropsType> = props => {
     const { CurrentSidebarTab } = props;
     const { handleSidebarRadioButtonClick } = props;
 

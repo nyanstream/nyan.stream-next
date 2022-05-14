@@ -1,25 +1,31 @@
 import { useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
+import { usePlayerSettings } from '@/hooks';
+
+import type { ReactComponent } from '@/utilities/types';
 import { ImageLogo } from '@/static/images';
 
 import styles from './Header.module.scss';
 
-const HeaderBrandMain: React.FC = () => {
+const IMAGE_SIZE = 35;
+
+const HeaderBrandMain: ReactComponent = () => {
     const Router = useRouter();
+
+    const { PlayerNodeRef } = usePlayerSettings();
 
     // перезагрузка плеера по двойному клику на логотип
     const doubleClickOnBrandHandler = useCallback(() => {
-        const PlayerNode = document.querySelector('[data-player]');
-
-        if (PlayerNode) {
-            const PlayerFrame = PlayerNode.querySelector('iframe');
+        if (PlayerNodeRef.current) {
+            const PlayerFrame = PlayerNodeRef.current.querySelector('iframe');
 
             if (PlayerFrame) {
                 PlayerFrame.src = PlayerFrame.src;
             }
         }
-    }, []);
+    }, [PlayerNodeRef]);
 
     const PageTitle = useMemo(() => {
         if (Router.route === '/') {
@@ -32,7 +38,14 @@ const HeaderBrandMain: React.FC = () => {
     return (
         <div className={styles.header__brand__item}>
             <div className={styles.header__brand__logo}>
-                <img src={ImageLogo.src} alt="Логотип" data-lang-image="logo" onDoubleClick={doubleClickOnBrandHandler} />
+                <Image
+                    src={ImageLogo.src}
+                    alt="Логотип"
+                    layout="raw"
+                    width={IMAGE_SIZE}
+                    height={IMAGE_SIZE}
+                    onDoubleClick={doubleClickOnBrandHandler}
+                />
             </div>
             <h1 className={`${styles.header__brand__text} ${styles.header__brand__text_title}`}>{PageTitle}</h1>
         </div>

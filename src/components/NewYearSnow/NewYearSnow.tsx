@@ -1,12 +1,14 @@
 import { Fragment } from 'react';
 
+import type { ReactComponent } from '@/utilities/types';
+
 import styles from './NewYearSnow.module.scss';
 
 type PropsType = {
     enabled: boolean;
 };
 
-const NewYearSnow: React.FC<PropsType> = ({ enabled }) => {
+const NewYearSnow: ReactComponent<PropsType> = ({ enabled }) => {
     return (
         <div className={styles.snow__container} hidden={!enabled}>
             {[styles.snow_near, styles.snow_mid, styles.snow_far].map(className => (

@@ -1,5 +1,7 @@
 import { useState, useCallback } from 'react';
 
+import type { ReactComponent } from '@/utilities/types';
+
 import type { HeaderMenuItemType } from '@/components/Header/HeaderTypes';
 
 import { Container } from '@/components/Container';
@@ -17,7 +19,7 @@ import { IconChevronLeft, IconChevronRight } from '@/components/common';
 
 import styles from './IndexPage.module.scss';
 
-const IndexPageContainer: React.FC = () => {
+const IndexPageContainer: ReactComponent = () => {
     const [IsSettingsOpen, setIsSettingsOpen] = useState(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState(false);
 

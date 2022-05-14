@@ -1,9 +1,11 @@
+import type { ReactComponent } from '@/utilities/types';
+
 type PropsType = {
     href: string;
     className?: string;
 };
 
-export const Link: React.FC<PropsType> = props => {
+export const Link: ReactComponent<PropsType> = props => {
     const { href, className } = props;
     const { children } = props;
 

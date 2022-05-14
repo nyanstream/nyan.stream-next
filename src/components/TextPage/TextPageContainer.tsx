@@ -1,5 +1,7 @@
 import { useTheme } from '@/hooks';
 
+import type { ReactComponent } from '@/utilities/types';
+
 import { Container } from '@/components/Container';
 
 import styles from './TextPage.module.scss';
@@ -8,10 +10,7 @@ type PropsType = {
     pageName: string;
 };
 
-const TextPageContainer: React.FC<PropsType> = props => {
-    const { pageName } = props;
-    const { children } = props;
-
+const TextPageContainer: ReactComponent<PropsType> = ({ children, pageName }) => {
     const { Theme } = useTheme();
 
     return (

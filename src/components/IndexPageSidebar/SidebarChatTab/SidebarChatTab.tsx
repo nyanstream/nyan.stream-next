@@ -1,3 +1,5 @@
+import type { ReactComponent } from '@/utilities/types';
+
 import styles from './SidebarChatTab.module.scss';
 
 type PropsType = {
@@ -5,7 +7,7 @@ type PropsType = {
     isVisible: boolean;
 };
 
-const SidebarChatTab: React.FC<PropsType> = ({ className, isVisible }) => {
+const SidebarChatTab: ReactComponent<PropsType> = ({ className, isVisible }) => {
     return (
         <section className={`${className} ${styles.chat}`} hidden={!isVisible}>
             <iframe src="https://thenyan.chatovod.ru" title="Чат" />

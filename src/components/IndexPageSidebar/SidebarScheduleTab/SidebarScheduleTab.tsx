@@ -1,12 +1,13 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import dayjs from 'dayjs';
 
-import useAPI from '../../../hooks/useAPI';
+import useAPI from '@/hooks/useAPI';
 
-import { getDateFormated } from '../../../utilities/dates';
+import type { ReactComponent } from '@/utilities/types';
+import { getDateFormated } from '@/utilities/dates';
 
-import { getSchedule } from '../../../api';
-import type { ScheduleQueryResponseType } from '../../../api/types';
+import { getSchedule } from '@/api';
+import type { ScheduleQueryResponseType } from '@/api/types';
 
 import ScheduleItem from './ScheduleItem/ScheduleItem';
 
@@ -17,7 +18,7 @@ type PropsType = {
     isVisible: boolean;
 };
 
-const SidebarScheduleTab: React.FC<PropsType> = props => {
+const SidebarScheduleTab: ReactComponent<PropsType> = props => {
     const { className, isVisible } = props;
 
     const [ScheduleData, setScheduleData] = useState<ScheduleQueryResponseType | null>(null);

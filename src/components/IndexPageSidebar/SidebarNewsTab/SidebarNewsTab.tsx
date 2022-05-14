@@ -1,13 +1,14 @@
 import { useState } from 'react';
 
-import { getNews } from '../../../api';
-import type { NewsQueryResponseType } from '../../../api/types';
+import { getNews } from '@/api';
+import type { NewsQueryResponseType } from '@/api/types';
 
-import useAPI from '../../../hooks/useAPI';
+import useAPI from '@/hooks/useAPI';
 
-import { getDateFormated } from '../../../utilities/dates';
+import type { ReactComponent } from '@/utilities/types';
+import { getDateFormated } from '@/utilities/dates';
 
-import { Link } from '../../common';
+import { Link } from '@/components/common';
 
 import styles from './SidebarNewsTab.module.scss';
 
@@ -16,7 +17,7 @@ type PropsType = {
     isVisible: boolean;
 };
 
-const SidebarNewsTab: React.FC<PropsType> = ({ className, isVisible }) => {
+const SidebarNewsTab: ReactComponent<PropsType> = ({ className, isVisible }) => {
     const [NewsData, setNewsData] = useState<Partial<NewsQueryResponseType>>({});
     const [IsResponseError, setIsResponseError] = useState(false);
 

@@ -1,5 +1,7 @@
 import { useState, useCallback } from 'react';
 
+import type { ReactComponent } from '@/utilities/types';
+
 import type { SidebarTabType } from './SidebarTypes';
 
 import { useTheme } from '@/hooks';
@@ -15,7 +17,7 @@ type PropsType = {
     IsSidebarHidden: boolean;
 };
 
-const SidebarContainer: React.FC<PropsType> = props => {
+const SidebarContainer: ReactComponent<PropsType> = props => {
     const { IsSidebarHidden } = props;
 
     const { Theme } = useTheme();

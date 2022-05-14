@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import type { ReactComponent } from '@/utilities/types';
+
 import type { HeaderMenuItemType } from '../HeaderTypes';
 
 import { IconHamburger } from '../../common';
@@ -17,7 +19,7 @@ type PropsType = {
     handleSliderTriggerButtonClick: () => void;
 };
 
-const Header: React.FC<PropsType> = props => {
+const Header: ReactComponent<PropsType> = props => {
     const { pageName, IsSliderOpen } = props;
     const { leftMenuContent = [], rightMenuContent = [] } = props;
     const { handleSliderTriggerButtonClick } = props;

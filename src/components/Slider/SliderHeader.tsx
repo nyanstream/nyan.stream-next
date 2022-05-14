@@ -1,3 +1,5 @@
+import type { ReactComponent } from '@/utilities/types';
+
 import { HeaderMenuItemType } from '../Header/HeaderTypes';
 
 import HeaderMenuItem from '../Header/Component/HeaderMenuItem';
@@ -7,7 +9,7 @@ import { IconVK, IconTelegram, IconGithub } from '../common';
 import styles from './Slider.module.scss';
 import headerStyles from '../Header/Component/Header.module.scss';
 
-const SliderHeader: React.FC = () => {
+const SliderHeader: ReactComponent = () => {
     const SliderHeaderMenuItems: HeaderMenuItemType[] = [
         {
             id: 'link_github',

@@ -1,5 +1,7 @@
 import { useTheme } from '@/hooks';
 
+import type { ReactComponent } from '@/utilities/types';
+
 import styles from './TextPageSection.module.scss';
 
 type PropsType = {
@@ -7,10 +9,7 @@ type PropsType = {
     id: string;
 };
 
-const TextPageSection: React.FC<PropsType> = props => {
-    const { title, id } = props;
-    const { children } = props;
-
+const TextPageSection: ReactComponent<PropsType> = ({ children, title, id }) => {
     const { Theme } = useTheme();
 
     return (

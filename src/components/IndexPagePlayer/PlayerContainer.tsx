@@ -1,22 +1,24 @@
 import { useMemo, useState, useEffect } from 'react';
 
+import type { ReactComponent } from '@/utilities/types';
+
 import { usePlayerSettings } from '@/hooks';
 
 import PlayerNotification from './PlayerNotification/PlayerNotification';
 
 import styles from './Player.module.scss';
 
-const PlayerContainer: React.FC = () => {
-    const { SelectedPlayer } = usePlayerSettings();
+const PlayerContainer: ReactComponent = () => {
+    const { SelectedPlayer, PlayerNodeRef } = usePlayerSettings();
 
-    const [ProjectHost, setProjectHost] = useState<string>('');
+    const [ProjectHost, setProjectHost] = useState<string>();
 
     useEffect(() => {
         setProjectHost(window.location.hostname);
     }, []);
 
     const PlayerURL = useMemo<string>(() => {
-        if (ProjectHost === '') {
+        if (!ProjectHost) {
             return '';
         }
 
@@ -35,7 +37,7 @@ const PlayerContainer: React.FC = () => {
     }, [ProjectHost, SelectedPlayer]);
 
     return (
-        <div className={styles.player} data-player>
+        <div ref={PlayerNodeRef} className={styles.player}>
             <div className={styles.player__embed}>
                 <iframe src={PlayerURL} title="Player" allowFullScreen />
             </div>

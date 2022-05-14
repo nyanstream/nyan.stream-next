@@ -16,6 +16,7 @@ import {
 import { useTheme } from '@/hooks';
 
 import type { MetaTagType, HeadLinkType } from './ContainerTypes';
+import type { ReactComponent } from '@/utilities/types';
 import type { HeaderMenuItemType } from '@/components/Header/HeaderTypes';
 
 import { ImageFavicon, ImageShare, ImageLogoTableau } from '@/static/images';
@@ -33,7 +34,7 @@ type PropsType = {
     customParentProps?: Record<string, any>;
 };
 
-const Container: React.FC<PropsType> = props => {
+const Container: ReactComponent<PropsType> = props => {
     const { pageName } = props;
     const { leftMenuContent, rightMenuContent } = props;
     const { children, customParentProps } = props;

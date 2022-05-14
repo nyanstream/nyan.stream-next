@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
+import type { ReactComponent } from '@/utilities/types';
+
 import styles from './WarningMessage.module.scss';
 
-const WarningMessageWrapper: React.FC = ({ children }) => {
+const WarningMessageWrapper: ReactComponent = ({ children }) => {
     const [IsWarningMessageVisible, setIsWarningMessageVisible] = useState(true);
 
     return IsWarningMessageVisible ? (
