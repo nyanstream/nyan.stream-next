@@ -11,7 +11,7 @@ const withPlugins = require('next-compose-plugins');
 const NextConfig = {
     experimental: {
         images: {
-            layoutRaw: true,
+            unoptimized: true,
         },
     },
     sassOptions: {

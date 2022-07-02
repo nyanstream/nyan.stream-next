@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Image from 'next/image';
 
 import { getNews } from '@/api';
 import type { NewsQueryResponseType } from '@/api/types';
@@ -10,8 +9,6 @@ import type { ReactComponent } from '@/utilities/types';
 import { getDateFormated } from '@/utilities/dates';
 
 import { Link } from '@/components/common';
-
-import { weservImageLoader, getVkImageSizes } from './utils/images';
 
 import styles from './SidebarNewsTab.module.scss';
 
@@ -54,8 +51,6 @@ const SidebarNewsTab: ReactComponent<PropsType> = ({ className, isVisible }) => 
             {NewsData.com && NewsData.posts && NewsData.posts.length !== 0 ? (
                 <div className={styles.news__posts}>
                     {NewsData.posts.map(PostData => {
-                        const postImageSize = getVkImageSizes(PostData.pic?.big);
-
                         return (
                             <div key={PostData.id} className={styles.news__posts__post}>
                                 <div className={styles.news__posts__post__meta}>
@@ -71,18 +66,6 @@ const SidebarNewsTab: ReactComponent<PropsType> = ({ className, isVisible }) => 
                                 </div>
 
                                 <div className={styles.news__posts__post__body}>
-                                    {PostData.pic ? (
-                                        <Link href={PostData.pic.big} className={styles.news__posts__post__image}>
-                                            <Image
-                                                src={PostData.pic.big}
-                                                loader={weservImageLoader}
-                                                layout="intrinsic"
-                                                width={postImageSize[0]}
-                                                height={postImageSize[1]}
-                                                alt="post image"
-                                            />
-                                        </Link>
-                                    ) : null}
                                     <p>{PostData.text}</p>
                                 </div>
                             </div>
