@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import { usePlayerSettings } from '@/hooks';
@@ -12,8 +11,6 @@ import styles from './Header.module.scss';
 const IMAGE_SIZE = 35;
 
 const HeaderBrandMain: ReactComponent = () => {
-    const Router = useRouter();
-
     const { PlayerNodeRef } = usePlayerSettings();
 
     // перезагрузка плеера по двойному клику на логотип
@@ -28,12 +25,8 @@ const HeaderBrandMain: ReactComponent = () => {
     }, [PlayerNodeRef]);
 
     const PageTitle = useMemo(() => {
-        if (Router.route === '/') {
-            return '#нетВойне';
-        }
-
         return 'NYAN.STREAM';
-    }, [Router.route]);
+    }, []);
 
     return (
         <div className={styles.header__brand__item}>
