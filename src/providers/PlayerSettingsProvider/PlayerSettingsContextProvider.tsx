@@ -6,7 +6,7 @@ import type { PlayerType } from './types';
 import { PlayerSettingsContext } from './PlayerSettingsContext';
 
 export const PlayerSettingsContextProvider: ReactComponent = ({ children }) => {
-    const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('wasd');
+    const [SelectedPlayer, setSelectedPlayer] = useState<PlayerType>('twitch-backup');
 
     const PlayerNodeRef = useRef<HTMLDivElement>(null);
 
