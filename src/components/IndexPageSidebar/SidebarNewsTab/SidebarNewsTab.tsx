@@ -76,7 +76,7 @@ const SidebarNewsTab: ReactComponent<PropsType> = ({ className, isVisible }) => 
                                             <Image
                                                 src={PostData.pic.big}
                                                 loader={weservImageLoader}
-                                                layout="raw"
+                                                layout="intrinsic"
                                                 width={postImageSize[0]}
                                                 height={postImageSize[1]}
                                                 alt="post image"

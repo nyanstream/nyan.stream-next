@@ -34,7 +34,7 @@ const HeaderBrandMain: ReactComponent = () => {
                 <Image
                     src={ImageLogo.src}
                     alt="Логотип"
-                    layout="raw"
+                    layout="intrinsic"
                     width={IMAGE_SIZE}
                     height={IMAGE_SIZE}
                     onDoubleClick={doubleClickOnBrandHandler}
