@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
 import type { SidebarTabType } from './SidebarTypes';
 

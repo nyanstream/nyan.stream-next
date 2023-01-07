@@ -2,7 +2,7 @@ import { useMemo, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import dayjs from 'dayjs';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 import { getDateFormated } from '@/utilities/dates';
 
 import type { ScheduleItemType } from '@/api/types';

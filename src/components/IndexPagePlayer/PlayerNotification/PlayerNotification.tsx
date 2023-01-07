@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 import { storageGet, storageSet } from '@/utilities/storage';
 
 import { getNotification } from '@/api';

@@ -1,15 +1,14 @@
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
-import { HeaderMenuItemType } from '../Header/HeaderTypes';
+import { HeaderMenuItemType } from '@/components/Header/HeaderTypes';
+import { HeaderMenuItem } from '@/components/Header/components';
 
-import HeaderMenuItem from '../Header/Component/HeaderMenuItem';
-
-import { IconVK, IconTelegram, IconGithub } from '../common';
+import { IconVK, IconTelegram, IconGithub } from '@/components/common';
 
 import styles from './Slider.module.scss';
-import headerStyles from '../Header/Component/Header.module.scss';
+import headerStyles from '@/components/Header/Header.module.scss';
 
-const SliderHeader: ReactComponent = () => {
+export const SliderHeader: ReactComponent = () => {
     const SliderHeaderMenuItems: HeaderMenuItemType[] = [
         {
             id: 'link_github',
@@ -46,5 +45,3 @@ const SliderHeader: ReactComponent = () => {
         </div>
     );
 };
-
-export default SliderHeader;

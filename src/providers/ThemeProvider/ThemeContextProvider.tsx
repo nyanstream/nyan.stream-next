@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
 import { storageGet, storageSet } from '@/utilities/storage';
 

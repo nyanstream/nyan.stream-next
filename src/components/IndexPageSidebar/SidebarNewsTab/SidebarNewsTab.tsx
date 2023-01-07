@@ -5,7 +5,7 @@ import type { NewsQueryResponseType } from '@/api/types';
 
 import useAPI from '@/hooks/useAPI';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 import { getDateFormated } from '@/utilities/dates';
 
 import { Link } from '@/components/common';

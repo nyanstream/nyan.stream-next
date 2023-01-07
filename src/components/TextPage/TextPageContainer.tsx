@@ -1,6 +1,6 @@
 import { useTheme } from '@/hooks';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
 import { Container } from '@/components/Container';
 

@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
-import SliderHeader from './SliderHeader';
+import { SliderHeader } from './SliderHeader';
 
 import styles from './Slider.module.scss';
 
@@ -12,7 +12,7 @@ type PropsType = {
     IsSliderOpen: boolean;
 };
 
-const Slider: ReactComponent<PropsType> = props => {
+export const Slider: ReactComponent<PropsType> = props => {
     const { IsSliderOpen } = props;
 
     const Router = useRouter();
@@ -105,5 +105,3 @@ const Slider: ReactComponent<PropsType> = props => {
         </div>
     );
 };
-
-export default Slider;

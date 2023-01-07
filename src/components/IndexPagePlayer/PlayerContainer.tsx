@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
 import { usePlayerSettings } from '@/hooks';
 

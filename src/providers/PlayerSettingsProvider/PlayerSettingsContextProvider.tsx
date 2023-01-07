@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
 import type { PlayerType } from './types';
 import { PlayerSettingsContext } from './PlayerSettingsContext';

@@ -1,4 +1,4 @@
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
 type PropsType = {
     href: string;

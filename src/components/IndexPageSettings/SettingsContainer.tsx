@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
 import { usePlayerSettings } from '@/hooks';
 import type { PlayerType } from '@/providers/PlayerSettingsProvider/types';

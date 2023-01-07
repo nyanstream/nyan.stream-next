@@ -20,14 +20,14 @@ import {
 import { useTheme } from '@/hooks';
 
 import type { MetaTagType, HeadLinkType } from './ContainerTypes';
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 import type { HeaderMenuItemType } from '@/components/Header/HeaderTypes';
 
 import { ImageFavicon, ImageShare, ImageLogoTableau } from '@/static/images';
 
 import Content from '@/components/Content/Content';
-import Slider from '@/components/Slider/Slider';
-import Header from '@/components/Header/Component/Header';
+import { Slider } from '@/components/Slider';
+import { Header } from '@/components/Header';
 
 import styles from './Container.module.scss';
 

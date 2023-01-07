@@ -1,4 +1,4 @@
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
 import { Link } from '@/components/common';
 

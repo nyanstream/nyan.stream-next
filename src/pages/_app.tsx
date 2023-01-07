@@ -7,7 +7,7 @@ import dayjsPluginRelativeTime from 'dayjs/plugin/relativeTime';
 import dayjsPluginDuration from 'dayjs/plugin/duration';
 import dayjsLocaleRu from 'dayjs/locale/ru';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
 import { ThemeContextContextProvider } from '@/providers';
 

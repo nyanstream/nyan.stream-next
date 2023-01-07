@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 import useAPI from '@/hooks/useAPI';
 
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 import { getDateFormated } from '@/utilities/dates';
 
 import { getSchedule } from '@/api';

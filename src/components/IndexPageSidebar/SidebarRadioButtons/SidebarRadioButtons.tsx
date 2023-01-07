@@ -1,4 +1,4 @@
-import type { ReactComponent } from '@/utilities/types';
+import type { ReactComponent } from '@/types';
 
 import { SidebarTabType, SidebarTabItemDataType } from '../SidebarTypes';
 
