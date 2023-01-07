@@ -11,6 +11,7 @@ const useAPI = (queryFunction: () => void, timeInterval: number) =>
         return () => {
             clearInterval(Timer);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 export default useAPI;

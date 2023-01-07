@@ -1,5 +1,9 @@
 import { useState, useMemo, useCallback } from 'react';
 
+import clsx from 'clsx';
+
+import { Roboto } from '@next/font/google';
+
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
@@ -26,6 +30,8 @@ import Slider from '@/components/Slider/Slider';
 import Header from '@/components/Header/Component/Header';
 
 import styles from './Container.module.scss';
+
+const robotoFont = Roboto({ weight: ['400', '500'], variable: '--roboto-font' });
 
 type PropsType = {
     pageName?: string;
@@ -155,7 +161,7 @@ const Container: ReactComponent<PropsType> = props => {
                 ))}
             </Head>
 
-            <div className={styles.container} data-theme={Theme} {...customParentProps}>
+            <div className={clsx(styles.container, robotoFont.variable)} data-theme={Theme} {...customParentProps}>
                 <Slider {...{ IsSliderOpen }} />
 
                 <Content {...{ IsSliderOpen }} {...{ handleContentClick }}>

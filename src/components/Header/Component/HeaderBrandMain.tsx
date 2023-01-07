@@ -1,6 +1,10 @@
 import { useCallback, useMemo } from 'react';
 import Image from 'next/image';
 
+import clsx from 'clsx';
+
+import { Montserrat } from '@next/font/google';
+
 import { usePlayerSettings } from '@/hooks';
 
 import type { ReactComponent } from '@/utilities/types';
@@ -9,6 +13,8 @@ import { ImageLogo } from '@/static/images';
 import styles from './Header.module.scss';
 
 const IMAGE_SIZE = 35;
+
+const montserratFont = Montserrat({ weight: '700', variable: '--montserrat-font' });
 
 const HeaderBrandMain: ReactComponent = () => {
     const { PlayerNodeRef } = usePlayerSettings();
@@ -29,16 +35,9 @@ const HeaderBrandMain: ReactComponent = () => {
     }, []);
 
     return (
-        <div className={styles.header__brand__item}>
+        <div className={clsx(styles.header__brand__item, montserratFont.variable)}>
             <div className={styles.header__brand__logo}>
-                <Image
-                    src={ImageLogo.src}
-                    alt="Логотип"
-                    layout="intrinsic"
-                    width={IMAGE_SIZE}
-                    height={IMAGE_SIZE}
-                    onDoubleClick={doubleClickOnBrandHandler}
-                />
+                <Image src={ImageLogo.src} alt="Логотип" width={IMAGE_SIZE} height={IMAGE_SIZE} onDoubleClick={doubleClickOnBrandHandler} />
             </div>
             <h1 className={`${styles.header__brand__text} ${styles.header__brand__text_title}`}>{PageTitle}</h1>
         </div>

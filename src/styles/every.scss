@@ -11,10 +11,6 @@ body,
     @extend %full-width-tmpl;
 }
 
-body {
-    font-family: Roboto, Arial, sans-serif;
-}
-
 #__next {
     isolation: isolate;
 }

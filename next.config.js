@@ -2,17 +2,13 @@
 
 const package = require('./package.json');
 
-const withPlugins = require('next-compose-plugins');
-
 /**
  * @type {import('next').NextConfig}
  **/
 
 const NextConfig = {
     experimental: {
-        images: {
-            unoptimized: true,
-        },
+        fontLoaders: [{ loader: '@next/font/google', options: { subsets: ['latin', 'cyrillic'] } }],
     },
     sassOptions: {
         // TODO: primeColor из конфига
@@ -23,4 +19,4 @@ const NextConfig = {
     },
 };
 
-module.exports = withPlugins([], NextConfig);
+module.exports = NextConfig;
