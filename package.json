@@ -4,7 +4,7 @@
     "private": true,
     "version": "3.1.0",
     "author": "Dmitry <dmitry@cojam.ru> (https://e965.ru)",
-    "repository": "github:nyanstream/nyan.stream",
+    "repository": "github:nyanstream/nyan.stream-next",
     "license": "MIT",
     "scripts": {
         "start": "next",
