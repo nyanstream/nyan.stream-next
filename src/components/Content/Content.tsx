@@ -7,7 +7,7 @@ type PropsType = {
     handleContentClick: () => void;
 };
 
-const Content: ReactComponent<PropsType> = props => {
+export const Content: ReactComponent<PropsType> = props => {
     const { IsSliderOpen } = props;
     const { handleContentClick } = props;
     const { children } = props;
@@ -18,5 +18,3 @@ const Content: ReactComponent<PropsType> = props => {
         </div>
     );
 };
-
-export default Content;

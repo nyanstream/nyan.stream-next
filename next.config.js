@@ -10,6 +10,9 @@ const NextConfig = {
     experimental: {
         fontLoaders: [{ loader: '@next/font/google', options: { subsets: ['latin', 'cyrillic'] } }],
     },
+    images: {
+        unoptimized: true,
+    },
     sassOptions: {
         // TODO: primeColor из конфига
         additionalData: `

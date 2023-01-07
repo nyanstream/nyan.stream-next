@@ -4,7 +4,7 @@ import type { ReactComponent } from '@/types';
 
 import styles from './WarningMessage.module.scss';
 
-const WarningMessageWrapper: ReactComponent = ({ children }) => {
+export const WarningMessageWrapper: ReactComponent = ({ children }) => {
     const [IsWarningMessageVisible, setIsWarningMessageVisible] = useState(true);
 
     return IsWarningMessageVisible ? (
@@ -25,5 +25,3 @@ const WarningMessageWrapper: ReactComponent = ({ children }) => {
         <>{children}</>
     );
 };
-
-export default WarningMessageWrapper;
