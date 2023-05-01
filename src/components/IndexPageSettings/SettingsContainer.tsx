@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React from 'react';
 
 import type { ReactComponent } from '@/types';
 
@@ -13,34 +13,12 @@ type PropsType = {
     handleCloseSettingsTriggerClick: () => void;
 };
 
-const SettingsContainer: ReactComponent<PropsType> = props => {
+export const SettingsContainer: ReactComponent<PropsType> = props => {
     const { SelectedPlayer, setSelectedPlayer } = usePlayerSettings();
 
     const { handleCloseSettingsTriggerClick } = props;
 
-    const Players: SelectOptionType<PlayerType>[] = [
-        {
-            value: 'wasd',
-            text: 'WASD.TV',
-        },
-        {
-            value: 'twitch-main',
-            text: 'Twitch',
-        },
-        {
-            value: 'twitch-backup',
-            text: 'Twitch (запасной)',
-        },
-    ];
-
-    const Locales: SelectOptionType<string>[] = [
-        {
-            value: 'ru',
-            text: '🇷🇺 Русская',
-        },
-    ];
-
-    const handleFormSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
     }, []);
 
@@ -100,4 +78,36 @@ const SettingsContainer: ReactComponent<PropsType> = props => {
     );
 };
 
-export { SettingsContainer };
+const Players: SelectOptionType<PlayerType>[] = [
+    {
+        value: 'wasd',
+        text: 'WASD.TV',
+    },
+    {
+        value: 'twitch-main',
+        text: 'Twitch',
+    },
+    {
+        value: 'twitch-backup',
+        text: 'Twitch (запасной)',
+    },
+    {
+        value: 'twitch-monarhiq',
+        text: 'Twitch (MonarhiQ)',
+    },
+    {
+        value: 'twitch-hrk',
+        text: 'Twitch (hrk40689)',
+    },
+    {
+        value: 'twitch-rulait',
+        text: 'Twitch (ruLait)',
+    },
+];
+
+const Locales: SelectOptionType<string>[] = [
+    {
+        value: 'ru',
+        text: '🇷🇺 Русская',
+    },
+];

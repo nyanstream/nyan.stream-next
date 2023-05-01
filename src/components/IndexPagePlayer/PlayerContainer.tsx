@@ -33,6 +33,15 @@ const PlayerContainer: ReactComponent = () => {
 
             case 'twitch-backup':
                 return getTwitchPlayerURL('zdesneanime');
+
+            case 'twitch-monarhiq':
+                return getTwitchPlayerURL('monarhiq');
+
+            case 'twitch-hrk':
+                return getTwitchPlayerURL('hrk40689');
+
+            case 'twitch-rulait':
+                return getTwitchPlayerURL('rulait');
         }
     }, [ProjectHost, SelectedPlayer]);
 
