@@ -7,9 +7,6 @@ const package = require('./package.json');
  **/
 
 const NextConfig = {
-    experimental: {
-        fontLoaders: [{ loader: '@next/font/google', options: { subsets: ['latin', 'cyrillic'] } }],
-    },
     images: {
         unoptimized: true,
     },

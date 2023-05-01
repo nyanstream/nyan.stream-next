@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from 'react';
 
 import clsx from 'clsx';
 
-import { Roboto } from '@next/font/google';
+import { Roboto } from 'next/font/google';
 
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -31,7 +31,7 @@ import { Header } from '@/components/Header';
 import type { MetaTag, HeadLink } from './ContainerTypes';
 import styles from './Container.module.scss';
 
-const robotoFont = Roboto({ weight: ['400', '500'], variable: '--roboto-font' });
+const robotoFont = Roboto({ weight: ['400', '500'], variable: '--roboto-font', subsets: ['latin', 'cyrillic'] });
 
 type PropsType = {
     pageName?: string;

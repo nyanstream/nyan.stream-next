@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import clsx from 'clsx';
 
-import { Montserrat } from '@next/font/google';
+import { Montserrat } from 'next/font/google';
 
 import { usePlayerSettings } from '@/hooks';
 
@@ -14,7 +14,7 @@ import styles from './HeaderBrand.module.scss';
 
 const IMAGE_SIZE = 35;
 
-const montserratFont = Montserrat({ weight: '700', variable: '--montserrat-font' });
+const montserratFont = Montserrat({ weight: '700', variable: '--montserrat-font', subsets: ['latin', 'cyrillic'] });
 
 export const HeaderBrandMain: ReactComponent = () => {
     const { PlayerNodeRef } = usePlayerSettings();
