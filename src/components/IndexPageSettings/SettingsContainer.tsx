@@ -84,7 +84,7 @@ const Players: SelectOptionType<PlayerType>[] = [
         text: 'WASD.TV',
     },
     {
-        value: 'twitch-main',
+        value: 'twitch',
         text: 'Twitch',
     },
     {

@@ -28,7 +28,7 @@ const PlayerContainer: ReactComponent = () => {
             case 'wasd':
                 return 'https://wasd.tv/embed/thenyan';
 
-            case 'twitch-main':
+            case 'twitch':
                 return getTwitchPlayerURL('nyan_stream');
 
             case 'twitch-backup':
