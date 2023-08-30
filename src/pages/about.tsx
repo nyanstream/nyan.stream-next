@@ -25,7 +25,7 @@ const AboutPage: ReactComponent = () => {
 
             <TextPageSection id="contact" title="Связь">
                 <p>
-                    Связаться с нами можно посредством почты <Link href="mailto:nyan@cojam.ru">nyan@cojam.ru</Link> или с помощью{' '}
+                    Связаться с нами можно посредством почты <Link href={`mailto:${email}`}>{email}</Link> или с помощью{' '}
                     <Link href="https://vk.me/thenyan">личных сообщений</Link> нашего сообщества ВК.
                 </p>
             </TextPageSection>
@@ -52,8 +52,7 @@ const AboutPage: ReactComponent = () => {
                 <p>
                     Если вы обнаружили на нашем сайте материал, который нарушает ваши авторские права, или же дискредитирует вашу компанию,
                     предоставляя неверную информацию, пожалуйста свяжитесь с нами для решения этого вопроса. Для этого необходимо отправить e-mail на
-                    нашу почту <Link href="mailto:nyan@cojam.ru">nyan@cojam.ru</Link> с вашего корпоративного почтового ящика со следующим
-                    содержанием:
+                    нашу почту <Link href={`mailto:${email}`}>{email}</Link> с вашего корпоративного почтового ящика со следующим содержанием:
                 </p>
                 <ul>
                     <li>контактные данные и реквизиты вашей компании</li>
@@ -73,5 +72,7 @@ const AboutPage: ReactComponent = () => {
         </TextPageContainer>
     );
 };
+
+const email = 'nyanstream@e965.ru';
 
 export default AboutPage;
