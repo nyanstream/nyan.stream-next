@@ -34,6 +34,5 @@ yarn-error.log*
 .vercel
 
 # public
-/public
-!/public/manifest.json
-!/public/static
+/public/robots.txt
+/public/*.xml

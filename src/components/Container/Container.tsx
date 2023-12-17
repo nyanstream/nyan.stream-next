@@ -97,6 +97,8 @@ export const Container: ReactComponent<PropsType> = props => {
                     }}
                 />
 
+                <link rel="manifest" href="/manifest.json" />
+
                 <meta httpEquiv="Content-Security-Policy" content={ContentSecurityPolicy} />
 
                 {headerLinks.map(LinkInfo => (
