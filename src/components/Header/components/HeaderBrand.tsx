@@ -16,9 +16,7 @@ export const HeaderBrand: ReactComponent<PropsType> = ({ pageName }) => {
             <div>
                 {pageName ? (
                     <Link href="/" passHref>
-                        <a>
-                            <HeaderBrandMain />
-                        </a>
+                        <HeaderBrandMain />
                     </Link>
                 ) : (
                     <HeaderBrandMain />
