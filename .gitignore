@@ -33,6 +33,7 @@ yarn-error.log*
 # vercel
 .vercel
 
-# next-sitemap
+# public
 /public
+!/public/manifest.json
 !/public/static
