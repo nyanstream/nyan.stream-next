@@ -11,6 +11,7 @@ import type { ReactComponent } from '@/types';
 
 import { ThemeContextContextProvider } from '@/providers';
 
+import '@/styles/root.scss';
 import '@/styles/every.scss';
 
 dayjs.extend(dayjsPluginRelativeTime);

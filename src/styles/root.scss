@@ -1,0 +1,12 @@
+@import './inc/mixins';
+
+:root {
+    --prime-color: #{$primeColor};
+    --prime-color-5d: #{darken($primeColor, 5%)};
+    --prime-color-10d: #{darken($primeColor, 10%)};
+
+    --text-color: #000;
+    --link-hover-color: #{rgba(#000, 0.05)};
+
+    --font-size: 14px;
+}
