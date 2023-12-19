@@ -1,4 +1,5 @@
 import type { ReactComponent } from '@/types';
+import clsx from 'clsx';
 
 import styles from './SidebarChatTab.module.scss';
 
@@ -7,12 +8,10 @@ type PropsType = {
     isVisible: boolean;
 };
 
-const SidebarChatTab: ReactComponent<PropsType> = ({ className, isVisible }) => {
+export const SidebarChatTab: ReactComponent<PropsType> = ({ className, isVisible }) => {
     return (
-        <section className={`${className} ${styles.chat}`} hidden={!isVisible}>
+        <section className={clsx(className, styles.chat)} hidden={!isVisible}>
             <iframe src="https://thenyan.chatovod.ru" title="Чат" />
         </section>
     );
 };
-
-export default SidebarChatTab;

@@ -1,37 +1,31 @@
 import type { ReactComponent } from '@/types';
 
-import { SidebarTabType, SidebarTabItemDataType } from '../SidebarTypes';
+import { SidebarTabKey, SidebarTabItem } from '../SidebarTypes';
 
 import styles from './SidebarRadioButtons.module.scss';
 
 type PropsType = {
-    CurrentSidebarTab: SidebarTabType;
-    handleSidebarRadioButtonClick: (tabName: SidebarTabType) => void;
+    CurrentSidebarTab: SidebarTabKey;
+    handleSidebarRadioButtonClick: (tabKey: SidebarTabKey) => void;
 };
 
-const SidebarRadioButtons: ReactComponent<PropsType> = props => {
+export const SidebarRadioButtons: ReactComponent<PropsType> = props => {
     const { CurrentSidebarTab } = props;
     const { handleSidebarRadioButtonClick } = props;
 
-    const Tabs: SidebarTabItemDataType[] = [
-        { key: 'chat', title: 'Чат' },
-        { key: 'schedule', title: 'Расписание' },
-        { key: 'news', title: 'Новости' },
-    ];
-
     return (
         <ul className={styles.sidebar__radio}>
-            {Tabs.map(TabData => {
-                const IsTabActive = TabData.key === CurrentSidebarTab;
+            {tabs.map(tab => {
+                const IsTabActive = tab.key === CurrentSidebarTab;
 
                 return (
-                    <li key={TabData.key}>
+                    <li key={tab.key}>
                         <button
                             role="radio"
                             aria-checked={IsTabActive ? 'true' : 'false'}
                             data-active={IsTabActive ? '' : null}
-                            onClick={() => handleSidebarRadioButtonClick(TabData.key)}>
-                            {TabData.title}
+                            onClick={() => handleSidebarRadioButtonClick(tab.key)}>
+                            {tab.title}
                         </button>
                     </li>
                 );
@@ -40,4 +34,8 @@ const SidebarRadioButtons: ReactComponent<PropsType> = props => {
     );
 };
 
-export default SidebarRadioButtons;
+const tabs: SidebarTabItem[] = [
+    { key: 'chat', title: 'Чат' },
+    { key: 'schedule', title: 'Расписание' },
+    { key: 'news', title: 'Новости' },
+];

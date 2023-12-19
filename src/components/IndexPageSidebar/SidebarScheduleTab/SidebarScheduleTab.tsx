@@ -1,5 +1,6 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import dayjs from 'dayjs';
+import clsx from 'clsx';
 
 import useAPI from '@/hooks/useAPI';
 
@@ -18,7 +19,7 @@ type PropsType = {
     isVisible: boolean;
 };
 
-const SidebarScheduleTab: ReactComponent<PropsType> = props => {
+export const SidebarScheduleTab: ReactComponent<PropsType> = props => {
     const { className, isVisible } = props;
 
     const [ScheduleData, setScheduleData] = useState<ScheduleQueryResponseType | null>(null);
@@ -53,13 +54,8 @@ const SidebarScheduleTab: ReactComponent<PropsType> = props => {
         return OnlyNeededAirsData.filter(AirData => AirData.s > dayjs().unix());
     }, [OnlyNeededAirsData]);
 
-    const formatResponseTime = useCallback(
-        (date: Date) => getDateFormated({ date, extraConfig: { year: undefined, hour: 'numeric', minute: 'numeric', second: 'numeric' } }),
-        []
-    );
-
     return (
-        <section className={`${className} ${styles.schedule}`} hidden={!isVisible}>
+        <section className={clsx(className, styles.schedule)} hidden={!isVisible}>
             <div className={styles.schedule__status}>Последняя проверка: {ResponseTime ? formatResponseTime(ResponseTime) : null}</div>
 
             {ScheduleData && OnlyNeededAirsData.length === 0 ? <div className={styles.schedule__empty}>Расписание пустое ¯\_(ツ)_/¯</div> : null}
@@ -73,4 +69,6 @@ const SidebarScheduleTab: ReactComponent<PropsType> = props => {
     );
 };
 
-export default SidebarScheduleTab;
+const formatResponseTime = (date: Date) => {
+    return getDateFormated({ date, extraConfig: { year: undefined, hour: 'numeric', minute: 'numeric', second: 'numeric' } });
+};

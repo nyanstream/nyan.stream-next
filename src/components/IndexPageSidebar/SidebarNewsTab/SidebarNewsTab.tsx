@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import clsx from 'clsx';
 
 import { getNews } from '@/api';
 import type { NewsQueryResponseType } from '@/api/types';
@@ -17,11 +18,7 @@ type PropsType = {
     isVisible: boolean;
 };
 
-const formatPostDate = (date: Date) => {
-    return getDateFormated({ date, extraConfig: { hour: 'numeric', minute: 'numeric' } });
-};
-
-const SidebarNewsTab: ReactComponent<PropsType> = ({ className, isVisible }) => {
+export const SidebarNewsTab: ReactComponent<PropsType> = ({ className, isVisible }) => {
     const [NewsData, setNewsData] = useState<Partial<NewsQueryResponseType>>({});
     const [IsResponseError, setIsResponseError] = useState(false);
 
@@ -41,7 +38,7 @@ const SidebarNewsTab: ReactComponent<PropsType> = ({ className, isVisible }) => 
     useAPI(newsQuery, 10);
 
     return (
-        <section className={`${className} ${styles.news}`} hidden={!isVisible}>
+        <section className={clsx(className, styles.news)} hidden={!isVisible}>
             <div className={styles.news__status}>
                 {!IsResponseError && (!NewsData.com || !NewsData.posts) ? 'Загрузка...' : null}
                 {NewsData.com && NewsData.posts && NewsData.posts.length === 0 ? 'Новостей нет' : ''}
@@ -77,4 +74,6 @@ const SidebarNewsTab: ReactComponent<PropsType> = ({ className, isVisible }) => 
     );
 };
 
-export default SidebarNewsTab;
+const formatPostDate = (date: Date) => {
+    return getDateFormated({ date, extraConfig: { hour: 'numeric', minute: 'numeric' } });
+};

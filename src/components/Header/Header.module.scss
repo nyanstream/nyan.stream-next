@@ -4,10 +4,13 @@
 .header {
     --headerBrandHeight: calc(var(--headerHeight) / 2);
 
-    @include flexbox(auto, center, center, auto);
-    position: relative;
+    @include flexbox(auto, space-between, center, auto);
+    gap: 5px;
+
     width: 100%;
     height: var(--headerHeight);
+    padding: 0 5px;
+
     background-color: var(--prime-color-5d);
     overflow: hidden;
 
@@ -16,24 +19,12 @@
     &__menu {
         @include flexbox(auto, auto, center, auto);
 
-        position: absolute;
-        top: 0;
         height: var(--headerHeight);
 
         font-size: 18px;
 
         user-select: none;
         cursor: default;
-
-        &_right {
-            right: 0;
-            padding-right: 5px;
-        }
-
-        &_left {
-            left: 0;
-            padding-left: 5px;
-        }
 
         &__item {
             @include flexbox(auto, center, center, auto);

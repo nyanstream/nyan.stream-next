@@ -1,9 +1,11 @@
 @import '../../styles/inc/mixins';
 
 .sidebar {
-    $s: &;
-
     --tabCellHeight: 25px;
+
+    display: grid;
+    grid-template-rows: var(--tabCellHeight) auto;
+    grid-template-columns: 1fr;
 
     background-color: #fff;
     color: var(--text-color);
@@ -13,15 +15,16 @@
     @import '../../styles/inc/links-style';
 
     &__tabs {
-        width: 100%;
-        height: calc(100% - var(--tabCellHeight));
-
         overflow: hidden;
 
         &__tab {
             width: 100%;
             height: 100%;
         }
+    }
+
+    &[hidden] {
+        display: none;
     }
 
     &[data-theme='moon'] {

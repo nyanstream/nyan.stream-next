@@ -2,15 +2,15 @@
 
 .sidebar {
     &__radio {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
         height: var(--tabCellHeight);
         font-size: 0;
         user-select: none;
 
         li {
-            display: inline-block;
             background-color: var(--prime-color-5d);
-            width: calc(100% / 3);
-            height: 100%;
 
             list-style: none;
 

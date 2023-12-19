@@ -1,6 +1,6 @@
-export type SidebarTabType = 'chat' | 'schedule' | 'news';
+export type SidebarTabKey = 'chat' | 'schedule' | 'news';
 
-export type SidebarTabItemDataType = {
-    key: SidebarTabType;
+export type SidebarTabItem = {
+    key: SidebarTabKey;
     title: string;
 };
