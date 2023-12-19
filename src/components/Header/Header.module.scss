@@ -18,6 +18,7 @@
 
     &__menu {
         @include flexbox(auto, auto, center, auto);
+        gap: 5px;
 
         height: var(--headerHeight);
 
@@ -27,6 +28,10 @@
         cursor: default;
 
         &__item {
+            list-style: none;
+        }
+
+        &__button {
             @include flexbox(auto, center, center, auto);
 
             border-radius: 5px;
@@ -37,18 +42,8 @@
 
             font-size: 1em;
 
-            @include transition(0.3s); // для <button>
-
+            @include transition(0.3s);
             @extend %menu-nav-elem;
-        }
-
-        li {
-            display: inline;
-            list-style: none;
-
-            &:not(:first-child) {
-                margin-left: 5px;
-            }
         }
     }
 }

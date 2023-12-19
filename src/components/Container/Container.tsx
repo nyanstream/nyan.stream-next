@@ -35,14 +35,14 @@ const robotoFont = Roboto({ weight: ['400', '500'], variable: '--roboto-font', s
 
 type PropsType = {
     pageName?: string;
-    leftMenuContent?: HeaderMenuItemType[];
-    rightMenuContent?: HeaderMenuItemType[];
+    leftMenuItems?: HeaderMenuItemType[];
+    rightMenuItems?: HeaderMenuItemType[];
     customParentProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 };
 
 export const Container: ReactComponent<PropsType> = props => {
     const { pageName } = props;
-    const { leftMenuContent, rightMenuContent } = props;
+    const { leftMenuItems, rightMenuItems } = props;
     const { children, customParentProps } = props;
 
     const { Theme } = useTheme();
@@ -116,7 +116,7 @@ export const Container: ReactComponent<PropsType> = props => {
                 <Content {...{ IsSliderOpen }} handleContentClick={handleSliderTriggerClick}>
                     <Header
                         {...{ pageName }}
-                        {...{ leftMenuContent, rightMenuContent }}
+                        {...{ leftMenuItems, rightMenuItems }}
                         {...{ IsSliderOpen }}
                         handleSliderTriggerButtonClick={handleSliderTriggerClick}
                     />

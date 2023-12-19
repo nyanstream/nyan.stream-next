@@ -6,6 +6,8 @@ import type { ReactComponent } from '@/types';
 
 import { SliderHeader } from './SliderHeader';
 
+import type { SliderLink } from './types';
+
 import styles from './Slider.module.scss';
 
 type PropsType = {
@@ -15,55 +17,47 @@ type PropsType = {
 export const Slider: ReactComponent<PropsType> = props => {
     const { IsSliderOpen } = props;
 
-    const Router = useRouter();
+    const router = useRouter();
 
-    const IsIndexPage = useMemo(() => Router.pathname === '/' || Router.pathname === '/index', [Router.pathname]);
+    const isIndexPage = useMemo(() => router.pathname === '/' || router.pathname === '/index', [router.pathname]);
 
-    const SliderLinks: {
-        id: string;
-        title: string;
-        link: string;
-        offset?: boolean;
-    }[] = [
-        {
-            id: 'donate',
-            title: 'Поддержать проект',
-            link: 'https://www.donationalerts.ru/r/thenyan',
-            offset: !IsIndexPage,
-        },
-        {
-            id: 'donate_report',
-            title: 'Посмотреть отчёты',
-            link: 'https://docs.google.com/spreadsheets/d/1EqvBfoaMvK4rUisp4--MbRIih7r17HGMu1t501bjHkE',
-        },
-        {
-            id: 'request',
-            title: 'Сделать реквест',
-            link: 'https://docs.google.com/forms/d/e/1FAIpQLScbdpIEimhG1Ouq6O8hOeRJhqMGrggOaT0IDO7hbtxl0Wm4Xw/viewform',
-            offset: true,
-        },
-        {
-            id: 'requests_view',
-            title: 'Посмотреть реквесты',
-            link: 'https://docs.google.com/spreadsheets/d/1u_iqJh17DjxPCEms_600-vFUNmDoKrD_fsk-PsiR3l8',
-        },
-        {
-            id: 'link_shiki',
-            title: 'Профиль на Shikimori',
-            link: 'https://shikimori.one/nyan/list/anime/order-by/name',
-            offset: true,
-        },
-        {
-            id: 'ling_trakt',
-            title: 'Профиль на Trakt.tv',
-            link: 'https://trakt.tv/users/thenyan/history',
-        },
-        {
-            id: 'link_ag',
-            title: 'Профиль на AG',
-            link: 'https://ag.ru/@nya/games',
-        },
-    ];
+    const links: SliderLink[] = useMemo(() => {
+        return [
+            {
+                id: 'donate',
+                title: 'Поддержать проект',
+                link: 'https://www.donationalerts.ru/r/thenyan',
+                offset: !isIndexPage,
+            },
+            {
+                id: 'donate_report',
+                title: 'Посмотреть отчёты',
+                link: 'https://docs.google.com/spreadsheets/d/1EqvBfoaMvK4rUisp4--MbRIih7r17HGMu1t501bjHkE',
+            },
+            {
+                id: 'request',
+                title: 'Сделать реквест',
+                link: 'https://docs.google.com/forms/d/e/1FAIpQLScbdpIEimhG1Ouq6O8hOeRJhqMGrggOaT0IDO7hbtxl0Wm4Xw/viewform',
+                offset: true,
+            },
+            {
+                id: 'requests_view',
+                title: 'Посмотреть реквесты',
+                link: 'https://docs.google.com/spreadsheets/d/1u_iqJh17DjxPCEms_600-vFUNmDoKrD_fsk-PsiR3l8',
+            },
+            {
+                id: 'link_discord',
+                title: 'Discord-сервер',
+                link: 'https://shikimori.one/nyan/list/anime/order-by/name',
+                offset: true,
+            },
+            {
+                id: 'link_github',
+                title: 'Исходники на GitHub',
+                link: 'https://github.com/nyanstream',
+            },
+        ];
+    }, [isIndexPage]);
 
     return (
         <div className={styles.slider} data-is-slider-open={IsSliderOpen ? '' : null}>
@@ -71,16 +65,16 @@ export const Slider: ReactComponent<PropsType> = props => {
 
             <div className={styles.slider__content}>
                 <ul className={styles.slider__links}>
-                    {!IsIndexPage ? (
+                    {!isIndexPage ? (
                         <li className={styles.slider__links__item}>
                             <Link href="/">Перейти на главную</Link>
                         </li>
                     ) : null}
 
-                    {SliderLinks.map(LinkData => (
-                        <li key={LinkData.id} className={styles.slider__links__item} data-offset={LinkData.offset ? '' : null}>
-                            <a href={LinkData.link} target="_blank" rel="nofollow noopener noreferrer">
-                                {LinkData.title}
+                    {links.map(Link => (
+                        <li key={Link.id} className={styles.slider__links__item} data-offset={Link.offset ? '' : null}>
+                            <a href={Link.link} target="_blank" rel="nofollow noopener noreferrer">
+                                {Link.title}
                             </a>
                         </li>
                     ))}
@@ -95,7 +89,7 @@ export const Slider: ReactComponent<PropsType> = props => {
                         <span>сделано с</span> <span className={styles.slider__footer__heart}>♥</span>
                     </p>
 
-                    {IsIndexPage ? (
+                    {isIndexPage ? (
                         <p style={{ marginTop: 5 }}>
                             <Link href="/about">о проекте</Link>
                         </p>

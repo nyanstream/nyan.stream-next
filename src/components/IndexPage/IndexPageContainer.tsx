@@ -15,34 +15,16 @@ import { useTheme } from '@/hooks';
 import { IconRuble, IconDiscord, IconGear } from '@/components/common';
 import { IconMoon, IconSun } from '@/components/common';
 import { IconChevronLeft, IconChevronRight } from '@/components/common';
-// import { IconChevronDown, IconChevronUp } from '@/components/common';
 
 import styles from './IndexPage.module.scss';
 
-const IndexPageContainer: ReactComponent = () => {
+export const IndexPageContainer: ReactComponent = () => {
     const [IsSettingsOpen, setIsSettingsOpen] = useState(false);
     const [IsSidebarHidden, setIsSidebarHidden] = useState(false);
 
     const { Theme, setTheme } = useTheme();
 
-    const LeftMenuContent: HeaderMenuItemType[] = [
-        {
-            id: 'link_donate',
-            type: 'link',
-            title: 'Поддержать проект',
-            icon: <IconRuble />,
-            link: 'https://www.donationalerts.ru/r/thenyan',
-        },
-        {
-            id: 'discord_link',
-            type: 'link',
-            title: 'Сервер в Discord',
-            icon: <IconDiscord />,
-            link: 'https://discord.gg/96cq8w8',
-        },
-    ];
-
-    const RightMenuContent: HeaderMenuItemType[] = [
+    const rightMenuItems: HeaderMenuItemType[] = [
         {
             id: 'theme_trigger',
             type: 'button',
@@ -71,7 +53,7 @@ const IndexPageContainer: ReactComponent = () => {
     }, []);
 
     return (
-        <Container leftMenuContent={LeftMenuContent} rightMenuContent={RightMenuContent}>
+        <Container leftMenuItems={leftMenuItems} rightMenuItems={rightMenuItems}>
             <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
                 <PlayerContainer />
 
@@ -83,4 +65,19 @@ const IndexPageContainer: ReactComponent = () => {
     );
 };
 
-export { IndexPageContainer };
+const leftMenuItems: HeaderMenuItemType[] = [
+    {
+        id: 'link_donate',
+        type: 'link',
+        title: 'Поддержать проект',
+        icon: <IconRuble />,
+        link: 'https://www.donationalerts.ru/r/thenyan',
+    },
+    {
+        id: 'discord_link',
+        type: 'link',
+        title: 'Сервер в Discord',
+        icon: <IconDiscord />,
+        link: 'https://discord.gg/96cq8w8',
+    },
+];

@@ -11,50 +11,46 @@ import styles from './Header.module.scss';
 type PropsType = {
     pageName?: string;
     IsSliderOpen: boolean;
-    leftMenuContent?: HeaderMenuItemType[];
-    rightMenuContent?: HeaderMenuItemType[];
+    leftMenuItems?: HeaderMenuItemType[];
+    rightMenuItems?: HeaderMenuItemType[];
     handleSliderTriggerButtonClick: () => void;
 };
 
 export const Header: ReactComponent<PropsType> = props => {
     const { pageName, IsSliderOpen } = props;
-    const { leftMenuContent = [], rightMenuContent = [] } = props;
+    const { leftMenuItems = [], rightMenuItems = [] } = props;
     const { handleSliderTriggerButtonClick } = props;
 
-    const leftMenuItems: HeaderMenuItemType[] = [
+    const leftMenuItemsWithTrigger: HeaderMenuItemType[] = [
         {
             id: 'slider_trigger',
             type: 'button',
-            title: 'Скрыть/показать боковое меню',
+            title: `${IsSliderOpen ? 'Скрыть' : 'Показать'} боковое меню'`,
             icon: <IconHamburger />,
             onClick: IsSliderOpen ? () => void 0 : handleSliderTriggerButtonClick,
         },
-        ...leftMenuContent,
+        ...leftMenuItems,
     ];
-
-    const rightMenuItems: HeaderMenuItemType[] = [...rightMenuContent];
 
     return (
         <header className={styles.header}>
-            <ul className={`${styles.header__menu} ${styles.header__menu_left}`}>
-                {leftMenuItems.map(MenuItem => (
-                    <li key={MenuItem.id}>
-                        <HeaderMenuItem {...MenuItem} className={styles.header__menu__item} />
+            <ul className={styles.header__menu}>
+                {leftMenuItemsWithTrigger.map(menuItem => (
+                    <li key={menuItem.id} className={styles.header__menu__item}>
+                        <HeaderMenuItem {...menuItem} className={styles.header__menu__button} />
                     </li>
                 ))}
             </ul>
 
             <HeaderBrand pageName={pageName} />
 
-            {rightMenuItems.length !== 0 ? (
-                <ul className={`${styles.header__menu} ${styles.header__menu_right}`}>
-                    {rightMenuItems.map(MenuItem => (
-                        <li key={MenuItem.id}>
-                            <HeaderMenuItem {...MenuItem} className={styles.header__menu__item} />
-                        </li>
-                    ))}
-                </ul>
-            ) : null}
+            <ul className={styles.header__menu} aria-hidden={rightMenuItems.length === 0 ? 'true' : null}>
+                {rightMenuItems.map(menuItem => (
+                    <li key={menuItem.id} className={styles.header__menu__item}>
+                        <HeaderMenuItem {...menuItem} className={styles.header__menu__button} />
+                    </li>
+                ))}
+            </ul>
         </header>
     );
 };

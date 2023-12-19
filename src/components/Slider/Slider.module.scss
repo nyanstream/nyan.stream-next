@@ -24,6 +24,8 @@
     }
 
     &__header {
+        justify-content: center !important;
+
         & &__menu {
             font-size: 20px;
         }
