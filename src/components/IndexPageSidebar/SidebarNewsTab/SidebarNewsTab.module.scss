@@ -4,7 +4,20 @@
 
     &__status {
         padding: 10px;
+
+        line-height: 2em;
         text-align: center;
+
+        p {
+            &:not(:first-child) {
+                margin-top: 5px;
+            }
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
 
         &:empty {
             display: none;

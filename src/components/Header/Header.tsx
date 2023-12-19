@@ -44,7 +44,7 @@ export const Header: ReactComponent<PropsType> = props => {
 
             <HeaderBrand pageName={pageName} />
 
-            <ul className={styles.header__menu} aria-hidden={rightMenuItems.length === 0 ? 'true' : null}>
+            <ul className={styles.header__menu} aria-hidden={rightMenuItems.length === 0 ? 'true' : undefined}>
                 {rightMenuItems.map(menuItem => (
                     <li key={menuItem.id} className={styles.header__menu__item}>
                         <HeaderMenuItem {...menuItem} className={styles.header__menu__button} />

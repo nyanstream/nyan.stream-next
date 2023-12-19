@@ -48,7 +48,7 @@ export const Slider: ReactComponent<PropsType> = props => {
             {
                 id: 'link_discord',
                 title: 'Discord-сервер',
-                link: 'https://shikimori.one/nyan/list/anime/order-by/name',
+                link: 'https://discord.gg/96cq8w8',
                 offset: true,
             },
             {
