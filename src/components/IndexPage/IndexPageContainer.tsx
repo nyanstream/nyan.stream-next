@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import React from 'react';
 
 import type { ReactComponent } from '@/types';
 
@@ -10,6 +10,9 @@ import { PlayerContainer } from '@/components/IndexPagePlayer';
 import { SidebarContainer } from '@/components/IndexPageSidebar';
 import { SettingsContainer } from '@/components/IndexPageSettings';
 
+import { NewYearSnow } from '@/components/NewYearSnow';
+import { NewYearSnowContextProvider } from '@/providers';
+
 import { useTheme } from '@/hooks';
 
 import { IconRuble, IconDiscord, IconGear } from '@/components/common';
@@ -19,10 +22,10 @@ import { IconChevronLeft, IconChevronRight } from '@/components/common';
 import styles from './IndexPage.module.scss';
 
 export const IndexPageContainer: ReactComponent = () => {
-    const [IsSettingsOpen, setIsSettingsOpen] = useState(false);
-    const [IsSidebarHidden, setIsSidebarHidden] = useState(false);
+    const [IsSettingsOpen, setIsSettingsOpen] = React.useState(false);
+    const [IsSidebarHidden, setIsSidebarHidden] = React.useState(false);
 
-    const { Theme, setTheme } = useTheme();
+    const { Theme, switchTheme } = useTheme();
 
     const rightMenuItems: HeaderMenuItemType[] = [
         {
@@ -30,7 +33,7 @@ export const IndexPageContainer: ReactComponent = () => {
             type: 'button',
             title: Theme === 'moon' ? 'Ночной режим' : 'Дневной режим',
             icon: Theme === 'moon' ? <IconSun /> : <IconMoon />,
-            onClick: () => setTheme(Theme === 'moon' ? 'sun' : 'moon'),
+            onClick: () => switchTheme(),
         },
         {
             id: 'settings_trigger',
@@ -48,19 +51,23 @@ export const IndexPageContainer: ReactComponent = () => {
         },
     ];
 
-    const handleCloseSettingsTriggerClick = useCallback(() => {
+    const handleCloseSettingsTriggerClick = React.useCallback(() => {
         setIsSettingsOpen(false);
     }, []);
 
     return (
         <Container leftMenuItems={leftMenuItems} rightMenuItems={rightMenuItems}>
-            <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
-                <PlayerContainer />
+            <NewYearSnowContextProvider>
+                <main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
+                    <PlayerContainer />
 
-                <SidebarContainer {...{ IsSidebarHidden }} />
+                    <SidebarContainer {...{ IsSidebarHidden }} />
 
-                {IsSettingsOpen ? <SettingsContainer {...{ handleCloseSettingsTriggerClick }} /> : null}
-            </main>
+                    {IsSettingsOpen ? <SettingsContainer {...{ handleCloseSettingsTriggerClick }} /> : null}
+                </main>
+
+                <NewYearSnow />
+            </NewYearSnowContextProvider>
         </Container>
     );
 };

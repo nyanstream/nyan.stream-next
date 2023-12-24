@@ -21,11 +21,20 @@ export const ThemeContextContextProvider: ReactComponent = ({ children }) => {
         storageSet(StorageItemName, theme);
     }, []);
 
+    const handleThemeSwitch = useCallback(() => {
+        setTheme(currentTheme => {
+            const newTheme = currentTheme === 'moon' ? 'sun' : 'moon';
+            storageSet(StorageItemName, newTheme);
+            return newTheme;
+        });
+    }, []);
+
     return (
         <ThemeContextContext.Provider
             value={{
                 Theme,
                 setTheme: handleThemeChange,
+                switchTheme: handleThemeSwitch,
             }}>
             {children}
         </ThemeContextContext.Provider>

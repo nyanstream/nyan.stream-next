@@ -1,0 +1,1 @@
+export { NewYearSnow } from './NewYearSnow';

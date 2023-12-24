@@ -1,24 +1,25 @@
-import { Fragment } from 'react';
+import React from 'react';
+import clsx from 'clsx';
 
 import type { ReactComponent } from '@/types';
 
+import { useNewYearSnow } from '@/hooks';
+
 import styles from './NewYearSnow.module.scss';
 
-type PropsType = {
-    enabled: boolean;
-};
+export const NewYearSnow: ReactComponent = () => {
+    const { IsNewYearSnowEnabled } = useNewYearSnow();
 
-const NewYearSnow: ReactComponent<PropsType> = ({ enabled }) => {
     return (
-        <div className={styles.snow__container} hidden={!enabled}>
-            {[styles.snow_near, styles.snow_mid, styles.snow_far].map(className => (
-                <Fragment key={className}>
-                    <div className={`${styles.snow} ${className}`}></div>
-                    <div className={`${styles.snow} ${styles.snow_alt} ${className}`}></div>
-                </Fragment>
+        <div className={styles.snow__container} hidden={!IsNewYearSnowEnabled}>
+            {snowClassNames.map(className => (
+                <React.Fragment key={className}>
+                    <div className={clsx(styles.snow, className)}></div>
+                    <div className={clsx(styles.snow, styles.snow_alt, className)}></div>
+                </React.Fragment>
             ))}
         </div>
     );
 };
 
-export default NewYearSnow;
+const snowClassNames = [styles.snow_near, styles.snow_mid, styles.snow_far];
