@@ -31,7 +31,7 @@ const URL_PARAM_NAME = 'player';
 const STORAGE_ITEM_NAME = 'nyan:selected-player';
 
 const getSelectedPlayerFromUrlOrLocalStorage = () => {
-    const players: PlayerType[] = ['wasd', 'twitch', 'twitch-backup', 'twitch-monarhiq', 'twitch-hrk', 'twitch-rulait'];
+    const players: PlayerType[] = ['restreamer', 'wasd', 'twitch', 'twitch-backup', 'twitch-monarhiq', 'twitch-hrk', 'twitch-rulait'];
     const defaultPlayer: PlayerType = 'twitch';
 
     // https://stackoverflow.com/a/68683935/21009697
@@ -39,7 +39,6 @@ const getSelectedPlayerFromUrlOrLocalStorage = () => {
 
     const locationSearchParams = new URLSearchParams(location.search);
     const searchValue = locationSearchParams.get(URL_PARAM_NAME) as PlayerType | null;
-    console.log(searchValue, players);
     if (searchValue && players.includes(searchValue as PlayerType)) return searchValue;
 
     const storageValue = localStorage.getItem(STORAGE_ITEM_NAME) as PlayerType | null;

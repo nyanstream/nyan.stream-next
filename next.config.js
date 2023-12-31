@@ -7,6 +7,7 @@ const package = require('./package.json');
  **/
 
 const NextConfig = {
+    output: 'export',
     images: {
         unoptimized: true,
     },

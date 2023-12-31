@@ -16,11 +16,11 @@ const UnsafeScriptAddon = process.env.NODE_ENV === 'development' ? `'unsafe-eval
 
 export const ContentSecurityPolicy =
     `default-src 'self';` +
-    `child-src 'self' https://chatovod.ru https://thenyan.chatovod.ru https://wasd.tv https://player.twitch.tv https://goodgame.ru;` +
+    `child-src 'self' https://chatovod.ru https://thenyan.chatovod.ru https://wasd.tv https://player.twitch.tv;` +
     // `frame-ancestors 'self';` +
     `style-src 'self' 'unsafe-inline' data: https://cdn.blyat.science https://fonts.googleapis.com; ` +
     `script-src 'self' 'unsafe-inline' ${UnsafeScriptAddon} https://cdn.blyat.science;` +
     `img-src 'self' data: https://cdn.blyat.science https://images.weserv.nl;` +
     `media-src 'self' blob:;` +
     `font-src 'self' https://fonts.gstatic.com;` +
-    `connect-src 'self' https://nyan-api.blyat.science;`;
+    `connect-src 'self' https://nyan-api.blyat.science https://restreamer-app.blyat.science;`;

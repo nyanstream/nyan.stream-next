@@ -2,6 +2,7 @@
     background-color: #000;
 
     position: relative;
+    overflow: hidden;
 
     &__embed {
         width: 100%;
@@ -11,6 +12,16 @@
             width: 100%;
             height: 100%;
             border: 0;
+        }
+
+        [data-media-provider] {
+            video {
+                height: 100%;
+            }
+
+            img {
+                object-fit: contain;
+            }
         }
     }
 }

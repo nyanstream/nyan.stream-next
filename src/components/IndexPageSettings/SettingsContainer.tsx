@@ -96,6 +96,10 @@ export const SettingsContainer: ReactComponent<PropsType> = props => {
 
 const Players: SelectOptionType<PlayerType>[] = [
     {
+        value: 'restreamer',
+        text: 'Restreamer (beta)',
+    },
+    {
         value: 'wasd',
         text: 'WASD.TV',
     },

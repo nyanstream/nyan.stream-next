@@ -6,9 +6,13 @@ import { usePlayerSettings } from '@/hooks';
 
 import PlayerNotification from './PlayerNotification/PlayerNotification';
 
+import { ImageShare } from '@/static/images';
+
+import { Player } from './Player';
+
 import styles from './Player.module.scss';
 
-const PlayerContainer: ReactComponent = () => {
+export const PlayerContainer: ReactComponent = () => {
     const { SelectedPlayer, PlayerNodeRef } = usePlayerSettings();
 
     const [ProjectHost, setProjectHost] = useState<string>();
@@ -25,6 +29,9 @@ const PlayerContainer: ReactComponent = () => {
         const getTwitchPlayerURL = (nickName: string) => `https://player.twitch.tv/?channel=${nickName}&parent=${ProjectHost}&autoplay=true`;
 
         switch (SelectedPlayer) {
+            case 'restreamer':
+                return 'https://restreamer-app.blyat.science/af5a1666-ed20-408e-9608-4df83598182b.m3u8';
+
             case 'wasd':
                 return 'https://wasd.tv/embed/thenyan';
 
@@ -46,14 +53,16 @@ const PlayerContainer: ReactComponent = () => {
     }, [ProjectHost, SelectedPlayer]);
 
     return (
-        <div ref={PlayerNodeRef} className={styles.player}>
+        <div ref={PlayerNodeRef} className={styles.player} suppressHydrationWarning>
             <div className={styles.player__embed}>
-                <iframe src={PlayerURL} title="Player" allowFullScreen />
+                {SelectedPlayer === 'restreamer' ? (
+                    <Player streamUrl={PlayerURL} previewImageUrl={ImageShare.src} />
+                ) : (
+                    <iframe src={PlayerURL} title="Player" allowFullScreen />
+                )}
             </div>
 
             <PlayerNotification />
         </div>
     );
 };
-
-export { PlayerContainer };
