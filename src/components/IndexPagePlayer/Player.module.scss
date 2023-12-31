@@ -4,7 +4,7 @@
     position: relative;
     overflow: hidden;
 
-    &__embed {
+    &__container {
         width: 100%;
         height: 100%;
 
@@ -13,15 +13,19 @@
             height: 100%;
             border: 0;
         }
+    }
 
-        [data-media-provider] {
-            video {
-                height: 100%;
-            }
+    &__video {
+        &__provider {
+            height: 100%;
+        }
 
-            img {
-                object-fit: contain;
-            }
+        video {
+            height: 100%;
+        }
+
+        &__poster {
+            object-fit: contain;
         }
     }
 }

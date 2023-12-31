@@ -6,9 +6,12 @@ import ImageLogoNY from './logo-ny.png';
 
 import ImageShare from './share.png';
 
+import ImageStreamPreview from './stream-preview.png';
+
 import ImageLain from './lain.webp';
 
 export { ImageFavicon };
 export { ImageLogo, ImageLogoTableau, ImageLogoNY };
 export { ImageShare };
+export { ImageStreamPreview };
 export { ImageLain };

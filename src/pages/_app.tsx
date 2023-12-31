@@ -21,7 +21,7 @@ dayjs.locale(dayjsLocaleRu);
 const App: ReactComponent<AppProps> = ({ Component, pageProps }) => {
     return (
         <ThemeContextContextProvider>
-            <IconContext.Provider value={{ className: 'nyan-icon' }}>
+            <IconContext.Provider value={{}}>
                 <Component {...pageProps} />
             </IconContext.Provider>
         </ThemeContextContextProvider>

@@ -1,32 +1,36 @@
 import { useMemo, useState, useEffect } from 'react';
 
+import dynamic from 'next/dynamic';
+
 import type { ReactComponent } from '@/types';
 
 import { usePlayerSettings } from '@/hooks';
 
+import { ImageStreamPreview } from '@/static/images';
+
 import PlayerNotification from './PlayerNotification/PlayerNotification';
 
-import { ImageShare } from '@/static/images';
-
-import { Player } from './Player';
-
 import styles from './Player.module.scss';
+
+const Player = dynamic(() => import('./Player').then(mod => mod.Player), {
+    ssr: false,
+});
 
 export const PlayerContainer: ReactComponent = () => {
     const { SelectedPlayer, PlayerNodeRef } = usePlayerSettings();
 
-    const [ProjectHost, setProjectHost] = useState<string>();
+    const [projectHost, setProjectHost] = useState<string>();
 
     useEffect(() => {
         setProjectHost(window.location.hostname);
     }, []);
 
-    const PlayerURL = useMemo<string>(() => {
-        if (!ProjectHost) {
+    const playerURL = useMemo<string>(() => {
+        if (!projectHost) {
             return '';
         }
 
-        const getTwitchPlayerURL = (nickName: string) => `https://player.twitch.tv/?channel=${nickName}&parent=${ProjectHost}&autoplay=true`;
+        const getTwitchPlayerURL = (nickName: string) => `https://player.twitch.tv/?channel=${nickName}&parent=${projectHost}&autoplay=true`;
 
         switch (SelectedPlayer) {
             case 'restreamer':
@@ -50,16 +54,12 @@ export const PlayerContainer: ReactComponent = () => {
             case 'twitch-rulait':
                 return getTwitchPlayerURL('rulait');
         }
-    }, [ProjectHost, SelectedPlayer]);
+    }, [projectHost, SelectedPlayer]);
 
     return (
         <div ref={PlayerNodeRef} className={styles.player} suppressHydrationWarning>
-            <div className={styles.player__embed}>
-                {SelectedPlayer === 'restreamer' ? (
-                    <Player streamUrl={PlayerURL} previewImageUrl={ImageShare.src} />
-                ) : (
-                    <iframe src={PlayerURL} title="Player" allowFullScreen />
-                )}
+            <div className={styles.player__container}>
+                <Player isIframe={SelectedPlayer !== 'restreamer'} streamUrl={playerURL} previewImageUrl={ImageStreamPreview.src} />
             </div>
 
             <PlayerNotification />

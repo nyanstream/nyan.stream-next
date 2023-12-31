@@ -1,4 +1,4 @@
-'use client';
+import clsx from 'clsx';
 
 import HLS from 'hls.js';
 import { MediaPlayer, MediaProvider, MediaProviderAdapter, Poster, isHLSProvider } from '@vidstack/react';
@@ -9,25 +9,34 @@ import '@vidstack/react/player/styles/default/layouts/video.css';
 
 import { ReactComponent } from '@/types';
 
+import styles from './Player.module.scss';
+
 type PlayerProps = {
+    isIframe?: boolean;
     streamUrl: string;
     previewImageUrl: string;
 };
 
-export const Player: ReactComponent<PlayerProps> = ({ streamUrl, previewImageUrl }) => {
+export const Player: ReactComponent<PlayerProps> = ({ isIframe, streamUrl, previewImageUrl }) => {
+    if (isIframe) {
+        return <iframe src={streamUrl} title="Player" allowFullScreen />;
+    }
+
     return (
         <MediaPlayer
+            className={styles.player__video__provider}
             title="NYAN.STREAM"
             streamType="ll-live"
             src={streamUrl}
+            preferNativeHLS
+            liveEdgeTolerance={1}
             onProviderChange={onProviderChange}
             autoplay
-            volume={0.5}
-            style={{ height: '100%' }}>
-            <MediaProvider>
-                <Poster className="vds-poster" src={previewImageUrl} alt="Stream is offline" />
+            volume={0}>
+            <MediaProvider className={styles.player__video}>
+                <Poster className={clsx('vds-poster', styles.player__video__poster)} src={previewImageUrl} alt="Stream is offline" />
             </MediaProvider>
-            <DefaultVideoLayout icons={defaultLayoutIcons} hideQualityBitrate />
+            <DefaultVideoLayout icons={defaultLayoutIcons} />
         </MediaPlayer>
     );
 };
