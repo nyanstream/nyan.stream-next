@@ -3,7 +3,7 @@
     "trailingComma": "es5",
     "tabWidth": 4,
     "bracketSameLine": true,
-    "endOfLine": "crlf",
+    "endOfLine": "lf",
     "proseWrap": "never",
     "printWidth": 150,
     "arrowParens": "avoid"

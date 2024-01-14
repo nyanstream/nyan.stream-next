@@ -1,11 +1,10 @@
 {
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
-    "files.eol": "\r\n",
+    "editor.insertSpaces": true,
 
     "editor.formatOnSave": true,
-    "editor.insertSpaces": true,
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": "always"
     }
 }
