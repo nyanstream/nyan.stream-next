@@ -13,7 +13,7 @@ import { IconTimes } from '@/components/common';
 
 import styles from './PlayerNotification.module.scss';
 
-const PlayerNotification: ReactComponent = () => {
+export const PlayerNotification: ReactComponent = () => {
     const [NotificationData, setNotificationData] = useState<NotificationQueryResponseType>({ enabled: false });
     const [IsResponseError, setIsResponseError] = useState(false);
 
@@ -73,5 +73,3 @@ const PlayerNotification: ReactComponent = () => {
         </div>
     );
 };
-
-export default PlayerNotification;
