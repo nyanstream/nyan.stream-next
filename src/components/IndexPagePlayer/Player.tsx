@@ -32,7 +32,7 @@ export const Player: ReactComponent<PlayerProps> = ({ isIframe, streamUrl, previ
             liveEdgeTolerance={1}
             onProviderChange={onProviderChange}
             autoplay
-            volume={0}>
+            muted>
             <MediaProvider className={styles.player__video}>
                 <Poster className={clsx('vds-poster', styles.player__video__poster)} src={previewImageUrl} alt="Stream is offline" />
             </MediaProvider>

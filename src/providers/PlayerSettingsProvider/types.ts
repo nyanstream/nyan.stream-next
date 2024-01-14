@@ -1,1 +1,3 @@
-export type PlayerType = 'restreamer' | 'wasd' | 'twitch' | 'twitch-backup' | 'twitch-rulait' | 'twitch-monarhiq' | 'twitch-hrk';
+import { players } from './contants';
+
+export type PlayerType = (typeof players)[number];

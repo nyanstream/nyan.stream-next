@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { ReactComponent } from '@/types';
 
+import { players } from './contants';
 import type { PlayerType } from './types';
 import { PlayerSettingsContext } from './PlayerSettingsContext';
 
@@ -31,7 +32,6 @@ const URL_PARAM_NAME = 'player';
 const STORAGE_ITEM_NAME = 'nyan:selected-player';
 
 const getSelectedPlayerFromUrlOrLocalStorage = () => {
-    const players: PlayerType[] = ['restreamer', 'wasd', 'twitch', 'twitch-backup', 'twitch-monarhiq', 'twitch-hrk', 'twitch-rulait'];
     const defaultPlayer: PlayerType = 'twitch';
 
     // https://stackoverflow.com/a/68683935/21009697
@@ -39,10 +39,10 @@ const getSelectedPlayerFromUrlOrLocalStorage = () => {
 
     const locationSearchParams = new URLSearchParams(location.search);
     const searchValue = locationSearchParams.get(URL_PARAM_NAME) as PlayerType | null;
-    if (searchValue && players.includes(searchValue as PlayerType)) return searchValue;
+    if (searchValue && players.includes(searchValue)) return searchValue;
 
     const storageValue = localStorage.getItem(STORAGE_ITEM_NAME) as PlayerType | null;
-    if (storageValue && players.includes(storageValue as PlayerType)) return storageValue;
+    if (storageValue && players.includes(storageValue)) return storageValue;
 
     return defaultPlayer;
 };
