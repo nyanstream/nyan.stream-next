@@ -8,7 +8,7 @@ import { usePlayerSettings } from '@/hooks';
 
 import { ImageStreamPreview } from '@/static/images';
 
-import PlayerNotification from './PlayerNotification/PlayerNotification';
+import { PlayerNotification } from './PlayerNotification/PlayerNotification';
 
 import styles from './Player.module.scss';
 
