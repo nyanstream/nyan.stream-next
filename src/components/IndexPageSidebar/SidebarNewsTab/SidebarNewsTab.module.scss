@@ -1,68 +1,68 @@
 .news {
-    font-size: var(--font-size);
-    overflow-y: auto;
+	font-size: var(--font-size);
+	overflow-y: auto;
 
-    &__status {
-        padding: 10px;
+	&__status {
+		padding: 10px;
 
-        line-height: 2em;
-        text-align: center;
+		line-height: 2em;
+		text-align: center;
 
-        p {
-            &:not(:first-child) {
-                margin-top: 5px;
-            }
-        }
+		p {
+			&:not(:first-child) {
+				margin-top: 5px;
+			}
+		}
 
-        img {
-            width: 100%;
-            height: auto;
-        }
+		img {
+			width: 100%;
+			height: auto;
+		}
 
-        &:empty {
-            display: none;
-        }
-    }
+		&:empty {
+			display: none;
+		}
+	}
 
-    &__posts {
-        max-width: 600px;
-        margin: 0 auto;
+	&__posts {
+		max-width: 600px;
+		margin: 0 auto;
 
-        &__post {
-            border-top: 1px solid #ccc;
-            padding: 5px 10px 0;
-            clear: both;
+		&__post {
+			border-top: 1px solid #ccc;
+			padding: 5px 10px 0;
+			clear: both;
 
-            &:first-child {
-                border-top: 0;
-            }
+			&:first-child {
+				border-top: 0;
+			}
 
-            &__meta {
-                margin: 5px 0 10px;
-                cursor: default;
-            }
+			&__meta {
+				margin: 5px 0 10px;
+				cursor: default;
+			}
 
-            &__body {
-                padding-bottom: 5px;
+			&__body {
+				padding-bottom: 5px;
 
-                p {
-                    clear: none;
-                    white-space: pre-wrap;
-                }
-            }
+				p {
+					clear: none;
+					white-space: pre-wrap;
+				}
+			}
 
-            &__image {
-                display: inherit;
-                border-bottom: 0 !important;
+			&__image {
+				display: inherit;
+				border-bottom: 0 !important;
 
-                img {
-                    width: 85px;
-                    height: auto;
-                    float: left;
-                    margin: 5px 10px 10px 0;
-                    object-fit: contain;
-                }
-            }
-        }
-    }
+				img {
+					width: 85px;
+					height: auto;
+					float: left;
+					margin: 5px 10px 10px 0;
+					object-fit: contain;
+				}
+			}
+		}
+	}
 }

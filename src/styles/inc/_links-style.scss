@@ -1,18 +1,18 @@
 a {
-    padding: 0 0.5px;
+	padding: 0 0.5px;
 
-    color: var(--text-color);
-    text-decoration: none;
+	color: var(--text-color);
+	text-decoration: none;
 
-    @include transition(0.3s);
+	@include transition(0.3s);
 
-    &:not([data-style*='no-border']) {
-        border-bottom: 1px solid var(--text-color);
-    }
+	&:not([data-style*='no-border']) {
+		border-bottom: 1px solid var(--text-color);
+	}
 
-    &:not([data-style*='no-default-hover']) {
-        &:hover {
-            background-color: var(--link-hover-color);
-        }
-    }
+	&:not([data-style*='no-default-hover']) {
+		&:hover {
+			background-color: var(--link-hover-color);
+		}
+	}
 }

@@ -1,4 +1,4 @@
 export type SelectOptionType<ValueType> = {
-    value: ValueType;
-    text: string;
+	value: ValueType;
+	text: string;
 };

@@ -1,39 +1,39 @@
 @import '../../styles/inc/mixins';
 
 .container {
-    --headerHeight: 40px;
+	--headerHeight: 40px;
 
-    --slider-width: 200px;
-    --slider-nav-items-offset: 10px;
+	--slider-width: 200px;
+	--slider-nav-items-offset: 10px;
 
-    --tab-hover-color: #{darken($primeColor, 8%)};
-    --tab-focus-color: #{darken($primeColor, 6%)};
-    --tab-active-color: #{darken($primeColor, 13%)};
+	--tab-hover-color: #{darken($primeColor, 8%)};
+	--tab-focus-color: #{darken($primeColor, 6%)};
+	--tab-active-color: #{darken($primeColor, 13%)};
 
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 
-    overflow: hidden;
+	overflow: hidden;
 
-    font-family: var(--roboto-font), Arial, sans-serif;
-    font-size: 0;
+	font-family: var(--roboto-font), Arial, sans-serif;
+	font-size: 0;
 
-    &[data-theme='moon'] {
-        $primeColor: #464646;
+	&[data-theme='moon'] {
+		$primeColor: #464646;
 
-        --prime-color: #{$primeColor};
-        --prime-color-5d: #{darken($primeColor, 5%)};
-        --prime-color-10d: #{darken($primeColor, 10%)};
+		--prime-color: #{$primeColor};
+		--prime-color-5d: #{darken($primeColor, 5%)};
+		--prime-color-10d: #{darken($primeColor, 10%)};
 
-        --tab-hover-color: #{darken($primeColor, 8%)};
-        --tab-focus-color: #{darken($primeColor, 6%)};
-        --tab-active-color: #{darken($primeColor, 13%)};
+		--tab-hover-color: #{darken($primeColor, 8%)};
+		--tab-focus-color: #{darken($primeColor, 6%)};
+		--tab-active-color: #{darken($primeColor, 13%)};
 
-        --text-color: #bfbfbf;
-        --link-hover-color: #{rgba(#bfbfbf, 0.1)};
-    }
+		--text-color: #bfbfbf;
+		--link-hover-color: #{rgba(#bfbfbf, 0.1)};
+	}
 
-    & > * {
-        transition: all 0.5s ease-in-out;
-    }
+	& > * {
+		transition: all 0.5s ease-in-out;
+	}
 }

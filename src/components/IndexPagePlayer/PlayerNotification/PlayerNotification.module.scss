@@ -1,57 +1,57 @@
 @import '../../../styles/inc/mixins';
 
 .notification {
-    --noti-offset: 10px;
+	--noti-offset: 10px;
 
-    display: grid;
-    position: absolute;
+	display: grid;
+	position: absolute;
 
-    grid-template-rows: 1fr;
-    grid-template-columns: 30px 1fr;
-    grid-auto-flow: dense;
+	grid-template-rows: 1fr;
+	grid-template-columns: 30px 1fr;
+	grid-auto-flow: dense;
 
-    max-width: 350px;
+	max-width: 350px;
 
-    background-color: rgba(#dfe2e9, 0.9);
+	background-color: rgba(#dfe2e9, 0.9);
 
-    top: var(--noti-offset);
-    left: var(--noti-offset);
-    right: var(--noti-offset);
+	top: var(--noti-offset);
+	left: var(--noti-offset);
+	right: var(--noti-offset);
 
-    z-index: 2;
+	z-index: 2;
 
-    cursor: default;
+	cursor: default;
 
-    font-size: calc(var(--font-size) + 2px);
+	font-size: calc(var(--font-size) + 2px);
 
-    user-select: none;
-    @include transition(0.5s);
+	user-select: none;
+	@include transition(0.5s);
 
-    &__hideBtn {
-        grid-column: 1;
+	&__hideBtn {
+		grid-column: 1;
 
-        display: block;
-        background-color: rgba(#000, 0.1);
-        border: 0;
+		display: block;
+		background-color: rgba(#000, 0.1);
+		border: 0;
 
-        cursor: pointer;
+		cursor: pointer;
 
-        @include transition(0.3s);
+		@include transition(0.3s);
 
-        &:hover {
-            background-color: rgba(#000, 0.2);
-        }
+		&:hover {
+			background-color: rgba(#000, 0.2);
+		}
 
-        & > * {
-            font-size: calc(var(--font-size) + 4px);
-        }
-    }
+		& > * {
+			font-size: calc(var(--font-size) + 4px);
+		}
+	}
 
-    &__content {
-        grid-column: 2;
+	&__content {
+		grid-column: 2;
 
-        padding: 10px;
+		padding: 10px;
 
-        line-height: 1.3em;
-    }
+		line-height: 1.3em;
+	}
 }

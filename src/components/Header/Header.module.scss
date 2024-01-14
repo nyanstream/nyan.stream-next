@@ -2,48 +2,48 @@
 @import '../../styles/inc/extend';
 
 .header {
-    --headerBrandHeight: calc(var(--headerHeight) / 2);
+	--headerBrandHeight: calc(var(--headerHeight) / 2);
 
-    @include flexbox(auto, space-between, center, auto);
-    gap: 5px;
+	@include flexbox(auto, space-between, center, auto);
+	gap: 5px;
 
-    width: 100%;
-    height: var(--headerHeight);
-    padding: 0 5px;
+	width: 100%;
+	height: var(--headerHeight);
+	padding: 0 5px;
 
-    background-color: var(--prime-color-5d);
-    overflow: hidden;
+	background-color: var(--prime-color-5d);
+	overflow: hidden;
 
-    @include transition(0.5s);
+	@include transition(0.5s);
 
-    &__menu {
-        @include flexbox(auto, auto, center, auto);
-        gap: 5px;
+	&__menu {
+		@include flexbox(auto, auto, center, auto);
+		gap: 5px;
 
-        height: var(--headerHeight);
+		height: var(--headerHeight);
 
-        font-size: 18px;
+		font-size: 18px;
 
-        user-select: none;
-        cursor: default;
+		user-select: none;
+		cursor: default;
 
-        &__item {
-            list-style: none;
-        }
+		&__item {
+			list-style: none;
+		}
 
-        &__button {
-            @include flexbox(auto, center, center, auto);
+		&__button {
+			@include flexbox(auto, center, center, auto);
 
-            border-radius: 5px;
+			border-radius: 5px;
 
-            width: 2em;
-            height: 100%;
-            padding: 0 10px;
+			width: 2em;
+			height: 100%;
+			padding: 0 10px;
 
-            font-size: 1em;
+			font-size: 1em;
 
-            @include transition(0.3s);
-            @extend %menu-nav-elem;
-        }
-    }
+			@include transition(0.3s);
+			@extend %menu-nav-elem;
+		}
+	}
 }

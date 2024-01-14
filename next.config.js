@@ -7,17 +7,17 @@ const package = require('./package.json');
  **/
 
 const NextConfig = {
-    output: 'export',
-    images: {
-        unoptimized: true,
-    },
-    sassOptions: {
-        // TODO: primeColor из конфига
-        additionalData: `
+	output: 'export',
+	images: {
+		unoptimized: true,
+	},
+	sassOptions: {
+		// TODO: primeColor из конфига
+		additionalData: `
             $VERSION: ${encodeURIComponent(package.version)};
             $primeColor: #4d539c;
         `,
-    },
+	},
 };
 
 module.exports = NextConfig;

@@ -7,19 +7,19 @@ import { Container } from '@/components/Container';
 import styles from './TextPage.module.scss';
 
 type PropsType = {
-    pageName: string;
+	pageName: string;
 };
 
 const TextPageContainer: ReactComponent<PropsType> = ({ children, pageName }) => {
-    const { Theme } = useTheme();
+	const { Theme } = useTheme();
 
-    return (
-        <Container {...{ pageName }}>
-            <main className={styles.textPage} data-theme={Theme}>
-                {children}
-            </main>
-        </Container>
-    );
+	return (
+		<Container {...{ pageName }}>
+			<main className={styles.textPage} data-theme={Theme}>
+				{children}
+			</main>
+		</Container>
+	);
 };
 
 export { TextPageContainer };

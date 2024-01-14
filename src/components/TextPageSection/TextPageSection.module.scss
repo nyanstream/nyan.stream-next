@@ -1,56 +1,56 @@
 .section {
-    $section: &;
+	$section: &;
 
-    width: 100%;
-    max-width: 1100px;
+	width: 100%;
+	max-width: 1100px;
 
-    background-color: rgba(#fff, 0.9);
+	background-color: rgba(#fff, 0.9);
 
-    margin: 0 auto;
-    padding: 1em 2em;
+	margin: 0 auto;
+	padding: 1em 2em;
 
-    line-height: 1.65em;
-    color: var(--text-color);
+	line-height: 1.65em;
+	color: var(--text-color);
 
-    &:not(:first-child) {
-        margin-top: 15px;
-    }
+	&:not(:first-child) {
+		margin-top: 15px;
+	}
 
-    &__heading {
-        margin: 0.3em 0 0.4em;
+	&__heading {
+		margin: 0.3em 0 0.4em;
 
-        & > a[href^='#'] {
-            margin-left: 0.3em;
-            border: 0;
-        }
-    }
+		& > a[href^='#'] {
+			margin-left: 0.3em;
+			border: 0;
+		}
+	}
 
-    p {
-        &:not(:first-of-type):not([data-no-top-margin]) {
-            margin-top: 10px;
-        }
-    }
+	p {
+		&:not(:first-of-type):not([data-no-top-margin]) {
+			margin-top: 10px;
+		}
+	}
 
-    ul {
-        &:not([data-no-top-margin]) {
-            margin-top: 10px;
-        }
+	ul {
+		&:not([data-no-top-margin]) {
+			margin-top: 10px;
+		}
 
-        li {
-            list-style-type: square;
-            margin: 0.1em 0;
+		li {
+			list-style-type: square;
+			margin: 0.1em 0;
 
-            &::after {
-                content: ';';
-            }
+			&::after {
+				content: ';';
+			}
 
-            &:last-child::after {
-                content: '.';
-            }
-        }
-    }
+			&:last-child::after {
+				content: '.';
+			}
+		}
+	}
 
-    &[data-theme='moon'] {
-        background-color: #1e1e1e;
-    }
+	&[data-theme='moon'] {
+		background-color: #1e1e1e;
+	}
 }

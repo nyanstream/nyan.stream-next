@@ -10,116 +10,116 @@ import { SelectOptionType } from './SettingsTypes';
 import styles from './Settings.module.scss';
 
 type PropsType = {
-    handleCloseSettingsTriggerClick: () => void;
+	handleCloseSettingsTriggerClick: () => void;
 };
 
 export const SettingsContainer: ReactComponent<PropsType> = props => {
-    const { SelectedPlayer, setSelectedPlayer } = usePlayerSettings();
-    const { IsNewYearSnowEnabled, setIsNewYearSnowEnabled } = useNewYearSnow();
+	const { SelectedPlayer, setSelectedPlayer } = usePlayerSettings();
+	const { IsNewYearSnowEnabled, setIsNewYearSnowEnabled } = useNewYearSnow();
 
-    const { handleCloseSettingsTriggerClick } = props;
+	const { handleCloseSettingsTriggerClick } = props;
 
-    const handleFormSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-    }, []);
+	const handleFormSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+	}, []);
 
-    return (
-        <div className={styles.settings}>
-            <div className={styles.settings__backdrop} onClick={handleCloseSettingsTriggerClick} />
+	return (
+		<div className={styles.settings}>
+			<div className={styles.settings__backdrop} onClick={handleCloseSettingsTriggerClick} />
 
-            <div className={styles.settings__content}>
-                <h3>Настройки</h3>
+			<div className={styles.settings__content}>
+				<h3>Настройки</h3>
 
-                <form onSubmit={handleFormSubmit}>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <label htmlFor="player_selector">Выбор плеера</label>
-                                </td>
+				<form onSubmit={handleFormSubmit}>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<label htmlFor="player_selector">Выбор плеера</label>
+								</td>
 
-                                <td>
-                                    <select
-                                        id="player_selector"
-                                        value={SelectedPlayer}
-                                        onChange={event => setSelectedPlayer(event.target.value as PlayerType)}>
-                                        {Players.map(PlayerInfo => (
-                                            <option key={PlayerInfo.value} value={PlayerInfo.value}>
-                                                {PlayerInfo.text}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                            </tr>
+								<td>
+									<select
+										id="player_selector"
+										value={SelectedPlayer}
+										onChange={event => setSelectedPlayer(event.target.value as PlayerType)}>
+										{Players.map(PlayerInfo => (
+											<option key={PlayerInfo.value} value={PlayerInfo.value}>
+												{PlayerInfo.text}
+											</option>
+										))}
+									</select>
+								</td>
+							</tr>
 
-                            <tr title="Выбор локализации пока-что недоступен">
-                                <td>
-                                    <label htmlFor="locale_selector">Выбор локализации</label>
-                                </td>
+							<tr title="Выбор локализации пока-что недоступен">
+								<td>
+									<label htmlFor="locale_selector">Выбор локализации</label>
+								</td>
 
-                                <td>
-                                    <select id="locale_selector" value="ru" onChange={() => void 0} disabled>
-                                        {Locales.map(PlayerInfo => (
-                                            <option key={PlayerInfo.value} value={PlayerInfo.value}>
-                                                {PlayerInfo.text}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                            </tr>
+								<td>
+									<select id="locale_selector" value="ru" onChange={() => void 0} disabled>
+										{Locales.map(PlayerInfo => (
+											<option key={PlayerInfo.value} value={PlayerInfo.value}>
+												{PlayerInfo.text}
+											</option>
+										))}
+									</select>
+								</td>
+							</tr>
 
-                            <tr>
-                                <td>
-                                    <label htmlFor="newYearSnow_selector">Включить снег</label>
-                                </td>
+							<tr>
+								<td>
+									<label htmlFor="newYearSnow_selector">Включить снег</label>
+								</td>
 
-                                <td>
-                                    <input
-                                        id="newYearSnow_selector"
-                                        type="checkbox"
-                                        checked={IsNewYearSnowEnabled}
-                                        onChange={event => setIsNewYearSnowEnabled(event.target.checked)}
-                                    />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+								<td>
+									<input
+										id="newYearSnow_selector"
+										type="checkbox"
+										checked={IsNewYearSnowEnabled}
+										onChange={event => setIsNewYearSnowEnabled(event.target.checked)}
+									/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 
-                    <div className={styles.settings__content__controls}>
-                        <button onClick={handleCloseSettingsTriggerClick}>Закрыть</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
+					<div className={styles.settings__content__controls}>
+						<button onClick={handleCloseSettingsTriggerClick}>Закрыть</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	);
 };
 
 const Players: SelectOptionType<PlayerType>[] = [
-    {
-        value: 'restreamer',
-        text: 'Restreamer (beta)',
-    },
-    {
-        value: 'twitch',
-        text: 'Twitch',
-    },
-    {
-        value: 'twitch-monarhiq',
-        text: 'Twitch (MonarhiQ)',
-    },
-    {
-        value: 'twitch-hrk',
-        text: 'Twitch (hrk40689)',
-    },
-    {
-        value: 'twitch-rulait',
-        text: 'Twitch (ruLait)',
-    },
+	{
+		value: 'restreamer',
+		text: 'Restreamer (beta)',
+	},
+	{
+		value: 'twitch',
+		text: 'Twitch',
+	},
+	{
+		value: 'twitch-monarhiq',
+		text: 'Twitch (MonarhiQ)',
+	},
+	{
+		value: 'twitch-hrk',
+		text: 'Twitch (hrk40689)',
+	},
+	{
+		value: 'twitch-rulait',
+		text: 'Twitch (ruLait)',
+	},
 ];
 
 const Locales: SelectOptionType<string>[] = [
-    {
-        value: 'ru',
-        text: '🇷🇺 Русская',
-    },
+	{
+		value: 'ru',
+		text: '🇷🇺 Русская',
+	},
 ];

@@ -1,23 +1,27 @@
 import { ApiHost } from '@/config';
 
-import type { ScheduleQueryResponseType, NewsQueryResponseType, NotificationQueryResponseType } from './types';
+import type {
+	ScheduleQueryResponseType,
+	NewsQueryResponseType,
+	NotificationQueryResponseType,
+} from './types';
 
 const API = async <T>(method: string): Promise<T> => {
-    const response = await fetch(`${ApiHost}/api/${method}`, { cache: 'no-store' });
-    if (!response.ok) {
-        throw new Error(response.statusText);
-    }
-    return await (response.json() as Promise<T>);
+	const response = await fetch(`${ApiHost}/api/${method}`, { cache: 'no-store' });
+	if (!response.ok) {
+		throw new Error(response.statusText);
+	}
+	return await (response.json() as Promise<T>);
 };
 
 export const getSchedule = async () => {
-    return await API<ScheduleQueryResponseType>('sched');
+	return await API<ScheduleQueryResponseType>('sched');
 };
 
 export const getNews = async () => {
-    return await API<NewsQueryResponseType>('vk-news');
+	return await API<NewsQueryResponseType>('vk-news');
 };
 
 export const getNotification = async () => {
-    return await API<NotificationQueryResponseType>('noti');
+	return await API<NotificationQueryResponseType>('noti');
 };

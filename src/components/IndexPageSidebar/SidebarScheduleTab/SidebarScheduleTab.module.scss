@@ -1,27 +1,27 @@
 .schedule {
-    font-size: var(--font-size);
-    overflow: auto;
+	font-size: var(--font-size);
+	overflow: auto;
 
-    &__status {
-        padding: 10px 5px;
-        text-align: center;
-    }
+	&__status {
+		padding: 10px 5px;
+		text-align: center;
+	}
 
-    &__items {
-        width: 100%;
-        max-width: 600px;
+	&__items {
+		width: 100%;
+		max-width: 600px;
 
-        margin: 0 auto;
-        padding: 5px 0;
-        padding-top: 0;
-    }
+		margin: 0 auto;
+		padding: 5px 0;
+		padding-top: 0;
+	}
 
-    &__empty {
-        text-align: center;
-        padding: 5px;
+	&__empty {
+		text-align: center;
+		padding: 5px;
 
-        span {
-            white-space: nowrap;
-        }
-    }
+		span {
+			white-space: nowrap;
+		}
+	}
 }

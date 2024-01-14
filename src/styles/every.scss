@@ -8,37 +8,37 @@
 html,
 body,
 #__next {
-    @extend %full-width-tmpl;
+	@extend %full-width-tmpl;
 }
 
 #__next {
-    isolation: isolate;
+	isolation: isolate;
 }
 
 select {
-    @at-root button,
-        & {
-        font: inherit;
-    }
+	@at-root button,
+		& {
+		font: inherit;
+	}
 
-    font-size: 0.9em;
+	font-size: 0.9em;
 }
 
 .separator {
-    padding: 0.5em 0;
+	padding: 0.5em 0;
 }
 
 q {
-    &::before {
-        content: '\00AB';
-    }
-    &::after {
-        content: '\00BB';
-    }
+	&::before {
+		content: '\00AB';
+	}
+	&::after {
+		content: '\00BB';
+	}
 }
 
 dialog {
-    &::backdrop {
-        background-color: rgba(#000, 0.4);
-    }
+	&::backdrop {
+		background-color: rgba(#000, 0.4);
+	}
 }

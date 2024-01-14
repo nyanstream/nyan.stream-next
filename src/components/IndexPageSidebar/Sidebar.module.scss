@@ -1,33 +1,33 @@
 @import '../../styles/inc/mixins';
 
 .sidebar {
-    --tabCellHeight: 25px;
+	--tabCellHeight: 25px;
 
-    display: grid;
-    grid-template-rows: var(--tabCellHeight) auto;
-    grid-template-columns: 1fr;
+	display: grid;
+	grid-template-rows: var(--tabCellHeight) auto;
+	grid-template-columns: 1fr;
 
-    background-color: #fff;
-    color: var(--text-color);
+	background-color: #fff;
+	color: var(--text-color);
 
-    @include transition(0.5s);
+	@include transition(0.5s);
 
-    @import '../../styles/inc/links-style';
+	@import '../../styles/inc/links-style';
 
-    &__tabs {
-        overflow: hidden;
+	&__tabs {
+		overflow: hidden;
 
-        &__tab {
-            width: 100%;
-            height: 100%;
-        }
-    }
+		&__tab {
+			width: 100%;
+			height: 100%;
+		}
+	}
 
-    &[hidden] {
-        display: none;
-    }
+	&[hidden] {
+		display: none;
+	}
 
-    &[data-theme='moon'] {
-        background-color: var(--prime-color-5d);
-    }
+	&[data-theme='moon'] {
+		background-color: var(--prime-color-5d);
+	}
 }

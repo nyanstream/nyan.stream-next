@@ -14,62 +14,68 @@ import { IconTimes } from '@/components/common';
 import styles from './PlayerNotification.module.scss';
 
 export const PlayerNotification: ReactComponent = () => {
-    const [NotificationData, setNotificationData] = useState<NotificationQueryResponseType>({ enabled: false });
-    const [IsResponseError, setIsResponseError] = useState(false);
+	const [NotificationData, setNotificationData] = useState<NotificationQueryResponseType>({
+		enabled: false,
+	});
+	const [IsResponseError, setIsResponseError] = useState(false);
 
-    const [HiddenNotifications, setHiddenNotifications] = useState<number[]>([]);
+	const [HiddenNotifications, setHiddenNotifications] = useState<number[]>([]);
 
-    const StorageItemName = 'nyan_noti';
+	const StorageItemName = 'nyan_noti';
 
-    useEffect(() => {
-        setHiddenNotifications(JSON.parse(storageGet(StorageItemName, '[]')));
-    }, []);
+	useEffect(() => {
+		setHiddenNotifications(JSON.parse(storageGet(StorageItemName, '[]')));
+	}, []);
 
-    const notificationQuery = () => {
-        getNotification()
-            .then(data => {
-                setNotificationData(data);
-                if (IsResponseError) {
-                    setIsResponseError(false);
-                }
-            })
-            .catch(() => {
-                setIsResponseError(true);
-            });
-    };
+	const notificationQuery = () => {
+		getNotification()
+			.then(data => {
+				setNotificationData(data);
+				if (IsResponseError) {
+					setIsResponseError(false);
+				}
+			})
+			.catch(() => {
+				setIsResponseError(true);
+			});
+	};
 
-    useAPI(notificationQuery, 5);
+	useAPI(notificationQuery, 5);
 
-    const handleHideNotificationBtnClick = useCallback(
-        (time: number | undefined) => {
-            if (time) {
-                const NewHiddenNotifications: number[] = [...HiddenNotifications, time];
-                setHiddenNotifications(NewHiddenNotifications);
-                storageSet(StorageItemName, JSON.stringify(NewHiddenNotifications));
-            }
-        },
-        [HiddenNotifications, StorageItemName]
-    );
+	const handleHideNotificationBtnClick = useCallback(
+		(time: number | undefined) => {
+			if (time) {
+				const NewHiddenNotifications: number[] = [...HiddenNotifications, time];
+				setHiddenNotifications(NewHiddenNotifications);
+				storageSet(StorageItemName, JSON.stringify(NewHiddenNotifications));
+			}
+		},
+		[HiddenNotifications, StorageItemName]
+	);
 
-    if (!NotificationData.enabled || HiddenNotifications.includes(NotificationData.time ?? -1) || !NotificationData.text) {
-        return null;
-    }
+	if (
+		!NotificationData.enabled ||
+		HiddenNotifications.includes(NotificationData.time ?? -1) ||
+		!NotificationData.text
+	) {
+		return null;
+	}
 
-    return (
-        <div
-            className={styles.notification}
-            style={NotificationData.color ? { backgroundColor: NotificationData.color } : {}}
-            aria-label="Оповещение">
-            <div className={styles.notification__content}>
-                <ReactMarkdown>{NotificationData.text}</ReactMarkdown>
-            </div>
+	return (
+		<div
+			className={styles.notification}
+			style={NotificationData.color ? { backgroundColor: NotificationData.color } : {}}
+			aria-label="Оповещение">
+			<div className={styles.notification__content}>
+				<ReactMarkdown>{NotificationData.text}</ReactMarkdown>
+			</div>
 
-            <button
-                className={styles.notification__hideBtn}
-                title="Скрыть оповещение"
-                onClick={() => handleHideNotificationBtnClick(NotificationData.time)}>
-                <IconTimes />
-            </button>
-        </div>
-    );
+			<button
+				className={styles.notification__hideBtn}
+				title="Скрыть оповещение"
+				onClick={() => handleHideNotificationBtnClick(NotificationData.time)}>
+				<IconTimes />
+			</button>
+		</div>
+	);
 };

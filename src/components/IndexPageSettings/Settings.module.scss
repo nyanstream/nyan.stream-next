@@ -1,89 +1,89 @@
 .settings {
-    --settingsPadding: 2.5px 5px;
+	--settingsPadding: 2.5px 5px;
 
-    position: fixed;
+	position: fixed;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-    padding: 10px;
+	padding: 10px;
 
-    z-index: 1000;
+	z-index: 1000;
 
-    &,
-    &__backdrop {
-        top: 0;
-        left: 0;
+	&,
+	&__backdrop {
+		top: 0;
+		left: 0;
 
-        width: 100%;
-        height: 100%;
-    }
+		width: 100%;
+		height: 100%;
+	}
 
-    &__backdrop {
-        position: absolute;
+	&__backdrop {
+		position: absolute;
 
-        background-color: rgba(#000, 0.4);
-    }
+		background-color: rgba(#000, 0.4);
+	}
 
-    &__content {
-        width: 100%;
-        max-width: 350px;
+	&__content {
+		width: 100%;
+		max-width: 350px;
 
-        background-color: #fff;
-        border: 2px solid var(--prime-color);
+		background-color: #fff;
+		border: 2px solid var(--prime-color);
 
-        padding: 10px;
+		padding: 10px;
 
-        font-size: var(--font-size);
+		font-size: var(--font-size);
 
-        z-index: 1001;
+		z-index: 1001;
 
-        &__controls {
-            margin-top: 10px;
+		&__controls {
+			margin-top: 10px;
 
-            text-align: center;
+			text-align: center;
 
-            button {
-                padding: var(--settingsPadding);
-            }
-        }
-    }
+			button {
+				padding: var(--settingsPadding);
+			}
+		}
+	}
 
-    h3,
-    menu {
-        text-align: center;
-    }
+	h3,
+	menu {
+		text-align: center;
+	}
 
-    table,
-    menu {
-        margin-top: 10px;
-    }
+	table,
+	menu {
+		margin-top: 10px;
+	}
 
-    table {
-        width: 100%;
+	table {
+		width: 100%;
 
-        td {
-            padding: var(--settingsPadding);
-            vertical-align: middle;
+		td {
+			padding: var(--settingsPadding);
+			vertical-align: middle;
 
-            &:nth-child(2) {
-                min-width: 170px;
-            }
-        }
-    }
+			&:nth-child(2) {
+				min-width: 170px;
+			}
+		}
+	}
 
-    select,
-    textarea {
-        width: 100%;
-    }
+	select,
+	textarea {
+		width: 100%;
+	}
 
-    select {
-        padding: var(--settingsPadding);
-    }
+	select {
+		padding: var(--settingsPadding);
+	}
 
-    textarea {
-        resize: none;
-        padding: 5px;
-    }
+	textarea {
+		resize: none;
+		padding: 5px;
+	}
 }
