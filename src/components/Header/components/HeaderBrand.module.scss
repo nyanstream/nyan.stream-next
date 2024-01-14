@@ -22,7 +22,7 @@
 
     &__logo {
         --headerLogoHeight: calc(var(--headerBrandHeight) + 15px);
-        --headerLogoWidth: calc(var(--headerLogoHeight) * 2.33);
+        --headerLogoWidth: calc(var(--headerLogoHeight) * var(--headerLogoRatio));
 
         width: 60px;
         height: var(--headerLogoHeight);

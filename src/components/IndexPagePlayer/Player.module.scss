@@ -16,16 +16,10 @@
     }
 
     &__video {
-        &__provider {
-            height: 100%;
-        }
-
-        video {
-            height: 100%;
-        }
-
-        &__poster {
-            object-fit: contain;
+        &::-webkit-media-controls-timeline,
+        &::-webkit-media-controls-current-time-display,
+        &::-webkit-media-controls-time-remaining-display {
+            display: none;
         }
     }
 }

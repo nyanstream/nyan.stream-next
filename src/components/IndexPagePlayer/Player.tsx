@@ -1,48 +1,82 @@
-import clsx from 'clsx';
+import React from 'react';
 
-import HLS from 'hls.js';
-import { MediaPlayer, MediaProvider, MediaProviderAdapter, Poster, isHLSProvider } from '@vidstack/react';
-import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
+import ReactPlayer from 'react-player/lazy';
+import hlsjs, { type HlsConfig, type RetryConfig } from 'hls.js';
 
-import '@vidstack/react/player/styles/default/theme.css';
-import '@vidstack/react/player/styles/default/layouts/video.css';
-
-import { ReactComponent } from '@/types';
+import type { ReactComponent } from '@/types';
 
 import styles from './Player.module.scss';
 
 type PlayerProps = {
-    isIframe?: boolean;
     streamUrl: string;
     previewImageUrl: string;
 };
 
-export const Player: ReactComponent<PlayerProps> = ({ isIframe, streamUrl, previewImageUrl }) => {
-    if (isIframe) {
-        return <iframe src={streamUrl} title="Player" allowFullScreen />;
-    }
+export const Player: ReactComponent<PlayerProps> = ({ streamUrl, previewImageUrl }) => {
+    const playerRef = React.useRef(null);
+    const playerId = React.useId();
+
+    React.useEffect(() => {
+        window.Hls = hlsjs;
+    }, []);
 
     return (
-        <MediaPlayer
-            className={styles.player__video__provider}
-            title="NYAN.STREAM"
-            streamType="ll-live"
-            src={streamUrl}
-            preferNativeHLS
-            liveEdgeTolerance={1}
-            onProviderChange={onProviderChange}
-            autoplay
-            volume={0}>
-            <MediaProvider className={styles.player__video}>
-                <Poster className={clsx('vds-poster', styles.player__video__poster)} src={previewImageUrl} alt="Stream is offline" />
-            </MediaProvider>
-            <DefaultVideoLayout icons={defaultLayoutIcons} />
-        </MediaPlayer>
+        <ReactPlayer
+            ref={playerRef}
+            url={streamUrl}
+            controls
+            muted
+            width="100%"
+            height="100%"
+            onError={(_, data) => handleError(data, playerRef.current)}
+            onEnded={() => handleEnded(playerRef.current)}
+            config={{
+                file: {
+                    forceHLS: true,
+                    forceSafariHLS: true,
+                    hlsOptions: hlsConfig,
+                    attributes: {
+                        className: styles.player__video,
+                        poster: previewImageUrl,
+                        autoPlay: true,
+                        // controlsList: 'nodownload noplaybackrate',
+                    } satisfies React.VideoHTMLAttributes<HTMLVideoElement>,
+                },
+                twitch: {
+                    playerId,
+                    options: {
+                        autoplay: true,
+                    },
+                },
+            }}
+        />
     );
 };
 
-const onProviderChange = (provider: MediaProviderAdapter | null) => {
-    if (isHLSProvider(provider)) {
-        provider.library = HLS;
-    }
+const handleError = (data: any, player: any) => {
+    //
 };
+
+const handleEnded = (player: any) => {
+    //
+};
+
+const hlsCommonRetryConfig = {
+    maxNumRetry: 0,
+    retryDelayMs: 1500,
+    maxRetryDelayMs: 1500,
+    shouldRetry: () => true,
+} as RetryConfig;
+
+const hlsConfig = {
+    enableWorker: true,
+    lowLatencyMode: true,
+    fragLoadPolicy: {
+        default: {
+            maxTimeToFirstByteMs: 15_000,
+            maxLoadTimeMs: 30_000,
+            timeoutRetry: hlsCommonRetryConfig,
+            errorRetry: hlsCommonRetryConfig,
+        },
+    },
+} as Partial<HlsConfig>;
