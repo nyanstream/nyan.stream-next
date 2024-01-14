@@ -38,7 +38,7 @@ export const PlayerContainer: ReactComponent = () => {
 				return 'https://restreamer-app.blyat.science/af5a1666-ed20-408e-9608-4df83598182b.m3u8';
 
 			case 'twitch':
-				return getTwitchPlayerURL('nyan_stream');
+				return getTwitchPlayerURL('zdesneanime');
 
 			case 'twitch-monarhiq':
 				return getTwitchPlayerURL('monarhiq');
