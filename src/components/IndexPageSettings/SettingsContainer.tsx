@@ -100,16 +100,8 @@ const Players: SelectOptionType<PlayerType>[] = [
         text: 'Restreamer (beta)',
     },
     {
-        value: 'wasd',
-        text: 'WASD.TV',
-    },
-    {
         value: 'twitch',
         text: 'Twitch',
-    },
-    {
-        value: 'twitch-backup',
-        text: 'Twitch (запасной)',
     },
     {
         value: 'twitch-monarhiq',
