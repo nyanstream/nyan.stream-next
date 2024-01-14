@@ -14,7 +14,6 @@ import {
 	Host as ProjectHost,
 	GoogleSiteVerification,
 	YandexVerification,
-	ContentSecurityPolicy,
 } from '@/config';
 
 import { useTheme } from '@/hooks';
@@ -125,8 +124,6 @@ export const Container: ReactComponent<PropsType> = props => {
 				/>
 
 				<link rel="manifest" href="/manifest.json" />
-
-				<meta httpEquiv="Content-Security-Policy" content={ContentSecurityPolicy} />
 
 				{headerLinks.map(LinkInfo => (
 					<link key={LinkInfo.rel} rel={LinkInfo.rel} href={LinkInfo.href} />
