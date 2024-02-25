@@ -57,17 +57,13 @@ export const IndexPageContainer: ReactComponent = () => {
 
 	return (
 		<Container leftMenuItems={leftMenuItems} rightMenuItems={rightMenuItems}>
-			<NewYearSnowContextProvider>
-				<main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
-					<PlayerContainer />
+			<main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
+				<PlayerContainer />
 
-					<SidebarContainer {...{ IsSidebarHidden }} />
+				<SidebarContainer {...{ IsSidebarHidden }} />
 
-					{IsSettingsOpen ? <SettingsContainer {...{ handleCloseSettingsTriggerClick }} /> : null}
-				</main>
-
-				<NewYearSnow />
-			</NewYearSnowContextProvider>
+				{IsSettingsOpen ? <SettingsContainer {...{ handleCloseSettingsTriggerClick }} /> : null}
+			</main>
 		</Container>
 	);
 };

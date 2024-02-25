@@ -67,21 +67,6 @@ export const SettingsContainer: ReactComponent<PropsType> = props => {
 									</select>
 								</td>
 							</tr>
-
-							<tr>
-								<td>
-									<label htmlFor="newYearSnow_selector">Включить снег</label>
-								</td>
-
-								<td>
-									<input
-										id="newYearSnow_selector"
-										type="checkbox"
-										checked={IsNewYearSnowEnabled}
-										onChange={event => setIsNewYearSnowEnabled(event.target.checked)}
-									/>
-								</td>
-							</tr>
 						</tbody>
 					</table>
 
