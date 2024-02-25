@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ReactComponent } from '@/types';
 
-import { usePlayerSettings, useNewYearSnow } from '@/hooks';
+import { usePlayerSettings } from '@/hooks';
 import type { PlayerType } from '@/providers/PlayerSettingsProvider/types';
 
 import { SelectOptionType } from './SettingsTypes';
@@ -15,7 +15,6 @@ type PropsType = {
 
 export const SettingsContainer: ReactComponent<PropsType> = props => {
 	const { SelectedPlayer, setSelectedPlayer } = usePlayerSettings();
-	const { IsNewYearSnowEnabled, setIsNewYearSnowEnabled } = useNewYearSnow();
 
 	const { handleCloseSettingsTriggerClick } = props;
 

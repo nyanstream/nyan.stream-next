@@ -10,9 +10,6 @@ import { PlayerContainer } from '@/components/IndexPagePlayer';
 import { SidebarContainer } from '@/components/IndexPageSidebar';
 import { SettingsContainer } from '@/components/IndexPageSettings';
 
-import { NewYearSnow } from '@/components/NewYearSnow';
-import { NewYearSnowContextProvider } from '@/providers';
-
 import { useTheme } from '@/hooks';
 
 import { IconRuble, IconDiscord, IconGear } from '@/components/common';
