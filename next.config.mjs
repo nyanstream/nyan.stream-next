@@ -1,12 +1,12 @@
 // @ts-check
 
-const package = require('./package.json');
+import packageJson from './package.json' with { type: 'json' };
 
 /**
  * @type {import('next').NextConfig}
  **/
 
-const NextConfig = {
+const nextConfig = {
 	output: 'export',
 	images: {
 		unoptimized: true,
@@ -14,10 +14,10 @@ const NextConfig = {
 	sassOptions: {
 		// TODO: primeColor из конфига
 		additionalData: `
-            $VERSION: ${encodeURIComponent(package.version)};
+            $VERSION: ${encodeURIComponent(packageJson.version)};
             $primeColor: #4d539c;
         `,
 	},
 };
 
-module.exports = NextConfig;
+export default nextConfig;
