@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ReactComponent } from '@/types';
 
-import { players } from './contants';
+import { players } from './constants';
 import type { PlayerType } from './types';
 import { PlayerSettingsContext } from './PlayerSettingsContext';
 
