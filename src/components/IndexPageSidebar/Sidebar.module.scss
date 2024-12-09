@@ -2,12 +2,6 @@
 @use '../../styles/links-style';
 
 .sidebar {
-	--tabCellHeight: 25px;
-
-	display: grid;
-	grid-template-rows: var(--tabCellHeight) auto;
-	grid-template-columns: 1fr;
-
 	background-color: #fff;
 	color: var(--text-color);
 
@@ -17,6 +11,7 @@
 
 	&__tabs {
 		overflow: hidden;
+		height: 100%;
 
 		&__tab {
 			width: 100%;
