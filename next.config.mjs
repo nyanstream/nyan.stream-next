@@ -1,7 +1,5 @@
 // @ts-check
 
-import packageJson from './package.json' with { type: 'json' };
-
 /**
  * @type {import('next').NextConfig}
  **/
@@ -12,11 +10,8 @@ const nextConfig = {
 		unoptimized: true,
 	},
 	sassOptions: {
-		// TODO: primeColor из конфига
-		additionalData: `
-            $VERSION: ${encodeURIComponent(packageJson.version)};
-            $primeColor: #4d539c;
-        `,
+		silenceDeprecations: ['legacy-js-api'],
+		additionalData: '@use "src/styles/shared";',
 	},
 };
 

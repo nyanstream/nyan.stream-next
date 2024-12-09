@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @mixin reset {
 	* {
 		box-sizing: border-box;
@@ -79,4 +81,12 @@
 		@return false;
 	}
 	@return true;
+}
+
+@function lighten($color, $amount) {
+	@return color.adjust($color, $lightness: $amount);
+}
+
+@function darken($color, $amount) {
+	@return color.adjust($color, $lightness: $amount * -1);
 }

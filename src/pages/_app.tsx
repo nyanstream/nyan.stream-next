@@ -12,12 +12,12 @@ import type { ReactComponent } from '@/types';
 import { ThemeContextContextProvider } from '@/providers';
 
 import '@/styles/root.scss';
-import '@/styles/every.scss';
 
 dayjs.extend(dayjsPluginRelativeTime);
 dayjs.extend(dayjsPluginDuration);
 dayjs.locale(dayjsLocaleRu);
 
+// eslint-disable-next-line prettier/prettier
 const App: ReactComponent<AppProps> = ({ Component, pageProps }) => {
 	return (
 		<ThemeContextContextProvider>

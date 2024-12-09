@@ -1,4 +1,4 @@
-@import '../../../styles/inc/mixins';
+@use '../../../styles/mixins';
 
 .sidebar {
 	&__radio {
@@ -14,17 +14,17 @@
 
 			list-style: none;
 
-			@include transition(0.5s);
+			@include mixins.transition(0.5s);
 
 			button {
-				@include flexbox(auto, center, center, auto);
+				@include mixins.flexbox(auto, center, center, auto);
 				width: 100%;
 				height: 100%;
 				background-color: transparent;
 				border: 0;
 				outline: 0;
 
-				@include transition(0.5s);
+				@include mixins.transition(0.5s);
 				cursor: pointer;
 
 				font-size: calc(var(--font-size) + 2px);

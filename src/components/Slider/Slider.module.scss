@@ -1,5 +1,5 @@
-@import '../../styles/inc/mixins';
-@import '../../styles/inc/extend';
+@use '../../styles/mixins';
+@use '../../styles/extend';
 
 .slider {
 	display: grid;
@@ -71,7 +71,7 @@
 				display: block;
 				padding: 5px;
 
-				@include transition(0.3s);
+				@include mixins.transition(0.3s);
 				@extend %menu-nav-elem;
 
 				text-decoration: none;
@@ -82,7 +82,7 @@
 	&__footer {
 		$_color: #c4c4c4;
 
-		@include flexbox(auto, center, center, auto);
+		@include mixins.flexbox(auto, center, center, auto);
 		flex-direction: column;
 
 		text-align: center;
@@ -94,7 +94,7 @@
 		cursor: default;
 
 		a {
-			color: lighten($_color, 10%);
+			color: mixins.lighten($_color, 10%);
 			text-decoration: none;
 
 			&:hover {
@@ -103,7 +103,7 @@
 		}
 
 		&__heart {
-			@include transition(0.2s);
+			@include mixins.transition(0.2s);
 
 			&:hover {
 				color: #fe5a5a;

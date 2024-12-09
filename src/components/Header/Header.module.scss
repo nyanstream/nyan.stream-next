@@ -1,10 +1,10 @@
-@import '../../styles/inc/mixins';
-@import '../../styles/inc/extend';
+@use '../../styles/mixins';
+@use '../../styles/extend';
 
 .header {
 	--headerBrandHeight: calc(var(--headerHeight) / 2);
 
-	@include flexbox(auto, space-between, center, auto);
+	@include mixins.flexbox(auto, space-between, center, auto);
 	gap: 5px;
 
 	width: 100%;
@@ -14,10 +14,10 @@
 	background-color: var(--prime-color-5d);
 	overflow: hidden;
 
-	@include transition(0.5s);
+	@include mixins.transition(0.5s);
 
 	&__menu {
-		@include flexbox(auto, auto, center, auto);
+		@include mixins.flexbox(auto, auto, center, auto);
 		gap: 5px;
 
 		height: var(--headerHeight);
@@ -32,7 +32,7 @@
 		}
 
 		&__button {
-			@include flexbox(auto, center, center, auto);
+			@include mixins.flexbox(auto, center, center, auto);
 
 			border-radius: 5px;
 
@@ -42,7 +42,7 @@
 
 			font-size: 1em;
 
-			@include transition(0.3s);
+			@include mixins.transition(0.3s);
 			@extend %menu-nav-elem;
 		}
 	}

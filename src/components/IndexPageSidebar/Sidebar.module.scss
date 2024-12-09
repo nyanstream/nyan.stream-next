@@ -1,4 +1,5 @@
-@import '../../styles/inc/mixins';
+@use '../../styles/mixins';
+@use '../../styles/links-style';
 
 .sidebar {
 	--tabCellHeight: 25px;
@@ -10,9 +11,9 @@
 	background-color: #fff;
 	color: var(--text-color);
 
-	@include transition(0.5s);
+	@include mixins.transition(0.5s);
 
-	@import '../../styles/inc/links-style';
+	@include links-style.links-style;
 
 	&__tabs {
 		overflow: hidden;

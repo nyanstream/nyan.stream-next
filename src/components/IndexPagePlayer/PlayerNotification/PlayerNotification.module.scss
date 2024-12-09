@@ -1,4 +1,4 @@
-@import '../../../styles/inc/mixins';
+@use '../../../styles/mixins';
 
 .notification {
 	--noti-offset: 10px;
@@ -25,7 +25,7 @@
 	font-size: calc(var(--font-size) + 2px);
 
 	user-select: none;
-	@include transition(0.5s);
+	@include mixins.transition(0.5s);
 
 	&__hideBtn {
 		grid-column: 1;
@@ -36,7 +36,7 @@
 
 		cursor: pointer;
 
-		@include transition(0.3s);
+		@include mixins.transition(0.3s);
 
 		&:hover {
 			background-color: rgba(#000, 0.2);

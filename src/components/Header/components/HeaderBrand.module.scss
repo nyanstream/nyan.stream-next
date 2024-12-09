@@ -1,5 +1,5 @@
-@import '../../../styles/inc/mixins';
-@import '../../../styles/inc/extend';
+@use '../../../styles/mixins';
+@use '../../../styles/extend';
 
 .header__brand {
 	--headerBrandHeight: calc(var(--headerHeight) / 2);
@@ -48,7 +48,7 @@
 	}
 
 	&__text {
-		@include transition(0.5s);
+		@include mixins.transition(0.5s);
 
 		text-transform: uppercase;
 		font-family: var(--montserrat-font), Tahoma, Geneva, var(--roboto-font), Arial, sans-serif;
