@@ -43,7 +43,7 @@
 		"lint-staged": "15.2.10",
 		"next": "15.0.4",
 		"next-sitemap": "4.2.3",
-		"prettier": "3.4.2",
+		"prettier": "3.2.5",
 		"sass": "1.82.0",
 		"sharp": "0.33.5",
 		"typescript": "5.7.2"
