@@ -14,7 +14,7 @@
 		"lint": "next lint",
 		"prettier": "prettier --write **/*.{json,js,ts,tsx,scss}",
 		"lint-staged": "lint-staged",
-		"prepare": "is-ci || husky install"
+    "prepare": "/bin/sh -c 'if type git >/dev/null 2>&1; then git config core.hooksPath .git-hooks; else true; fi;'"
 	},
 	"lint-staged": {
 		"*.{json,js,ts,tsx,scss}": [
@@ -41,8 +41,6 @@
 		"eslint-config-next": "15.0.4",
 		"eslint-config-prettier": "9.1.0",
 		"eslint-plugin-prettier": "5.2.1",
-		"husky": "9.1.7",
-		"is-ci": "4.1.0",
 		"lint-staged": "15.2.10",
 		"next": "15.0.4",
 		"next-sitemap": "4.2.3",
