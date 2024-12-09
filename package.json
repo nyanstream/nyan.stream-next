@@ -8,8 +8,7 @@
 	"license": "MIT",
 	"scripts": {
 		"start": "next",
-		"build": "next build",
-		"postbuild": "next-sitemap --config next-sitemap.config.js",
+		"build": "next build && next-sitemap --config next-sitemap.config.js",
 		"dist": "npm run build",
 		"lint": "next lint",
 		"prettier": "prettier --write **/*.{json,js,ts,tsx,scss}",
