@@ -6,7 +6,7 @@ import { storageGet, storageSet } from '@/utilities/storage';
 
 import { NewYearSnowContext } from './NewYearSnowContext';
 
-const StorageItemName = 'nyan_new_year_snow_2023';
+const StorageItemName = 'nyan_new_year_snow_2024';
 
 export const NewYearSnowContextProvider: ReactComponent = ({ children }) => {
 	const [IsNewYearSnowEnabled, setIsNewYearSnowEnabled] = useState(true);

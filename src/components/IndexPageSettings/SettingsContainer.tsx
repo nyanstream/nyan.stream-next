@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ReactComponent } from '@/types';
 
-import { usePlayerSettings } from '@/hooks';
+import { useNewYearSnow, usePlayerSettings } from '@/hooks';
 import type { PlayerType } from '@/providers/PlayerSettingsProvider/types';
 
 import { SelectOptionType } from './SettingsTypes';
@@ -15,6 +15,7 @@ type PropsType = {
 
 export const SettingsContainer: ReactComponent<PropsType> = props => {
 	const { SelectedPlayer, setSelectedPlayer } = usePlayerSettings();
+	const { IsNewYearSnowEnabled, setIsNewYearSnowEnabled } = useNewYearSnow();
 
 	const { handleCloseSettingsTriggerClick } = props;
 
@@ -64,6 +65,20 @@ export const SettingsContainer: ReactComponent<PropsType> = props => {
 											</option>
 										))}
 									</select>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<label htmlFor="newYearSnow_selector">Включить снег</label>
+								</td>
+								<td>
+									<input
+										id="newYearSnow_selector"
+										type="checkbox"
+										checked={IsNewYearSnowEnabled}
+										onChange={event => setIsNewYearSnowEnabled(event.target.checked)}
+									/>
 								</td>
 							</tr>
 						</tbody>

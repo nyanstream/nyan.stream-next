@@ -6,6 +6,8 @@ import type { HeaderMenuItemType } from '@/components/Header/HeaderTypes';
 
 import { Container } from '@/components/Container';
 
+import { NewYearSnowContextProvider } from '@/providers';
+
 import { PlayerContainer } from '@/components/IndexPagePlayer';
 import { SidebarContainer } from '@/components/IndexPageSidebar';
 import { SettingsContainer } from '@/components/IndexPageSettings';
@@ -15,6 +17,8 @@ import { useTheme } from '@/hooks';
 import { IconRuble, IconDiscord, IconGear } from '@/components/common';
 import { IconMoon, IconSun } from '@/components/common';
 import { IconChevronLeft, IconChevronRight } from '@/components/common';
+
+import { NewYearSnow } from '../NewYearSnow';
 
 import styles from './IndexPage.module.scss';
 
@@ -54,13 +58,17 @@ export const IndexPageContainer: ReactComponent = () => {
 
 	return (
 		<Container leftMenuItems={leftMenuItems} rightMenuItems={rightMenuItems}>
-			<main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
-				<PlayerContainer />
+			<NewYearSnowContextProvider>
+				<main className={styles.indexPage} data-is-sidebar-hidden={IsSidebarHidden ? '' : null}>
+					<PlayerContainer />
 
-				<SidebarContainer {...{ IsSidebarHidden }} />
+					<SidebarContainer {...{ IsSidebarHidden }} />
 
-				{IsSettingsOpen ? <SettingsContainer {...{ handleCloseSettingsTriggerClick }} /> : null}
-			</main>
+					{IsSettingsOpen ? <SettingsContainer {...{ handleCloseSettingsTriggerClick }} /> : null}
+				</main>
+
+				<NewYearSnow />
+			</NewYearSnowContextProvider>
 		</Container>
 	);
 };
