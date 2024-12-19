@@ -40,6 +40,9 @@ export const PlayerContainer: ReactComponent = () => {
 			case 'vk':
 				return getVkVideoPlayerURL('animechurch');
 
+			case 'twitch':
+				return getTwitchPlayerURL('zdesneanime');
+
 			case 'twitch-monarhiq':
 				return getTwitchPlayerURL('monarhiq');
 

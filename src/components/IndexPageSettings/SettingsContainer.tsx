@@ -99,6 +99,10 @@ const Players: SelectOptionType<PlayerType>[] = [
 		text: 'VK Видео',
 	},
 	{
+		value: 'twitch',
+		text: 'Twitch (zdesneanime)',
+	},
+	{
 		value: 'twitch-monarhiq',
 		text: 'Twitch (MonarhiQ)',
 	},

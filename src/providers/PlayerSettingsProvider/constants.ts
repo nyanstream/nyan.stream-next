@@ -1,1 +1,7 @@
-export const players = ['vk', 'twitch-monarhiq', 'twitch-banan', 'twitch-rulait'] as const;
+export const players = [
+	'vk',
+	'twitch',
+	'twitch-monarhiq',
+	'twitch-banan',
+	'twitch-rulait',
+] as const;
