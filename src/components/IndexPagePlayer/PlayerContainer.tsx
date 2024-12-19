@@ -57,7 +57,7 @@ export const PlayerContainer: ReactComponent = () => {
 	return (
 		<div ref={PlayerNodeRef} className={styles.player} suppressHydrationWarning>
 			<div className={styles.player__container}>
-				<Player isIframe={false} streamUrl={playerURL} previewImageUrl={ImageStreamPreview.src} />
+				<Player isIframe streamUrl={playerURL} previewImageUrl={ImageStreamPreview.src} />
 			</div>
 
 			<PlayerNotification />
