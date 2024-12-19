@@ -33,21 +33,18 @@ export const PlayerContainer: ReactComponent = () => {
 		const getTwitchPlayerURL = (nickName: string) =>
 			`https://player.twitch.tv/?channel=${nickName}&parent=${projectHost}&autoplay=true`;
 
+		const getVkVideoPlayerURL = (nickName: string) =>
+			`https://live.vkvideo.ru/app/embed/${nickName}?autoplay=true`;
+
 		switch (SelectedPlayer) {
-			case 'restreamer':
-				return 'https://restreamer-app.blyat.science/af5a1666-ed20-408e-9608-4df83598182b.m3u8';
-
-			case 'twitch':
-				return getTwitchPlayerURL('animechurch');
-
-			case 'twitch-backup':
-				return getTwitchPlayerURL('zdesneanime');
+			case 'vk':
+				return getVkVideoPlayerURL('animechurch');
 
 			case 'twitch-monarhiq':
 				return getTwitchPlayerURL('monarhiq');
 
-			case 'twitch-hrk':
-				return getTwitchPlayerURL('hrk40689');
+			case 'twitch-banan':
+				return getTwitchPlayerURL('rcm92587');
 
 			case 'twitch-rulait':
 				return getTwitchPlayerURL('rulait');
@@ -57,11 +54,7 @@ export const PlayerContainer: ReactComponent = () => {
 	return (
 		<div ref={PlayerNodeRef} className={styles.player} suppressHydrationWarning>
 			<div className={styles.player__container}>
-				<Player
-					isIframe={SelectedPlayer !== 'restreamer'}
-					streamUrl={playerURL}
-					previewImageUrl={ImageStreamPreview.src}
-				/>
+				<Player isIframe={false} streamUrl={playerURL} previewImageUrl={ImageStreamPreview.src} />
 			</div>
 
 			<PlayerNotification />

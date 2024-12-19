@@ -95,20 +95,16 @@ export const SettingsContainer: ReactComponent<PropsType> = props => {
 
 const Players: SelectOptionType<PlayerType>[] = [
 	{
-		value: 'restreamer',
-		text: 'Restreamer (beta)',
-	},
-	{
-		value: 'twitch',
-		text: 'Twitch',
+		value: 'vk',
+		text: 'VK Видео',
 	},
 	{
 		value: 'twitch-monarhiq',
 		text: 'Twitch (MonarhiQ)',
 	},
 	{
-		value: 'twitch-hrk',
-		text: 'Twitch (hrk40689)',
+		value: 'twitch-banan',
+		text: 'Twitch (rcm92587)',
 	},
 	{
 		value: 'twitch-rulait',
