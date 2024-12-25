@@ -1,5 +1,7 @@
 import React from 'react';
+
 import clsx from 'clsx';
+import { Popover } from 'react-tiny-popover';
 
 import {
 	API_SSE_URL,
@@ -18,6 +20,7 @@ export const Chat: React.FC = () => {
 
 	const messagesBox = React.useRef<HTMLDivElement | null>(null);
 	const sendForm = React.useRef<HTMLFormElement | null>(null);
+	const sendFormInput = React.useRef<HTMLInputElement | null>(null);
 
 	const [bearerToken, setBearerToken] = React.useState<string>();
 	const [connectionId, setConnectionId] = React.useState<string>();
@@ -26,10 +29,11 @@ export const Chat: React.FC = () => {
 	const [users, setUsers] = React.useState<any[]>();
 	const [emojis, setEmojis] = React.useState<any[]>();
 
+	const [isEmojiPopoverOpen, setIsEmojiPopoverOpen] = React.useState(false);
+
 	const isAuthorized = !!bearerToken;
 
 	const insertNewMessages = React.useCallback((messages: any[]) => {
-		console.log(messages);
 		setMessages(prevMessages => [...(prevMessages ?? []), ...messages]);
 		setTimeout(() => {
 			if (messagesBox.current) {
@@ -83,8 +87,19 @@ export const Chat: React.FC = () => {
 				// TODO: Implement user inactive status
 			}
 		});
-		sseConnection.current.addEventListener('error', event => {
-			console.error('SSE error', event);
+		sseConnection.current.addEventListener('error', () => {
+			sseConnection.current?.close();
+			setConnectionId(undefined);
+
+			insertNewMessages([
+				{
+					id: crypto.randomUUID(),
+					createdAt: new Date().toISOString(),
+					type: 'system',
+					nickname: 'System',
+					text: 'Соединение разорвано. Перезагрузите страницу.',
+				},
+			]);
 		});
 	}
 
@@ -139,6 +154,14 @@ export const Chat: React.FC = () => {
 		[bearerToken]
 	);
 
+	const handleAddEmoji = React.useCallback((emojiCode: string) => {
+		if (!sendFormInput.current) return;
+
+		const message = sendFormInput.current.value;
+		sendFormInput.current.value = [message, emojiCode].join(' ').trim();
+		sendFormInput.current.focus();
+	}, []);
+
 	return (
 		<div className={styles.chat}>
 			<div ref={messagesBox} className={styles.chat__messages}>
@@ -152,18 +175,58 @@ export const Chat: React.FC = () => {
 			{isAuthorized ? (
 				<div className={clsx(styles.chat__footer, styles.chat__sender)}>
 					<form ref={sendForm} onSubmit={handleSend}>
-						<button type="button" className={styles.chat__sender__emojiButton}>
-							Эмодзи
-						</button>
+						<Popover
+							isOpen={isEmojiPopoverOpen}
+							containerClassName={styles.chat__emojiPopover}
+							positions={['top', 'bottom', 'left', 'right']}
+							align="start"
+							onClickOutside={() => setIsEmojiPopoverOpen(false)}
+							content={
+								emojis ? (
+									<ul className={styles.chat__emojiPopover__list}>
+										{emojis.map(emoji => (
+											<li key={emoji.id}>
+												<button type="button" onClick={() => handleAddEmoji(emoji.code)}>
+													{emoji.code}
+													<img
+														src={emoji.imageUrl}
+														alt={emoji.code}
+														width={emoji.imageWidth}
+														height={emoji.imageHeight}
+														hidden={emoji.uiHidden}
+														data-inverted={emoji.uiColorInverted ? '' : null}
+														data-style={emoji.uiColorInverted ? 'color-inverted' : null}
+													/>
+												</button>
+											</li>
+										))}
+									</ul>
+								) : (
+									<div>no info :(</div>
+								)
+							}>
+							<button
+								type="button"
+								className={styles.chat__sender__emojiButton}
+								onClick={() => setIsEmojiPopoverOpen(!isEmojiPopoverOpen)}
+								disabled={!connectionId}>
+								Эмодзи
+							</button>
+						</Popover>
 						<input
+							ref={sendFormInput}
 							type="text"
 							name="message"
 							placeholder="Сообщение"
 							required
+							autoFocus
 							minLength={1}
 							maxLength={150}
+							disabled={!connectionId}
 						/>
-						<button type="submit">Отправить</button>
+						<button type="submit" disabled={!connectionId}>
+							Отправить
+						</button>
 					</form>
 				</div>
 			) : (
