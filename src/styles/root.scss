@@ -7,6 +7,7 @@
 	--prime-color: shared.$primeColor;
 	--prime-color-5d: #{mixins.darken(shared.$primeColor, 5%)};
 	--prime-color-10d: #{mixins.darken(shared.$primeColor, 10%)};
+	--prime-color-15d: #{mixins.darken(shared.$primeColor, 15%)};
 
 	--text-color: #000;
 	--link-hover-color: #{rgba(#000, 0.05)};

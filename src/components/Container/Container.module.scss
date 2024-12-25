@@ -24,6 +24,7 @@
 		--prime-color: #{$primeColor};
 		--prime-color-5d: #{mixins.darken($primeColor, 5%)};
 		--prime-color-10d: #{mixins.darken($primeColor, 10%)};
+		--prime-color-15d: #{mixins.darken($primeColor, 15%)};
 
 		--tab-hover-color: #{mixins.darken($primeColor, 8%)};
 		--tab-focus-color: #{mixins.darken($primeColor, 6%)};

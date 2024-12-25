@@ -1,0 +1,157 @@
+@use '../../styles/mixins';
+@use '../../styles/links-style';
+
+.chat {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 50px;
+
+	width: 100%;
+	height: 100%;
+
+	background-color: var(--prime-color-10d);
+	overflow: hidden;
+
+	@include mixins.transition(0.5s);
+
+	&__messages {
+		padding: 10px;
+
+		overflow: hidden;
+		overflow-y: scroll;
+
+		color: #fff;
+		font-size: 14px;
+		line-height: 1.5em;
+
+		&::-webkit-scrollbar {
+			width: 4px
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background-color: var(--prime-color-5d)
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			background-color: var(--prime-color-10d)
+		}
+
+		@supports(-moz-appearance: none) {
+			scrollbar-width:thin;
+			scrollbar-color: var(--prime-color-5d) #fff
+		}
+
+		&__message {
+			position: relative;
+
+			b {
+				font-weight: 500;
+			}
+
+			time {
+				position: absolute;
+				top: -2.5px;
+    		right: 0;
+    		color: #ccc;
+				font-size: 8px;
+				user-select: none;
+			}
+
+			&:not(:first-child) {
+				margin-top: 5px;
+			}
+		}
+	}
+
+	&__footer {
+		width: 100%;
+		height: 100%;
+
+		background-color: var(--prime-color-15d);
+
+		@include mixins.transition(0.5s);
+	}
+
+	&__login {
+		form {
+			display: flex;
+
+			align-items: center;
+			justify-content: center;
+
+			width: 100%;
+			height: 100%;
+
+			gap: 10px;
+
+			input, button {
+				font-size: 16px;
+			}
+
+			input {
+				width: 150px;
+				height: 30px;
+				padding: 0 10px;
+				border: 1px solid var(--prime-color-5d);
+				border-radius: 5px;
+			}
+
+			button {
+				width: 75px;
+				height: 30px;
+				border: 1px solid var(--prime-color-5d);
+				border-radius: 5px;
+				cursor: pointer;
+			}
+		}
+	}
+
+	&__sender {
+		form {
+			display: flex;
+
+			align-items: center;
+			justify-content: center;
+
+			width: 100%;
+			height: 100%;
+
+			padding: 0 7.5px;
+
+			input {
+				width: 100%;
+				height: 30px;
+				padding: 0 10px;
+				border: none;
+				font-size: 14px;
+			}
+
+			button {
+				width: 40px;
+				height: 30px;
+				border: none;
+				cursor: pointer;
+
+				&[type="submit"] {
+					border-radius: 0px 5px 5px 0px;
+
+					&::before {
+						display: block;
+						content: '📨';
+						margin-top: -7.5px;
+						font-size: 20px;
+					}
+				}
+			}
+		}
+
+		&__emojiButton {
+			background-image: url('../../static/images/zephir.png');
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: 16px 16px;
+
+			border-radius: 5px 0px 0px 5px;
+		}
+	}
+}
