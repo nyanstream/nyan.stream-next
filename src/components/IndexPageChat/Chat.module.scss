@@ -25,20 +25,20 @@
 		line-height: 1.5em;
 
 		&::-webkit-scrollbar {
-			width: 4px
+			width: 4px;
 		}
 
 		&::-webkit-scrollbar-thumb {
-			background-color: var(--prime-color-5d)
+			background-color: var(--prime-color-5d);
 		}
 
 		&::-webkit-scrollbar-thumb:hover {
-			background-color: var(--prime-color-10d)
+			background-color: var(--prime-color-10d);
 		}
 
-		@supports(-moz-appearance: none) {
-			scrollbar-width:thin;
-			scrollbar-color: var(--prime-color-5d) #fff
+		@supports (-moz-appearance: none) {
+			scrollbar-width: thin;
+			scrollbar-color: var(--prime-color-5d) #fff;
 		}
 
 		&__message {
@@ -51,8 +51,8 @@
 			time {
 				position: absolute;
 				top: -2.5px;
-    		right: 0;
-    		color: #ccc;
+				right: 0;
+				color: #ccc;
 				font-size: 8px;
 				user-select: none;
 			}
@@ -61,11 +61,11 @@
 				max-width: 62px;
 				height: auto;
 
-				&[data-style*="color-inverted"] {
-					filter: invert(100%)
+				&[data-style*='color-inverted'] {
+					filter: invert(100%);
 				}
 
-				&[data-style*="reversed"] {
+				&[data-style*='reversed'] {
 					transform: scaleX(-1);
 				}
 			}
@@ -97,7 +97,8 @@
 
 			gap: 10px;
 
-			input, button {
+			input,
+			button {
 				font-size: 16px;
 			}
 
@@ -145,7 +146,7 @@
 				border: none;
 				cursor: pointer;
 
-				&[type="submit"] {
+				&[type='submit'] {
 					border-radius: 0px 5px 5px 0px;
 
 					&::before {
@@ -207,11 +208,11 @@
 				max-width: 64px;
 				height: auto;
 
-				&[data-style*="color-inverted"] {
-					filter: invert(100%)
+				&[data-style*='color-inverted'] {
+					filter: invert(100%);
 				}
 
-				&[data-style*="reversed"] {
+				&[data-style*='reversed'] {
 					transform: scaleX(-1);
 				}
 			}

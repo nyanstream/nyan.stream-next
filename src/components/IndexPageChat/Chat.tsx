@@ -167,8 +167,8 @@ export const Chat: React.FC = () => {
 			<div ref={messagesBox} className={styles.chat__messages}>
 				{messages
 					? messages.map(message => (
-						<ChatMessage key={message.id} message={message} emojis={emojis} />
-					))
+							<ChatMessage key={message.id} message={message} emojis={emojis} />
+						))
 					: null}
 			</div>
 
