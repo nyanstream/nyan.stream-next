@@ -3,6 +3,8 @@ import React from 'react';
 import clsx from 'clsx';
 import { Popover } from 'react-tiny-popover';
 
+import { IconDiscord } from '@/components/common';
+
 import {
 	API_SSE_URL,
 	API_GET_CHAT_USERS_URL,
@@ -10,6 +12,9 @@ import {
 	API_GUEST_LOGIN_URL,
 	API_POST_CHAT_MESSAGE_URL,
 	API_GET_EMOJIS_URL,
+	API_POST_LOGIN_WITH_TOKEN_URL,
+	API_GET_DISCORD_OAUTH_URL,
+	API_POST_DISCORD_SIGNUP_URL,
 } from './constants';
 import styles from './Chat.module.scss';
 import { ChatMessage } from './ChatMessage';
@@ -18,9 +23,14 @@ export const Chat: React.FC = () => {
 	const initialRequestDone = React.useRef(false);
 	const sseConnection = React.useRef<EventSource | null>(null);
 
+	const oauthSignupBox = React.useRef<HTMLDialogElement | null>(null);
 	const messagesBox = React.useRef<HTMLDivElement | null>(null);
 	const sendForm = React.useRef<HTMLFormElement | null>(null);
 	const sendFormInput = React.useRef<HTMLInputElement | null>(null);
+
+	const locationHash = React.useRef(new URLSearchParams(window.location.hash.replace('#', '')));
+	const oauthSessionIdFromUrl = React.useRef(locationHash.current.get('oauthSessionId'));
+	const bearerTokenFromUrl = React.useRef(locationHash.current.get('bearerToken'));
 
 	const [bearerToken, setBearerToken] = React.useState<string>();
 	const [connectionId, setConnectionId] = React.useState<string>();
@@ -59,6 +69,11 @@ export const Chat: React.FC = () => {
 			insertNewMessages(messagesData);
 			setEmojis(emojis);
 
+			if (oauthSessionIdFromUrl.current) {
+				oauthSignupBox.current?.showModal();
+				console.log(oauthSessionIdFromUrl.current);
+			}
+
 			initialRequestDone.current = true;
 		})();
 
@@ -71,6 +86,24 @@ export const Chat: React.FC = () => {
 			const messageData = JSON.parse(event.data);
 			if (messageData.type === 'UserConnected' && !connectionId) {
 				setConnectionId(messageData.data.connectionId);
+
+				if (bearerTokenFromUrl.current) {
+					fetch(API_POST_LOGIN_WITH_TOKEN_URL, {
+						method: 'POST',
+						headers: {
+							'Content-type': 'application/json',
+							Authorization: bearerTokenFromUrl.current,
+						},
+						body: JSON.stringify({ connectionId: messageData.data.connectionId }),
+					})
+						.then(response => response.json())
+						.then(data => {
+							if (data.success && bearerTokenFromUrl.current) {
+								setBearerToken(bearerTokenFromUrl.current);
+								cleanUrl();
+							}
+						});
+				}
 			}
 			if (messageData.type === 'UserLogin') {
 				setUsers(prevUsers => [...(prevUsers ?? []), messageData.data]);
@@ -128,6 +161,56 @@ export const Chat: React.FC = () => {
 		[connectionId]
 	);
 
+	const handleDiscordLogin = React.useCallback(() => {
+		fetch(API_GET_DISCORD_OAUTH_URL)
+			.then(response => response.json())
+			.then(data => {
+				if (data.url) {
+					const redirectUrl = data.url;
+					window.location.replace(redirectUrl);
+				}
+			});
+	}, []);
+
+	const handleDiscordSignup = React.useCallback(
+		(event: React.FormEvent<HTMLFormElement>) => {
+			if (!connectionId) return;
+			event.preventDefault();
+
+			const formData = new FormData(event.currentTarget);
+
+			const nickname = formData.get('nickname');
+			if (typeof nickname !== 'string') return;
+
+			fetch(API_POST_DISCORD_SIGNUP_URL, {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json',
+				},
+				body: JSON.stringify({
+					oauthSessionId: oauthSessionIdFromUrl.current,
+					connectionId,
+					nickname,
+				}),
+			})
+				.then(response => response.json())
+				.then(data => {
+					if (data.bearer) {
+						setBearerToken(data.bearer);
+						oauthSignupBox.current?.close();
+						cleanUrl();
+					}
+				})
+				.catch(error => {
+					console.error(error);
+					if (error instanceof Error) {
+						alert(error.message);
+					}
+				});
+		},
+		[connectionId]
+	);
+
 	const handleSend = React.useCallback(
 		(event: React.FormEvent<HTMLFormElement>) => {
 			if (!bearerToken) return;
@@ -163,89 +246,123 @@ export const Chat: React.FC = () => {
 	}, []);
 
 	return (
-		<div className={styles.chat}>
-			<div ref={messagesBox} className={styles.chat__messages}>
-				{messages
-					? messages.map(message => (
-							<ChatMessage key={message.id} message={message} emojis={emojis} />
-						))
-					: null}
-			</div>
+		<React.Fragment>
+			<dialog ref={oauthSignupBox} className={styles.chat__oauthSignup}>
+				<div>
+					<form className="form" onClick={handleDiscordSignup}>
+						<div>
+							<input name="nickname" placeholder="Никнейм" required minLength={1} maxLength={20} />
+						</div>
+						<div>
+							<button type="submit">Окончить регистрацию</button>
+						</div>
+					</form>
+				</div>
+			</dialog>
 
-			{isAuthorized ? (
-				<div className={clsx(styles.chat__footer, styles.chat__sender)}>
-					<form ref={sendForm} onSubmit={handleSend}>
-						<Popover
-							isOpen={isEmojiPopoverOpen}
-							containerClassName={styles.chat__emojiPopover}
-							positions={['top', 'bottom', 'left', 'right']}
-							align="start"
-							onClickOutside={() => setIsEmojiPopoverOpen(false)}
-							content={
-								emojis ? (
-									<ul className={styles.chat__emojiPopover__list}>
-										{emojis.map(emoji => (
-											<li key={emoji.id}>
-												<button type="button" onClick={() => handleAddEmoji(emoji.code)}>
-													{emoji.code}
-													<img
-														src={emoji.imageUrl}
-														alt={emoji.code}
-														width={emoji.imageWidth}
-														height={emoji.imageHeight}
-														hidden={emoji.uiHidden}
-														data-inverted={emoji.uiColorInverted ? '' : null}
-														data-style={emoji.uiColorInverted ? 'color-inverted' : null}
-													/>
-												</button>
-											</li>
-										))}
-									</ul>
-								) : (
-									<div>no info :(</div>
-								)
-							}>
+			<div className={styles.chat}>
+				<div ref={messagesBox} className={styles.chat__messages}>
+					{messages
+						? messages.map(message => (
+								<ChatMessage key={message.id} message={message} emojis={emojis} />
+							))
+						: null}
+				</div>
+
+				{isAuthorized ? (
+					<div className={clsx(styles.chat__footer, styles.chat__sender)}>
+						<form ref={sendForm} onSubmit={handleSend}>
+							<Popover
+								isOpen={isEmojiPopoverOpen}
+								containerClassName={styles.chat__emojiPopover}
+								positions={['top', 'bottom', 'left', 'right']}
+								align="start"
+								onClickOutside={() => setIsEmojiPopoverOpen(false)}
+								content={
+									emojis ? (
+										<ul className={styles.chat__emojiPopover__list}>
+											{emojis.map(emoji => (
+												<li key={emoji.id}>
+													<button type="button" onClick={() => handleAddEmoji(emoji.code)}>
+														{emoji.code}
+														<img
+															src={emoji.imageUrl}
+															alt={emoji.code}
+															width={emoji.imageWidth}
+															height={emoji.imageHeight}
+															hidden={emoji.uiHidden}
+															data-inverted={emoji.uiColorInverted ? '' : null}
+															data-style={emoji.uiColorInverted ? 'color-inverted' : null}
+														/>
+													</button>
+												</li>
+											))}
+										</ul>
+									) : (
+										<div>no info :(</div>
+									)
+								}>
+								<button
+									type="button"
+									className={styles.chat__sender__emojiButton}
+									onClick={() => setIsEmojiPopoverOpen(!isEmojiPopoverOpen)}
+									disabled={!connectionId}>
+									Эмодзи
+								</button>
+							</Popover>
+							<input
+								ref={sendFormInput}
+								type="text"
+								name="message"
+								placeholder="Сообщение"
+								required
+								autoFocus
+								minLength={1}
+								maxLength={150}
+								disabled={!connectionId}
+							/>
+							<button type="submit" disabled={!connectionId}>
+								Отправить
+							</button>
+						</form>
+					</div>
+				) : (
+					<div className={clsx(styles.chat__footer, styles.chat__login)}>
+						<form onSubmit={handleLogin}>
+							<input
+								type="text"
+								name="nickname"
+								placeholder="Никнейм"
+								required
+								minLength={1}
+								maxLength={20}
+							/>
+							<button type="submit" disabled={!connectionId}>
+								Войти
+							</button>
+							<span>или</span>
 							<button
 								type="button"
-								className={styles.chat__sender__emojiButton}
-								onClick={() => setIsEmojiPopoverOpen(!isEmojiPopoverOpen)}
-								disabled={!connectionId}>
-								Эмодзи
+								disabled={!connectionId}
+								title="Войти через Discord"
+								className={styles.chat__login__discordLoginButton}
+								onClick={handleDiscordLogin}>
+								<IconDiscord className={styles.chat__login__discordLoginButton__logo} aria-hidden />{' '}
+								Войти
 							</button>
-						</Popover>
-						<input
-							ref={sendFormInput}
-							type="text"
-							name="message"
-							placeholder="Сообщение"
-							required
-							autoFocus
-							minLength={1}
-							maxLength={150}
-							disabled={!connectionId}
-						/>
-						<button type="submit" disabled={!connectionId}>
-							Отправить
-						</button>
-					</form>
-				</div>
-			) : (
-				<div className={clsx(styles.chat__footer, styles.chat__login)}>
-					<form onSubmit={handleLogin}>
-						<input
-							type="text"
-							name="nickname"
-							placeholder="Никнейм"
-							required
-							minLength={1}
-							maxLength={20}
-						/>
-						<button type="submit" disabled={!connectionId}>
-							Войти
-						</button>
-					</form>
-				</div>
-			)}
-		</div>
+						</form>
+					</div>
+				)}
+			</div>
+		</React.Fragment>
+	);
+};
+
+const cleanUrl = () => {
+	if (!window) return;
+	window.history.pushState(
+		'',
+		window.document.title,
+		window.location.pathname + window.location.search
 	);
 };
