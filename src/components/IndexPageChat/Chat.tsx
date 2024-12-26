@@ -41,6 +41,7 @@ export const Chat: React.FC = () => {
 	const [users, setUsers] = React.useState<any[]>();
 	const [connectionsCount, setConnectionsCount] = React.useState<number>();
 
+	const [isConnectionsPopoverOpen, setIsConnectionsPopoverOpen] = React.useState(false);
 	const [isEmojiPopoverOpen, setIsEmojiPopoverOpen] = React.useState(false);
 
 	const isAuthorized = !!bearerToken;
@@ -363,20 +364,43 @@ export const Chat: React.FC = () => {
 					</div>
 				)}
 
-				<div className={styles.chat__connectionsBadge}>
-					<div title="Подключения">
-						<span className={styles.chat__connectionsBadge__dot}>
-							<IconCircle />
-						</span>{' '}
-						<span>{connectionsCount || 0}</span>
+				<Popover
+					isOpen={isConnectionsPopoverOpen}
+					containerClassName={styles.chat__connectionsPopover}
+					positions={['bottom', 'left', 'right', 'top']}
+					align="end"
+					onClickOutside={() => setIsConnectionsPopoverOpen(false)}
+					content={
+						<ul>
+							{users?.map(user => (
+								<li
+									key={user.id}
+									data-id={user.userId}
+									data-role={user.role}
+									data-status={user.status}>
+									{user.nickname}
+								</li>
+							))}
+						</ul>
+					}>
+					<div
+						className={styles.chat__connectionsBadge}
+						data-clickable={bearerToken ? '' : null}
+						onClick={() => bearerToken && setIsConnectionsPopoverOpen(!isConnectionsPopoverOpen)}>
+						<div title="Подключения">
+							<span className={styles.chat__connectionsBadge__dot}>
+								<IconCircle />
+							</span>{' '}
+							<span>{connectionsCount || 0}</span>
+						</div>
+						<div title="Пользователи в чате">
+							<span className={styles.chat__connectionsBadge__user}>
+								<IconUser />
+							</span>{' '}
+							<span>{users?.length || 0}</span>
+						</div>
 					</div>
-					<div title="Пользователи в чате">
-						<span className={styles.chat__connectionsBadge__user}>
-							<IconUser />
-						</span>{' '}
-						<span>{users?.length || 0}</span>
-					</div>
-				</div>
+				</Popover>
 			</div>
 		</React.Fragment>
 	);
