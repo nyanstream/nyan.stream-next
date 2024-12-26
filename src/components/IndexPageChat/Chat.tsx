@@ -3,7 +3,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { Popover } from 'react-tiny-popover';
 
-import { IconDiscord } from '@/components/common';
+import { IconCircle, IconUser, IconDiscord, IconSend } from '@/components/common';
 
 import {
 	API_SSE_URL,
@@ -36,8 +36,10 @@ export const Chat: React.FC = () => {
 	const [connectionId, setConnectionId] = React.useState<string>();
 
 	const [messages, setMessages] = React.useState<any[]>();
-	const [users, setUsers] = React.useState<any[]>();
 	const [emojis, setEmojis] = React.useState<any[]>();
+
+	const [users, setUsers] = React.useState<any[]>();
+	const [connectionsCount, setConnectionsCount] = React.useState<number>();
 
 	const [isEmojiPopoverOpen, setIsEmojiPopoverOpen] = React.useState(false);
 
@@ -66,6 +68,7 @@ export const Chat: React.FC = () => {
 			]);
 
 			setUsers(usersData.users);
+			setConnectionsCount(usersData.connectionsCount);
 			insertNewMessages(messagesData);
 			setEmojis(emojis);
 
@@ -115,6 +118,12 @@ export const Chat: React.FC = () => {
 			}
 			if (messageData.type === 'NewChatMessage') {
 				insertNewMessages([messageData.data]);
+			}
+			if (messageData.type === 'NewConnection') {
+				setConnectionsCount(messageData.data.connectionsCount);
+			}
+			if (messageData.type === 'ConnectionClosed') {
+				setConnectionsCount(messageData.data.connectionsCount);
 			}
 			if (messageData.type === 'UserInactiveStatus') {
 				// TODO: Implement user inactive status
@@ -264,8 +273,8 @@ export const Chat: React.FC = () => {
 				<div ref={messagesBox} className={styles.chat__messages}>
 					{messages
 						? messages.map(message => (
-								<ChatMessage key={message.id} message={message} emojis={emojis} />
-							))
+							<ChatMessage key={message.id} message={message} emojis={emojis} />
+						))
 						: null}
 				</div>
 
@@ -322,7 +331,7 @@ export const Chat: React.FC = () => {
 								disabled={!connectionId}
 							/>
 							<button type="submit" disabled={!connectionId}>
-								Отправить
+								<IconSend />
 							</button>
 						</form>
 					</div>
@@ -353,6 +362,21 @@ export const Chat: React.FC = () => {
 						</form>
 					</div>
 				)}
+
+				<div className={styles.chat__connectionsBadge}>
+					<div title="Подключения">
+						<span className={styles.chat__connectionsBadge__dot}>
+							<IconCircle />
+						</span>{' '}
+						<span>{connectionsCount || 0}</span>
+					</div>
+					<div title="Пользователи в чате">
+						<span className={styles.chat__connectionsBadge__user}>
+							<IconUser />
+						</span>{' '}
+						<span>{users?.length || 0}</span>
+					</div>
+				</div>
 			</div>
 		</React.Fragment>
 	);
