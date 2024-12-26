@@ -212,7 +212,7 @@
 					filter: invert(100%);
 				}
 
-				&[data-style*='reversed'] {
+				&[data-style*='reversed-x'] {
 					transform: scaleX(-1);
 				}
 			}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 import dayjs from 'dayjs';
 import parseHtml from 'html-react-parser';
@@ -21,7 +22,20 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, emojis }) => 
 			for (const emoji of emojis) {
 				text = text.replaceAll(
 					emoji.code,
-					`<img src="${emoji.imageUrl}" alt="${emoji.code}" width="${emoji.imageWidth}" height="${emoji.imageHeight}" ${emoji.uiHidden ? 'hidden' : ''} ${emoji.uiColorInverted ? 'data-style="color-inverted"' : ''} />`
+					renderToStaticMarkup(
+						<img
+							src={emoji.imageUrl}
+							alt={emoji.code}
+							width={emoji.imageWidth}
+							height={emoji.imageHeight}
+							data-style={[
+								emoji.uiColorInverted ? 'color-inverted' : '',
+								emoji.uiReversedX ? 'reversed-x' : '',
+							]
+								.filter(Boolean)
+								.join(' ')}
+						/>
+					)
 				);
 			}
 		}
