@@ -1,8 +1,7 @@
 import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
+import reactStringReplace from 'react-string-replace';
 
 import dayjs from 'dayjs';
-import parseHtml from 'html-react-parser';
 
 import styles from './Chat.module.scss';
 
@@ -16,30 +15,32 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, emojis }) => 
 
 	const isSystem = message.type === 'system';
 
-	const messageText = React.useMemo(() => {
+	const messageContent = React.useMemo(() => {
 		let text = message.text;
 		if (emojis) {
 			for (const emoji of emojis) {
-				text = text.replaceAll(
-					emoji.code,
-					renderToStaticMarkup(
+				text = reactStringReplace(text, emoji.code, (match, index) => {
+					const style = [
+						emoji.uiColorInverted ? 'color-inverted' : '',
+						emoji.uiReversedX ? 'reversed-x' : '',
+					]
+						.filter(Boolean)
+						.join(' ');
+
+					return (
 						<img
+							key={match + index}
 							src={emoji.imageUrl}
 							alt={emoji.code}
 							width={emoji.imageWidth}
 							height={emoji.imageHeight}
-							data-style={[
-								emoji.uiColorInverted ? 'color-inverted' : '',
-								emoji.uiReversedX ? 'reversed-x' : '',
-							]
-								.filter(Boolean)
-								.join(' ')}
+							data-style={!!style ? style : null}
 						/>
-					)
-				);
+					);
+				});
 			}
 		}
-		return parseHtml(text);
+		return text;
 	}, [emojis, message.text]);
 
 	return (
@@ -48,10 +49,10 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, emojis }) => 
 				{time.format('HH:mm')}
 			</time>
 			{isSystem ? (
-				messageText
+				messageContent
 			) : (
 				<React.Fragment>
-					<b>{message.nickname}</b>: {messageText}
+					<b>{message.nickname}</b>: {messageContent}
 				</React.Fragment>
 			)}
 		</div>
