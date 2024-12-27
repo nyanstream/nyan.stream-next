@@ -16,88 +16,6 @@
 
 	@include mixins.transition(0.5s);
 
-	&__connectionsBadge {
-		position: absolute;
-
-		top: 5px;
-		right: 5px;
-
-		background-color: rgb(0, 0, 0, 0.75);
-
-		display: flex;
-
-		padding: 5px 7.5px;
-		gap: 5px;
-
-		user-select: none;
-
-		opacity: 0.5;
-
-		color: #fff;
-		font-size: 14px;
-
-		@include mixins.transition(0.5s);
-
-		&[data-clickable] {
-			cursor: pointer;
-		}
-
-		&:hover {
-			opacity: 1;
-		}
-
-		& div,
-		& span {
-			display: flex;
-			gap: 5px;
-		}
-
-		&__dot {
-			color: red;
-		}
-
-		&__user {
-			color: #fff;
-		}
-	}
-
-	&__connectionsPopover {
-		width: 225px;
-		max-height: 250px;
-		padding: 7.5px;
-
-		background-color: rgb(0, 0, 0, 0.5);
-
-		font-size: 20px;
-		color: #fff;
-		text-align: right;
-
-		overflow-x: hidden !important;
-		overflow-y: auto !important;
-
-		ul {
-			list-style: none;
-
-			li {
-				&[data-role='Administrator'] {
-					color: red;
-				}
-
-				&[data-role='Moderator'] {
-					color: greenyellow;
-				}
-
-				&[data-status='inactive'] {
-					opacity: 0.5;
-				}
-
-				&:not(:first-child) {
-					margin-top: 5px;
-				}
-			}
-		}
-	}
-
 	&__messages {
 		padding: 10px;
 
@@ -132,7 +50,7 @@
 
 		background-color: var(--prime-color-15d);
 
-		@include mixins.transition(0.5s);
+		// @include mixins.transition(0.5s);
 	}
 
 	&__login {
@@ -190,6 +108,16 @@
 	}
 
 	&__sender {
+		display: flex;
+
+		align-items: center;
+		justify-content: center;
+
+		width: 100%;
+		height: 100%;
+
+		padding: 0 7.5px;
+
 		form {
 			display: flex;
 
@@ -198,136 +126,39 @@
 
 			width: 100%;
 			height: 100%;
-
-			padding: 0 7.5px;
-
-			input {
-				width: 100%;
-				height: 30px;
-				padding: 0 10px;
-				border: none;
-				font-size: 14px;
-			}
-
-			button {
-				width: 40px;
-				height: 30px;
-				border: none;
-				cursor: pointer;
-
-				&[type='submit'] {
-					display: flex;
-					align-items: center;
-					justify-content: center;
-
-					border-radius: 0px 5px 5px 0px;
-
-					font-size: 18px;
-					color: var(--prime-color-5d);
-				}
-			}
 		}
 
-		&__emojiButton {
-			background-image: url('../../static/images/zephir.png');
-			background-repeat: no-repeat;
-			background-position: center;
-			background-size: 16px 16px;
-
-			border-radius: 5px 0px 0px 5px;
-		}
-	}
-
-	&__emojiPopover {
-		width: 320px;
-		height: 250px;
-		padding: 7.5px;
-
-		background-color: var(--prime-color-10d);
-
-		overflow-x: hidden !important;
-		overflow-y: scroll !important;
-
-		border: 1px solid var(--prime-color-15d);
-
-		&__list {
-			width: 100%;
-
-			display: inline-flex;
-			flex-wrap: wrap;
-			justify-content: space-evenly;
-
-			list-style: none;
-
-			gap: 5px;
-
-			li {
-				display: block;
-			}
-
-			button {
-				appearance: none;
-				background: transparent;
-				border: 0;
-
-				cursor: pointer;
-			}
-
-			img {
-				max-width: 64px;
-				height: auto;
-
-				&[data-style*='color-inverted'] {
-					filter: invert(100%);
-				}
-
-				&[data-style*='reversed-x'] {
-					transform: scaleX(-1);
-				}
-			}
-		}
-	}
-
-	&__oauthSignup {
-		margin: auto;
-
-		background-color: var(--prime-color-10d);
-
-		width: 250px;
-		padding: 10px;
-		border-radius: 10px;
-
-		form {
-			display: flex;
-			flex-direction: column;
-
-			align-items: center;
-			justify-content: center;
-
-			width: 100%;
-			gap: 7.5px;
-		}
-
-		input,
 		button {
-			font-size: 16px;
+			width: 40px;
+			height: 30px;
+
+			border: none;
+			cursor: pointer;
+
+			@include mixins.transition(0.35s);
+
+			&[type='submit'] {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				border-radius: 0px 5px 5px 0px;
+
+				font-size: 18px;
+				color: var(--prime-color-5d);
+			}
+
+			&:hover {
+				opacity: 0.9;
+			}
 		}
 
 		input {
 			width: 100%;
 			height: 30px;
 			padding: 0 10px;
-			border: 1px solid var(--prime-color-5d);
-			border-radius: 5px;
-		}
-
-		button {
-			height: 30px;
-			border: 1px solid var(--prime-color-5d);
-			border-radius: 5px;
-			cursor: pointer;
-			color: #000;
-			padding: 0 10px;
+			border: none;
+			font-size: 14px;
 		}
 	}
 }

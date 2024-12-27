@@ -1,9 +1,8 @@
 import React from 'react';
 
 import clsx from 'clsx';
-import { Popover } from 'react-tiny-popover';
 
-import { IconCircle, IconUser, IconDiscord, IconSend } from '@/components/common';
+import { IconDiscord, IconSend } from '@/components/common';
 
 import {
 	API_SSE_URL,
@@ -14,18 +13,22 @@ import {
 	API_GET_EMOJIS_URL,
 	API_POST_LOGIN_WITH_TOKEN_URL,
 	API_GET_DISCORD_OAUTH_URL,
-	API_POST_DISCORD_SIGNUP_URL,
 } from './constants';
+import type { ChatMessageInfo, EmojiInfo, UserInfo } from './types';
+import { cleanUrl } from './utils';
+
 import { ChatMessage } from './components/ChatMessage';
-import { ChatMessageInfo, EmojiInfo, UserInfo } from './types';
+import { ChatConnections } from './components/ChatConnections';
+import { ChatEmojis } from './components/ChatEmojis';
 
 import styles from './Chat.module.scss';
+import { ChatOauthSignupDialog } from './components/ChatOauthSignupDialog';
 
 export const Chat: React.FC = () => {
 	const initialRequestDone = React.useRef(false);
 	const sseConnection = React.useRef<EventSource | null>(null);
 
-	const oauthSignupBox = React.useRef<HTMLDialogElement | null>(null);
+	const oauthSignupDialog = React.useRef<HTMLDialogElement | null>(null);
 	const messagesBox = React.useRef<HTMLDivElement | null>(null);
 	const sendForm = React.useRef<HTMLFormElement | null>(null);
 	const sendFormInput = React.useRef<HTMLInputElement | null>(null);
@@ -43,10 +46,8 @@ export const Chat: React.FC = () => {
 	const [users, setUsers] = React.useState<UserInfo[]>();
 	const [connectionsCount, setConnectionsCount] = React.useState<number>();
 
-	const [isConnectionsPopoverOpen, setIsConnectionsPopoverOpen] = React.useState(false);
-	const [isEmojiPopoverOpen, setIsEmojiPopoverOpen] = React.useState(false);
-
-	const isAuthorized = !!bearerToken;
+	const isConnected = React.useMemo(() => !!connectionId, [connectionId]);
+	const isAuthorized = React.useMemo(() => !!bearerToken, [bearerToken]);
 
 	const insertNewMessages = React.useCallback((messages: ChatMessageInfo[]) => {
 		setMessages(prevMessages => [...(prevMessages ?? []), ...messages]);
@@ -76,7 +77,7 @@ export const Chat: React.FC = () => {
 			setEmojis(emojis);
 
 			if (oauthSessionIdFromUrl.current) {
-				oauthSignupBox.current?.showModal();
+				oauthSignupDialog.current?.showModal();
 				console.log(oauthSessionIdFromUrl.current);
 			}
 
@@ -185,45 +186,6 @@ export const Chat: React.FC = () => {
 			});
 	}, []);
 
-	const handleDiscordSignup = React.useCallback(
-		(event: React.FormEvent<HTMLFormElement>) => {
-			if (!connectionId) return;
-			event.preventDefault();
-
-			const formData = new FormData(event.currentTarget);
-
-			const nickname = formData.get('nickname');
-			if (typeof nickname !== 'string') return;
-
-			fetch(API_POST_DISCORD_SIGNUP_URL, {
-				method: 'POST',
-				headers: {
-					'Content-type': 'application/json',
-				},
-				body: JSON.stringify({
-					oauthSessionId: oauthSessionIdFromUrl.current,
-					connectionId,
-					nickname,
-				}),
-			})
-				.then(response => response.json())
-				.then(data => {
-					if (data.bearer) {
-						setBearerToken(data.bearer);
-						oauthSignupBox.current?.close();
-						cleanUrl();
-					}
-				})
-				.catch(error => {
-					console.error(error);
-					if (error instanceof Error) {
-						alert(error.message);
-					}
-				});
-		},
-		[connectionId]
-	);
-
 	const handleSend = React.useCallback(
 		(event: React.FormEvent<HTMLFormElement>) => {
 			if (!bearerToken) return;
@@ -260,69 +222,25 @@ export const Chat: React.FC = () => {
 
 	return (
 		<React.Fragment>
-			<dialog ref={oauthSignupBox} className={styles.chat__oauthSignup}>
-				<div>
-					<form className="form" onClick={handleDiscordSignup}>
-						<div>
-							<input name="nickname" placeholder="Никнейм" required minLength={1} maxLength={20} />
-						</div>
-						<div>
-							<button type="submit">Окончить регистрацию</button>
-						</div>
-					</form>
-				</div>
-			</dialog>
+			<ChatOauthSignupDialog
+				dialogRef={oauthSignupDialog}
+				connectionId={connectionId}
+				oauthSessionId={oauthSessionIdFromUrl.current}
+				setBearerToken={setBearerToken}
+			/>
 
 			<div className={styles.chat}>
 				<div ref={messagesBox} className={styles.chat__messages}>
-					{messages
-						? messages.map(message => (
-							<ChatMessage key={message.id} message={message} emojis={emojis} />
-						))
-						: null}
+					{messages?.map(message => (
+						<ChatMessage key={message.id} message={message} emojis={emojis} />
+					))}
 				</div>
 
 				{isAuthorized ? (
 					<div className={clsx(styles.chat__footer, styles.chat__sender)}>
+						<ChatEmojis emojis={emojis} handleAddEmoji={handleAddEmoji} isConnected={isConnected} />
+
 						<form ref={sendForm} onSubmit={handleSend}>
-							<Popover
-								isOpen={isEmojiPopoverOpen}
-								containerClassName={styles.chat__emojiPopover}
-								positions={['top', 'bottom', 'left', 'right']}
-								align="start"
-								onClickOutside={() => setIsEmojiPopoverOpen(false)}
-								content={
-									emojis ? (
-										<ul className={styles.chat__emojiPopover__list}>
-											{emojis.map(emoji => (
-												<li key={emoji.id}>
-													<button type="button" onClick={() => handleAddEmoji(emoji.code)}>
-														{emoji.code}
-														<img
-															src={emoji.imageUrl}
-															alt={emoji.code}
-															width={emoji.imageWidth}
-															height={emoji.imageHeight}
-															hidden={emoji.uiHidden}
-															data-inverted={emoji.uiColorInverted ? '' : null}
-															data-style={emoji.uiColorInverted ? 'color-inverted' : null}
-														/>
-													</button>
-												</li>
-											))}
-										</ul>
-									) : (
-										<div>no info :(</div>
-									)
-								}>
-								<button
-									type="button"
-									className={styles.chat__sender__emojiButton}
-									onClick={() => setIsEmojiPopoverOpen(!isEmojiPopoverOpen)}
-									disabled={!connectionId}>
-									Эмодзи
-								</button>
-							</Popover>
 							<input
 								ref={sendFormInput}
 								type="text"
@@ -332,9 +250,9 @@ export const Chat: React.FC = () => {
 								autoFocus
 								minLength={1}
 								maxLength={150}
-								disabled={!connectionId}
+								disabled={!isConnected}
 							/>
-							<button type="submit" disabled={!connectionId}>
+							<button type="submit" disabled={!isConnected}>
 								<IconSend />
 							</button>
 						</form>
@@ -350,13 +268,13 @@ export const Chat: React.FC = () => {
 								minLength={1}
 								maxLength={20}
 							/>
-							<button type="submit" disabled={!connectionId}>
+							<button type="submit" disabled={!isConnected}>
 								Войти
 							</button>
 							<span>или</span>
 							<button
 								type="button"
-								disabled={!connectionId}
+								disabled={!isConnected}
 								title="Войти через Discord"
 								className={styles.chat__login__discordLoginButton}
 								onClick={handleDiscordLogin}>
@@ -367,53 +285,12 @@ export const Chat: React.FC = () => {
 					</div>
 				)}
 
-				<Popover
-					isOpen={isConnectionsPopoverOpen}
-					containerClassName={styles.chat__connectionsPopover}
-					positions={['bottom', 'left', 'right', 'top']}
-					align="end"
-					onClickOutside={() => setIsConnectionsPopoverOpen(false)}
-					content={
-						<ul>
-							{users?.map(user => (
-								<li
-									key={user.userId}
-									data-id={user.userId}
-									data-role={user.role}
-									data-status={user.status}>
-									{user.nickname}
-								</li>
-							))}
-						</ul>
-					}>
-					<div
-						className={styles.chat__connectionsBadge}
-						data-clickable={bearerToken ? '' : null}
-						onClick={() => bearerToken && setIsConnectionsPopoverOpen(!isConnectionsPopoverOpen)}>
-						<div title="Подключения">
-							<span className={styles.chat__connectionsBadge__dot}>
-								<IconCircle />
-							</span>{' '}
-							<span>{connectionsCount || 0}</span>
-						</div>
-						<div title="Пользователи в чате">
-							<span className={styles.chat__connectionsBadge__user}>
-								<IconUser />
-							</span>{' '}
-							<span>{users?.length || 0}</span>
-						</div>
-					</div>
-				</Popover>
+				<ChatConnections
+					bearerToken={bearerToken}
+					users={users}
+					connectionsCount={connectionsCount}
+				/>
 			</div>
 		</React.Fragment>
-	);
-};
-
-const cleanUrl = () => {
-	if (!window) return;
-	window.history.pushState(
-		'',
-		window.document.title,
-		window.location.pathname + window.location.search
 	);
 };

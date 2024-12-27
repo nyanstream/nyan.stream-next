@@ -3,7 +3,7 @@ import reactStringReplace from 'react-string-replace';
 
 import dayjs from 'dayjs';
 
-import { ChatMessageInfo, EmojiInfo } from '../types';
+import { type ChatMessageInfo, EmojiInfo } from '../types';
 
 import styles from './ChatMessage.module.scss';
 
