@@ -16,8 +16,10 @@ import {
 	API_GET_DISCORD_OAUTH_URL,
 	API_POST_DISCORD_SIGNUP_URL,
 } from './constants';
+import { ChatMessage } from './components/ChatMessage';
+import { ChatMessageInfo, EmojiInfo, UserInfo } from './types';
+
 import styles from './Chat.module.scss';
-import { ChatMessage } from './ChatMessage';
 
 export const Chat: React.FC = () => {
 	const initialRequestDone = React.useRef(false);
@@ -35,10 +37,10 @@ export const Chat: React.FC = () => {
 	const [bearerToken, setBearerToken] = React.useState<string>();
 	const [connectionId, setConnectionId] = React.useState<string>();
 
-	const [messages, setMessages] = React.useState<any[]>();
-	const [emojis, setEmojis] = React.useState<any[]>();
+	const [messages, setMessages] = React.useState<ChatMessageInfo[]>();
+	const [emojis, setEmojis] = React.useState<EmojiInfo[]>();
 
-	const [users, setUsers] = React.useState<any[]>();
+	const [users, setUsers] = React.useState<UserInfo[]>();
 	const [connectionsCount, setConnectionsCount] = React.useState<number>();
 
 	const [isConnectionsPopoverOpen, setIsConnectionsPopoverOpen] = React.useState(false);
@@ -46,7 +48,7 @@ export const Chat: React.FC = () => {
 
 	const isAuthorized = !!bearerToken;
 
-	const insertNewMessages = React.useCallback((messages: any[]) => {
+	const insertNewMessages = React.useCallback((messages: ChatMessageInfo[]) => {
 		setMessages(prevMessages => [...(prevMessages ?? []), ...messages]);
 		setTimeout(() => {
 			if (messagesBox.current) {
@@ -114,7 +116,7 @@ export const Chat: React.FC = () => {
 			}
 			if (messageData.type === 'UserLogout') {
 				setUsers(prevUsers =>
-					prevUsers ? prevUsers.filter(user => user.id !== messageData.data.userId) : []
+					prevUsers ? prevUsers.filter(user => user.userId !== messageData.data.userId) : []
 				);
 			}
 			if (messageData.type === 'NewChatMessage') {
@@ -138,7 +140,8 @@ export const Chat: React.FC = () => {
 				{
 					id: crypto.randomUUID(),
 					createdAt: new Date().toISOString(),
-					type: 'system',
+					type: 'System',
+					userId: null,
 					nickname: 'System',
 					text: 'Соединение разорвано. Перезагрузите страницу.',
 				},
@@ -274,8 +277,8 @@ export const Chat: React.FC = () => {
 				<div ref={messagesBox} className={styles.chat__messages}>
 					{messages
 						? messages.map(message => (
-								<ChatMessage key={message.id} message={message} emojis={emojis} />
-							))
+							<ChatMessage key={message.id} message={message} emojis={emojis} />
+						))
 						: null}
 				</div>
 
@@ -374,7 +377,7 @@ export const Chat: React.FC = () => {
 						<ul>
 							{users?.map(user => (
 								<li
-									key={user.id}
+									key={user.userId}
 									data-id={user.userId}
 									data-role={user.role}
 									data-status={user.status}>

@@ -3,23 +3,25 @@ import reactStringReplace from 'react-string-replace';
 
 import dayjs from 'dayjs';
 
-import styles from './Chat.module.scss';
+import { ChatMessageInfo, EmojiInfo } from '../types';
+
+import styles from './ChatMessage.module.scss';
 
 type ChatMessageProps = {
-	message: any;
-	emojis: any[] | undefined;
+	message: ChatMessageInfo;
+	emojis: EmojiInfo[] | undefined;
 };
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ message, emojis }) => {
 	const time = React.useMemo(() => dayjs(message.createdAt), [message.createdAt]);
 
-	const isSystem = message.type === 'system';
+	const isSystem = message.type === 'System';
 
 	const messageContent = React.useMemo(() => {
-		let text = message.text;
+		let content: React.ReactNode | undefined = message.text;
 		if (emojis) {
 			for (const emoji of emojis) {
-				text = reactStringReplace(text, emoji.code, (match, index) => {
+				content = reactStringReplace(content as any, emoji.code, (match, index) => {
 					const style = [
 						emoji.uiColorInverted ? 'color-inverted' : '',
 						emoji.uiReversedX ? 'reversed-x' : '',
@@ -28,6 +30,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, emojis }) => 
 						.join(' ');
 
 					return (
+						// eslint-disable-next-line @next/next/no-img-element
 						<img
 							key={match + index}
 							src={emoji.imageUrl}
@@ -40,11 +43,11 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, emojis }) => 
 				});
 			}
 		}
-		return text;
+		return content;
 	}, [emojis, message.text]);
 
 	return (
-		<div className={styles.chat__messages__message} data-system={isSystem ? '' : null}>
+		<div className={styles.chatMessage} data-system={isSystem ? '' : null}>
 			<time dateTime={message.createdAt} title={time.format('LLL')}>
 				{time.format('HH:mm')}
 			</time>

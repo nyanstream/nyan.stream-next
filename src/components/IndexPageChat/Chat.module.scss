@@ -124,40 +124,6 @@
 			scrollbar-width: thin;
 			scrollbar-color: var(--prime-color-5d) #fff;
 		}
-
-		&__message {
-			position: relative;
-
-			b {
-				font-weight: 500;
-			}
-
-			time {
-				position: absolute;
-				top: -2.5px;
-				right: 0;
-				color: #ccc;
-				font-size: 8px;
-				user-select: none;
-			}
-
-			img {
-				max-width: 62px;
-				height: auto;
-
-				&[data-style*='color-inverted'] {
-					filter: invert(100%);
-				}
-
-				&[data-style*='reversed'] {
-					transform: scaleX(-1);
-				}
-			}
-
-			&:not(:first-child) {
-				margin-top: 5px;
-			}
-		}
 	}
 
 	&__footer {

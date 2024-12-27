@@ -1,0 +1,36 @@
+.chatMessage {
+	position: relative;
+
+	b {
+		font-weight: 500;
+	}
+
+	time {
+		position: absolute;
+
+		top: -2.5px;
+		right: 0;
+
+		user-select: none;
+
+		color: #ccc;
+		font-size: 8px;
+	}
+
+	img {
+		max-width: 62px;
+		height: auto;
+
+		&[data-style*='color-inverted'] {
+			filter: invert(100%);
+		}
+
+		&[data-style*='reversed'] {
+			transform: scaleX(-1);
+		}
+	}
+
+	&:not(:first-child) {
+		margin-top: 5px;
+	}
+}
