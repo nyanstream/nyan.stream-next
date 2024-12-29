@@ -34,6 +34,9 @@ export const Chat: React.FC = () => {
 	const oauthSessionIdFromUrl = React.useRef(locationHash.current.get('oauthSessionId'));
 	const bearerTokenFromUrl = React.useRef(locationHash.current.get('bearerToken'));
 
+	// TODO: Enable by default in future
+	const discordAuthEnabledFromUrl = React.useRef(locationHash.current.get('discordAuthEnabled'));
+
 	const [bearerToken, setBearerToken] = React.useState<string>();
 	const [connectionId, setConnectionId] = React.useState<string>();
 
@@ -271,16 +274,23 @@ export const Chat: React.FC = () => {
 							<button type="submit" disabled={!isConnected}>
 								Войти
 							</button>
-							<span>или</span>
-							<button
-								type="button"
-								disabled={!isConnected}
-								title="Войти через Discord"
-								className={styles.chat__login__discordLoginButton}
-								onClick={handleDiscordLogin}>
-								<IconDiscord className={styles.chat__login__discordLoginButton__logo} aria-hidden />{' '}
-								Войти
-							</button>
+							{discordAuthEnabledFromUrl.current === 'true' && (
+								<React.Fragment>
+									<span>или</span>
+									<button
+										type="button"
+										disabled={!isConnected}
+										title="Войти через Discord"
+										className={styles.chat__login__discordLoginButton}
+										onClick={handleDiscordLogin}>
+										<IconDiscord
+											className={styles.chat__login__discordLoginButton__logo}
+											aria-hidden
+										/>{' '}
+										Войти
+									</button>
+								</React.Fragment>
+							)}
 						</form>
 					</div>
 				)}
