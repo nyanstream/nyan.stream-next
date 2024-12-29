@@ -3,17 +3,14 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { IconDiscord, IconSend } from '@/components/common';
+import type {
+	GetDiscordOauthUrlListData,
+	PostGuestLoginCreateData,
+	PostLoginWithTokenCreateData,
+} from '@/api/snat';
 
-import {
-	API_SSE_URL,
-	API_GET_CHAT_USERS_URL,
-	API_GET_LATEST_MESSAGES_URL,
-	API_GUEST_LOGIN_URL,
-	API_POST_CHAT_MESSAGE_URL,
-	API_GET_EMOJIS_URL,
-	API_POST_LOGIN_WITH_TOKEN_URL,
-	API_GET_DISCORD_OAUTH_URL,
-} from './constants';
+import { API_SSE_URL } from './constants';
+import { apiClient } from './api';
 import type { ChatMessageInfo, EmojiInfo, UserInfo } from './types';
 import { cleanUrl } from './utils';
 
@@ -66,9 +63,9 @@ export const Chat: React.FC = () => {
 			if (initialRequestDone.current) return;
 
 			const [usersData, messagesData, emojis] = await Promise.all([
-				fetch(API_GET_CHAT_USERS_URL).then(response => response.json()),
-				fetch(API_GET_LATEST_MESSAGES_URL).then(response => response.json()),
-				fetch(API_GET_EMOJIS_URL).then(response => response.json()),
+				apiClient.api.getChatUsersList().then(response => response.json()),
+				apiClient.api.getLatestMessagesList().then(response => response.json()),
+				apiClient.api.getEmojisList().then(response => response.json()),
 			]);
 
 			setUsers(usersData.users);
@@ -95,16 +92,17 @@ export const Chat: React.FC = () => {
 				setConnectionId(messageData.data.connectionId);
 
 				if (bearerTokenFromUrl.current) {
-					fetch(API_POST_LOGIN_WITH_TOKEN_URL, {
-						method: 'POST',
-						headers: {
-							'Content-type': 'application/json',
-							Authorization: bearerTokenFromUrl.current,
-						},
-						body: JSON.stringify({ connectionId: messageData.data.connectionId }),
-					})
+					apiClient.api
+						.postLoginWithTokenCreate(
+							{ connectionId: messageData.data.connectionId },
+							{
+								headers: {
+									Authorization: bearerTokenFromUrl.current,
+								},
+							}
+						)
 						.then(response => response.json())
-						.then(data => {
+						.then((data: PostLoginWithTokenCreateData) => {
 							if (data.success && bearerTokenFromUrl.current) {
 								setBearerToken(bearerTokenFromUrl.current);
 								cleanUrl();
@@ -117,7 +115,7 @@ export const Chat: React.FC = () => {
 			}
 			if (messageData.type === 'UserLogout') {
 				setUsers(prevUsers =>
-					prevUsers ? prevUsers.filter(user => user.userId !== messageData.data.userId) : []
+					prevUsers ? prevUsers.filter(user => user.id !== messageData.data.userId) : []
 				);
 			}
 			if (messageData.type === 'NewChatMessage') {
@@ -160,13 +158,13 @@ export const Chat: React.FC = () => {
 			const nickname = formData.get('nickname');
 			if (typeof nickname !== 'string') return;
 
-			fetch(API_GUEST_LOGIN_URL, {
-				method: 'POST',
-				body: JSON.stringify({ connectionId, nickname }),
-				headers: { 'Content-Type': 'application/json' },
-			})
+			apiClient.api
+				.postGuestLoginCreate({
+					connectionId,
+					nickname,
+				})
 				.then(response => response.json())
-				.then(data => {
+				.then((data: PostGuestLoginCreateData) => {
 					if (data.bearer) {
 						setBearerToken(data.bearer);
 					}
@@ -176,9 +174,10 @@ export const Chat: React.FC = () => {
 	);
 
 	const handleDiscordLogin = React.useCallback(() => {
-		fetch(API_GET_DISCORD_OAUTH_URL)
+		apiClient.api
+			.getDiscordOauthUrlList()
 			.then(response => response.json())
-			.then(data => {
+			.then((data: GetDiscordOauthUrlListData) => {
 				if (data.url) {
 					const redirectUrl = data.url;
 					window.location.replace(redirectUrl);
@@ -196,16 +195,17 @@ export const Chat: React.FC = () => {
 			const message = formData.get('message');
 			if (typeof message !== 'string') return;
 
-			fetch(API_POST_CHAT_MESSAGE_URL, {
-				method: 'POST',
-				body: JSON.stringify({ text: message }),
-				headers: { 'Content-Type': 'application/json', Authorization: bearerToken },
-			})
-				.then(response => response.json())
-				.then(data => {
-					if (data.bearer) {
-						setBearerToken(data.bearer);
+			apiClient.api
+				.postSendChatMessageCreate(
+					{ text: message },
+					{
+						headers: {
+							Authorization: bearerToken,
+						},
 					}
+				)
+				.then(response => response.json())
+				.then(() => {
 					sendForm.current?.reset();
 				});
 		},

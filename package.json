@@ -13,7 +13,8 @@
 		"lint": "next lint",
 		"prettier": "prettier --write **/*.{json,js,ts,tsx,scss}",
 		"lint-staged": "lint-staged",
-		"prepare": "/bin/sh -c 'if type git >/dev/null 2>&1; then git config core.hooksPath .git-hooks; else true; fi;'"
+		"prepare": "/bin/sh -c 'if type git >/dev/null 2>&1; then git config core.hooksPath .git-hooks; else true; fi;'",
+		"generate-snat-client": "swagger-typescript-api --path http://localhost:8000/apidocs/json --responses --extract-response-body --union-enums --extract-enums --api-class-name SnatApiClient --output ./src/api --name snat.ts"
 	},
 	"lint-staged": {
 		"*.{json,js,ts,tsx,scss}": [
@@ -48,6 +49,7 @@
 		"prettier": "3.2.5",
 		"sass": "1.82.0",
 		"sharp": "0.33.5",
+		"swagger-typescript-api": "13.0.23",
 		"typescript": "5.7.2"
 	}
 }

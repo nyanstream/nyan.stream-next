@@ -31,11 +31,7 @@ export const ChatConnections: React.FC<ChatConnectionsProps> = ({
 			content={
 				<ul>
 					{users?.map(user => (
-						<li
-							key={user.userId}
-							data-id={user.userId}
-							data-role={user.role}
-							data-status={user.status}>
+						<li key={user.id} data-id={user.id} data-role={user.role} data-status={user.status}>
 							{user.nickname}
 						</li>
 					))}

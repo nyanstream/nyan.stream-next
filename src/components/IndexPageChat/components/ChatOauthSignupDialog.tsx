@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { API_POST_DISCORD_SIGNUP_URL } from '../constants';
+import type { PostDiscordSignupCreateData } from '@/api/snat';
+
+import { apiClient } from '../api';
 import { cleanUrl } from '../utils';
 
 import styles from './ChatOauthSignupDialog.module.scss';
@@ -20,7 +22,7 @@ export const ChatOauthSignupDialog: React.FC<ChatOauthSignupDialogProps> = ({
 }) => {
 	const handleDiscordSignup = React.useCallback(
 		(event: React.FormEvent<HTMLFormElement>) => {
-			if (!connectionId) return;
+			if (!connectionId || !oauthSessionId) return;
 			event.preventDefault();
 
 			const formData = new FormData(event.currentTarget);
@@ -28,19 +30,14 @@ export const ChatOauthSignupDialog: React.FC<ChatOauthSignupDialogProps> = ({
 			const nickname = formData.get('nickname');
 			if (typeof nickname !== 'string') return;
 
-			fetch(API_POST_DISCORD_SIGNUP_URL, {
-				method: 'POST',
-				headers: {
-					'Content-type': 'application/json',
-				},
-				body: JSON.stringify({
+			apiClient.api
+				.postDiscordSignupCreate({
 					oauthSessionId: oauthSessionId,
 					connectionId,
 					nickname,
-				}),
-			})
+				})
 				.then(response => response.json())
-				.then(data => {
+				.then((data: PostDiscordSignupCreateData) => {
 					if (data.bearer) {
 						setBearerToken(data.bearer);
 						dialogRef.current?.close();
