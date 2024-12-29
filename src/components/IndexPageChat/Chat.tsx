@@ -117,9 +117,7 @@ export const Chat: React.FC = () => {
 				setUsers(prevUsers => [...(prevUsers ?? []), messageData.data]);
 			}
 			if (messageData.type === 'UserLogout') {
-				setUsers(prevUsers =>
-					prevUsers ? prevUsers.filter(user => user.id !== messageData.data.userId) : []
-				);
+				setUsers(prevUsers => prevUsers?.filter(user => user.id !== messageData.data.userId));
 			}
 			if (messageData.type === 'NewChatMessage') {
 				insertNewMessages([messageData.data]);
@@ -131,13 +129,21 @@ export const Chat: React.FC = () => {
 				setConnectionsCount(messageData.data.connectionsCount);
 			}
 			if (messageData.type === 'UserInactiveStatus') {
-				// TODO: Implement user inactive status
+				setUsers(prevUsers =>
+					prevUsers?.map(user => {
+						if (user.id === messageData.data.userId) {
+							return { ...user, status: 'inactive' };
+						}
+						return user;
+					})
+				);
 			}
 		});
 		sseConnection.current.addEventListener('error', () => {
 			sseConnection.current?.close();
 			setConnectionId(undefined);
 
+			// TODO: think of a more elegant way
 			insertNewMessages([
 				{
 					id: crypto.randomUUID(),
