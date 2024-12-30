@@ -34,7 +34,7 @@ const URL_PARAM_NAME = 'player';
 const STORAGE_ITEM_NAME = 'nyan:selected-player';
 
 const getSelectedPlayerFromUrlOrLocalStorage = () => {
-	const defaultPlayer: PlayerType = 'vk';
+	const defaultPlayer: PlayerType = 'twitch';
 
 	// https://stackoverflow.com/a/68683935/21009697
 	if (typeof window === 'undefined') return defaultPlayer;
