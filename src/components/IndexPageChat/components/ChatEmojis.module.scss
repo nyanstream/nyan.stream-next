@@ -1,0 +1,63 @@
+@use '../../../styles/mixins';
+@use '../../../styles/links-style';
+
+.chatEmojis {
+	&__popover {
+		width: 320px;
+		height: 250px;
+		padding: 7.5px;
+
+		background-color: var(--prime-color-10d);
+
+		overflow-x: hidden !important;
+		overflow-y: scroll !important;
+
+		border: 1px solid var(--prime-color-15d);
+
+		&__list {
+			width: 100%;
+
+			display: inline-flex;
+			flex-wrap: wrap;
+			justify-content: space-evenly;
+
+			list-style: none;
+
+			gap: 5px;
+
+			li {
+				display: block;
+			}
+
+			button {
+				appearance: none;
+				background: transparent;
+				border: 0;
+
+				cursor: pointer;
+			}
+
+			img {
+				max-width: 64px;
+				height: auto;
+
+				&[data-style*='color-inverted'] {
+					filter: invert(100%);
+				}
+
+				&[data-style*='reversed-x'] {
+					transform: scaleX(-1);
+				}
+			}
+		}
+	}
+
+	&__button {
+		background-image: url('../../../static/images/zephir.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 16px 16px;
+
+		border-radius: 5px 0px 0px 5px;
+	}
+}

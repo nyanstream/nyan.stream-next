@@ -4,17 +4,19 @@
 @include mixins.reset;
 
 :root {
-	--prime-color: shared.$primeColor;
+	--prime-color: #{shared.$primeColor};
 	--prime-color-5d: #{mixins.darken(shared.$primeColor, 5%)};
 	--prime-color-10d: #{mixins.darken(shared.$primeColor, 10%)};
+	--prime-color-15d: #{mixins.darken(shared.$primeColor, 15%)};
 
 	--text-color: #000;
+	--select-color: #000;
 	--link-hover-color: #{rgba(#000, 0.05)};
 
 	--font-size: 14px;
 }
 
-@include mixins.selection(var(--prime-color-5d), #fff);
+@include mixins.selection(var(--select-color), #fff);
 
 html,
 body,

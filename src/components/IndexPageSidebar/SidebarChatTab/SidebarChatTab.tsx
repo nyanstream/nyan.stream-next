@@ -1,7 +1,6 @@
 import type { ReactComponent } from '@/types';
-import clsx from 'clsx';
 
-import styles from './SidebarChatTab.module.scss';
+import { IndexPageChat } from '../../IndexPageChat/IndexPageChat';
 
 type PropsType = {
 	className: string;
@@ -10,8 +9,8 @@ type PropsType = {
 
 export const SidebarChatTab: ReactComponent<PropsType> = ({ className, isVisible }) => {
 	return (
-		<section className={clsx(className, styles.chat)} hidden={!isVisible}>
-			<iframe src="https://thenyan.chatovod.ru" title="Чат" />
+		<section className={className} hidden={!isVisible}>
+			<IndexPageChat />
 		</section>
 	);
 };

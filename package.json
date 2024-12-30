@@ -13,7 +13,8 @@
 		"lint": "next lint",
 		"prettier": "prettier --write **/*.{json,js,ts,tsx,scss}",
 		"lint-staged": "lint-staged",
-    "prepare": "/bin/sh -c 'if type git >/dev/null 2>&1; then git config core.hooksPath .git-hooks; else true; fi;'"
+		"prepare": "/bin/sh -c 'if type git >/dev/null 2>&1; then git config core.hooksPath .git-hooks; else true; fi;'",
+		"generate-snat-client": "swagger-typescript-api --path http://localhost:8000/apidocs/json --responses --extract-response-body --extract-enums --api-class-name SnatApiClient --output ./src/api --name snat.ts"
 	},
 	"lint-staged": {
 		"*.{json,js,ts,tsx,scss}": [
@@ -24,11 +25,15 @@
 		"@vidstack/react": "1.12.12",
 		"clsx": "2.1.1",
 		"dayjs": "1.11.13",
+		"es-toolkit": "1.31.0",
 		"hls.js": "1.5.17",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"react-icons": "5.4.0",
-		"react-markdown": "9.0.1"
+		"react-markdown": "9.0.1",
+		"react-string-replace": "1.1.1",
+		"react-tiny-popover": "8.1.4",
+		"zod": "3.24.1"
 	},
 	"devDependencies": {
 		"@types/node": "22.10.1",
@@ -46,6 +51,7 @@
 		"prettier": "3.2.5",
 		"sass": "1.82.0",
 		"sharp": "0.33.5",
+		"swagger-typescript-api": "13.0.23",
 		"typescript": "5.7.2"
 	}
 }
