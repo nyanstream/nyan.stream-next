@@ -7,6 +7,7 @@ import { cleanUrl } from '../utils';
 import type { UserInfo } from '../types';
 
 import styles from './ChatOauthSignupDialog.module.scss';
+import { loginOrSignupFormValuesValidationSchema } from '../validation';
 
 type ChatOauthSignupDialogProps = {
 	dialogRef: React.RefObject<HTMLDialogElement>;
@@ -23,21 +24,29 @@ export const ChatOauthSignupDialog: React.FC<ChatOauthSignupDialogProps> = ({
 	setBearerToken,
 	setCurrentUser,
 }) => {
+	const loginFormInput = React.useRef<HTMLInputElement | null>(null);
+
 	const handleDiscordSignup = React.useCallback(
 		(event: React.FormEvent<HTMLFormElement>) => {
 			if (!connectionId || !oauthSessionId) return;
 			event.preventDefault();
 
-			const formData = new FormData(event.currentTarget);
+			const formData = new FormData(event.currentTarget) as any;
+			const formValuesParsed = loginOrSignupFormValuesValidationSchema.safeParse(
+				Object.fromEntries(formData.entries())
+			);
 
-			const nickname = formData.get('nickname');
-			if (typeof nickname !== 'string') return;
+			if (!formValuesParsed.success) {
+				const errorMessages = formValuesParsed.error.errors.map(error => error.message);
+				loginFormInput.current?.setCustomValidity(errorMessages.join(', '));
+				return;
+			}
 
 			apiClient.api
 				.postDiscordSignupCreate({
 					oauthSessionId: oauthSessionId,
 					connectionId,
-					nickname,
+					nickname: formValuesParsed.data.nickname,
 				})
 				.then(response => response.json())
 				.then((data: PostDiscordSignupCreateData) => {
@@ -46,11 +55,9 @@ export const ChatOauthSignupDialog: React.FC<ChatOauthSignupDialogProps> = ({
 					dialogRef.current?.close();
 					cleanUrl();
 				})
-				.catch(error => {
-					console.error(error);
-					if (error instanceof Error) {
-						alert(error.message);
-					}
+				.catch((error: any) => {
+					const message = error?.error?.message;
+					loginFormInput.current?.setCustomValidity(message);
 				});
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,7 +69,13 @@ export const ChatOauthSignupDialog: React.FC<ChatOauthSignupDialogProps> = ({
 			<div>
 				<form className="form" onClick={handleDiscordSignup}>
 					<div>
-						<input name="nickname" placeholder="Никнейм" required minLength={1} maxLength={20} />
+						<input
+							ref={loginFormInput}
+							name="nickname"
+							placeholder="Никнейм"
+							required
+							onInput={handleInput}
+						/>
 					</div>
 					<div>
 						<button type="submit">Окончить регистрацию</button>
@@ -71,4 +84,8 @@ export const ChatOauthSignupDialog: React.FC<ChatOauthSignupDialogProps> = ({
 			</div>
 		</dialog>
 	);
+};
+
+const handleInput = (event: React.FormEvent<HTMLInputElement>) => {
+	event.currentTarget.setCustomValidity('');
 };

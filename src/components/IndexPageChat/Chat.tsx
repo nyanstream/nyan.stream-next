@@ -17,6 +17,10 @@ import { API_SSE_URL } from './constants';
 import { apiClient } from './api';
 import type { ChatMessageInfo, EmojiInfo, UserInfo } from './types';
 import { cleanUrl } from './utils';
+import {
+	loginOrSignupFormValuesValidationSchema,
+	sendFormValuesValidationSchema,
+} from './validation';
 
 import { ChatMessage } from './components/ChatMessage';
 import { ChatConnections } from './components/ChatConnections';
@@ -33,6 +37,7 @@ export const Chat: React.FC = () => {
 	const messagesBox = React.useRef<HTMLDivElement | null>(null);
 	const sendForm = React.useRef<HTMLFormElement | null>(null);
 	const sendFormInput = React.useRef<HTMLInputElement | null>(null);
+	const loginFormInput = React.useRef<HTMLInputElement | null>(null);
 
 	const locationHash = React.useRef(new URLSearchParams(window.location.hash.replace('#', '')));
 	const oauthSessionIdFromUrl = React.useRef(locationHash.current.get('oauthSessionId'));
@@ -182,20 +187,30 @@ export const Chat: React.FC = () => {
 			if (!connectionId) return;
 			event.preventDefault();
 
-			const formData = new FormData(event.currentTarget);
+			const formData = new FormData(event.currentTarget) as any;
+			const formValuesParsed = loginOrSignupFormValuesValidationSchema.safeParse(
+				Object.fromEntries(formData.entries())
+			);
 
-			const nickname = formData.get('nickname');
-			if (typeof nickname !== 'string') return;
+			if (!formValuesParsed.success) {
+				const errorMessages = formValuesParsed.error.errors.map(error => error.message);
+				loginFormInput.current?.setCustomValidity(errorMessages.join(', '));
+				return;
+			}
 
 			apiClient.api
 				.postGuestLoginCreate({
 					connectionId,
-					nickname,
+					nickname: formValuesParsed.data.nickname,
 				})
 				.then(response => response.json())
 				.then((data: PostGuestLoginCreateData) => {
 					setCurrentUser(data.user);
 					setBearerToken(data.bearer);
+				})
+				.catch((error: any) => {
+					const message = error?.error?.message;
+					loginFormInput.current?.setCustomValidity(message);
 				});
 		},
 		[connectionId]
@@ -218,14 +233,20 @@ export const Chat: React.FC = () => {
 			if (!bearerToken) return;
 			event.preventDefault();
 
-			const formData = new FormData(event.currentTarget);
+			const formData = new FormData(event.currentTarget) as any;
+			const formValuesParsed = sendFormValuesValidationSchema.safeParse(
+				Object.fromEntries(formData.entries())
+			);
 
-			const message = formData.get('message');
-			if (typeof message !== 'string') return;
+			if (!formValuesParsed.success) {
+				const errorMessages = formValuesParsed.error.errors.map(error => error.message);
+				sendFormInput.current?.setCustomValidity(errorMessages.join(', '));
+				return;
+			}
 
 			apiClient.api
 				.postSendChatMessageCreate(
-					{ text: message },
+					{ text: formValuesParsed.data.message },
 					{
 						headers: {
 							Authorization: bearerToken,
@@ -235,6 +256,10 @@ export const Chat: React.FC = () => {
 				.then(response => response.json())
 				.then(() => {
 					sendForm.current?.reset();
+				})
+				.catch((error: any) => {
+					const message = error?.error?.message;
+					sendFormInput.current?.setCustomValidity(message);
 				});
 		},
 		[bearerToken]
@@ -293,13 +318,12 @@ export const Chat: React.FC = () => {
 						<form ref={sendForm} onSubmit={handleSend}>
 							<input
 								ref={sendFormInput}
+								onInput={handleInput}
 								type="text"
 								name="message"
 								placeholder="Сообщение"
-								required
 								autoFocus
-								minLength={1}
-								maxLength={150}
+								required
 								disabled={!isConnected}
 							/>
 							<button type="submit" disabled={!isConnected}>
@@ -311,12 +335,12 @@ export const Chat: React.FC = () => {
 					<div className={clsx(styles.chat__footer, styles.chat__login)}>
 						<form onSubmit={handleLogin}>
 							<input
+								ref={loginFormInput}
 								type="text"
 								name="nickname"
 								placeholder="Никнейм"
+								onInput={handleInput}
 								required
-								minLength={1}
-								maxLength={20}
 							/>
 							<button type="submit" disabled={!isConnected}>
 								Войти
@@ -350,4 +374,8 @@ export const Chat: React.FC = () => {
 			</div>
 		</React.Fragment>
 	);
+};
+
+const handleInput = (event: React.FormEvent<HTMLInputElement>) => {
+	event.currentTarget.setCustomValidity('');
 };
