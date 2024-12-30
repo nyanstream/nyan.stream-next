@@ -1,12 +1,16 @@
 import React from 'react';
 
 import clsx from 'clsx';
+import { uniqBy } from 'es-toolkit';
 
 import { IconDiscord, IconSend } from '@/components/common';
-import type {
-	GetDiscordOauthUrlListData,
-	PostGuestLoginCreateData,
-	PostLoginWithTokenCreateData,
+import {
+	ChatMessageTypeEnum,
+	ChatUserRoleEnum,
+	ChatUserStatusEnum,
+	type GetDiscordOauthUrlListData,
+	type PostGuestLoginCreateData,
+	type PostLoginWithTokenCreateData,
 } from '@/api/snat';
 
 import { API_SSE_URL } from './constants';
@@ -37,6 +41,7 @@ export const Chat: React.FC = () => {
 	// TODO: Enable by default in future
 	const discordAuthEnabledFromUrl = React.useRef(locationHash.current.get('discordAuthEnabled'));
 
+	const [currentUser, setCurrentUser] = React.useState<UserInfo>();
 	const [bearerToken, setBearerToken] = React.useState<string>();
 	const [connectionId, setConnectionId] = React.useState<string>();
 
@@ -48,6 +53,13 @@ export const Chat: React.FC = () => {
 
 	const isConnected = React.useMemo(() => !!connectionId, [connectionId]);
 	const isAuthorized = React.useMemo(() => !!bearerToken, [bearerToken]);
+
+	const canModerateChat = React.useMemo(() => {
+		return (
+			currentUser?.role === ChatUserRoleEnum.Moderator ||
+			currentUser?.role === ChatUserRoleEnum.Administrator
+		);
+	}, [currentUser?.role]);
 
 	const insertNewMessages = React.useCallback((messages: ChatMessageInfo[]) => {
 		setMessages(prevMessages => [...(prevMessages ?? []), ...messages]);
@@ -78,7 +90,6 @@ export const Chat: React.FC = () => {
 
 			if (oauthSessionIdFromUrl.current) {
 				oauthSignupDialog.current?.showModal();
-				console.log(oauthSessionIdFromUrl.current);
 			}
 
 			initialRequestDone.current = true;
@@ -106,7 +117,8 @@ export const Chat: React.FC = () => {
 						)
 						.then(response => response.json())
 						.then((data: PostLoginWithTokenCreateData) => {
-							if (data.success && bearerTokenFromUrl.current) {
+							if (bearerTokenFromUrl.current) {
+								setCurrentUser(data.user);
 								setBearerToken(bearerTokenFromUrl.current);
 								cleanUrl();
 							}
@@ -114,13 +126,21 @@ export const Chat: React.FC = () => {
 				}
 			}
 			if (messageData.type === 'UserLogin') {
-				setUsers(prevUsers => [...(prevUsers ?? []), messageData.data]);
+				setUsers(prevUsers => uniqBy([...(prevUsers ?? []), messageData.data], user => user.id));
 			}
 			if (messageData.type === 'UserLogout') {
 				setUsers(prevUsers => prevUsers?.filter(user => user.id !== messageData.data.userId));
 			}
 			if (messageData.type === 'NewChatMessage') {
 				insertNewMessages([messageData.data]);
+			}
+			if (messageData.type === 'MessagesDeleted') {
+				setMessages(prevMessages => {
+					const newMessages = prevMessages?.filter(
+						message => !messageData.data.messagesIdList.includes(message.id)
+					);
+					return newMessages;
+				});
 			}
 			if (messageData.type === 'NewConnection') {
 				setConnectionsCount(messageData.data.connectionsCount);
@@ -132,7 +152,7 @@ export const Chat: React.FC = () => {
 				setUsers(prevUsers =>
 					prevUsers?.map(user => {
 						if (user.id === messageData.data.userId) {
-							return { ...user, status: 'inactive' };
+							return { ...user, status: ChatUserStatusEnum.Inactive };
 						}
 						return user;
 					})
@@ -148,7 +168,7 @@ export const Chat: React.FC = () => {
 				{
 					id: crypto.randomUUID(),
 					createdAt: new Date().toISOString(),
-					type: 'System',
+					type: ChatMessageTypeEnum.System,
 					userId: null,
 					nickname: 'System',
 					text: 'Соединение разорвано. Перезагрузите страницу.',
@@ -174,9 +194,8 @@ export const Chat: React.FC = () => {
 				})
 				.then(response => response.json())
 				.then((data: PostGuestLoginCreateData) => {
-					if (data.bearer) {
-						setBearerToken(data.bearer);
-					}
+					setCurrentUser(data.user);
+					setBearerToken(data.bearer);
 				});
 		},
 		[connectionId]
@@ -229,6 +248,21 @@ export const Chat: React.FC = () => {
 		sendFormInput.current.focus();
 	}, []);
 
+	const handleMessageDelete = React.useCallback(
+		(chatMessageId: string, banUser = false) => {
+			if (!bearerToken) return;
+			apiClient.api
+				.deleteChatMessageDelete(
+					{ messageId: chatMessageId, banUserByIp: banUser },
+					{ headers: { Authorization: bearerToken } }
+				)
+				.catch(error => {
+					alert(JSON.stringify(error));
+				});
+		},
+		[bearerToken]
+	);
+
 	return (
 		<React.Fragment>
 			<ChatOauthSignupDialog
@@ -236,12 +270,19 @@ export const Chat: React.FC = () => {
 				connectionId={connectionId}
 				oauthSessionId={oauthSessionIdFromUrl.current}
 				setBearerToken={setBearerToken}
+				setCurrentUser={setCurrentUser}
 			/>
 
 			<div className={styles.chat}>
 				<div ref={messagesBox} className={styles.chat__messages}>
 					{messages?.map(message => (
-						<ChatMessage key={message.id} message={message} emojis={emojis} />
+						<ChatMessage
+							key={message.id}
+							message={message}
+							canModerateChat={canModerateChat}
+							emojis={emojis}
+							handleMessageDelete={handleMessageDelete}
+						/>
 					))}
 				</div>
 
@@ -302,7 +343,7 @@ export const Chat: React.FC = () => {
 				)}
 
 				<ChatConnections
-					bearerToken={bearerToken}
+					isAuthorized={isAuthorized}
 					users={users}
 					connectionsCount={connectionsCount}
 				/>

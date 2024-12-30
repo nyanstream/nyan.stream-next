@@ -4,6 +4,7 @@ import type { PostDiscordSignupCreateData } from '@/api/snat';
 
 import { apiClient } from '../api';
 import { cleanUrl } from '../utils';
+import type { UserInfo } from '../types';
 
 import styles from './ChatOauthSignupDialog.module.scss';
 
@@ -12,6 +13,7 @@ type ChatOauthSignupDialogProps = {
 	connectionId: string | undefined;
 	oauthSessionId: string | null;
 	setBearerToken: (bearerToken: string) => void;
+	setCurrentUser: (currentUser: UserInfo) => void;
 };
 
 export const ChatOauthSignupDialog: React.FC<ChatOauthSignupDialogProps> = ({
@@ -19,6 +21,7 @@ export const ChatOauthSignupDialog: React.FC<ChatOauthSignupDialogProps> = ({
 	connectionId,
 	oauthSessionId,
 	setBearerToken,
+	setCurrentUser,
 }) => {
 	const handleDiscordSignup = React.useCallback(
 		(event: React.FormEvent<HTMLFormElement>) => {
@@ -38,11 +41,10 @@ export const ChatOauthSignupDialog: React.FC<ChatOauthSignupDialogProps> = ({
 				})
 				.then(response => response.json())
 				.then((data: PostDiscordSignupCreateData) => {
-					if (data.bearer) {
-						setBearerToken(data.bearer);
-						dialogRef.current?.close();
-						cleanUrl();
-					}
+					setCurrentUser(data.user);
+					setBearerToken(data.bearer);
+					dialogRef.current?.close();
+					cleanUrl();
 				})
 				.catch(error => {
 					console.error(error);

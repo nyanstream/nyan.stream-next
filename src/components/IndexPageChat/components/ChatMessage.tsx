@@ -2,6 +2,7 @@ import React from 'react';
 import reactStringReplace from 'react-string-replace';
 
 import dayjs from 'dayjs';
+import { Popover } from 'react-tiny-popover';
 
 import { type ChatMessageInfo, EmojiInfo } from '../types';
 
@@ -9,10 +10,19 @@ import styles from './ChatMessage.module.scss';
 
 type ChatMessageProps = {
 	message: ChatMessageInfo;
+	canModerateChat: boolean;
 	emojis: EmojiInfo[] | undefined;
+	handleMessageDelete: (chatMessageId: string, banUser?: boolean) => void;
 };
 
-export const ChatMessage: React.FC<ChatMessageProps> = ({ message, emojis }) => {
+export const ChatMessage: React.FC<ChatMessageProps> = ({
+	message,
+	canModerateChat,
+	emojis,
+	handleMessageDelete,
+}) => {
+	const [isModerationPopoverOpen, setIsModerationPopoverOpen] = React.useState(false);
+
 	const time = React.useMemo(() => dayjs(message.createdAt), [message.createdAt]);
 
 	const isSystem = message.type === 'System';
@@ -55,7 +65,32 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, emojis }) => 
 				messageContent
 			) : (
 				<React.Fragment>
-					<b>{message.nickname}</b>: {messageContent}
+					{canModerateChat ? (
+						<Popover
+							isOpen={isModerationPopoverOpen}
+							containerClassName={styles.chatMessage__menu}
+							positions="top"
+							align="start"
+							onClickOutside={() => setIsModerationPopoverOpen(false)}
+							content={
+								<div onMouseLeave={() => setIsModerationPopoverOpen(false)}>
+									<b>{message.nickname}</b>
+									<button type="button" onClick={() => handleMessageDelete(message.id)}>
+										Удалить
+									</button>
+									<button type="button" onClick={() => handleMessageDelete(message.id, true)}>
+										Бан
+									</button>
+								</div>
+							}>
+							<b style={{ cursor: 'pointer' }} onClick={() => setIsModerationPopoverOpen(true)}>
+								{message.nickname}
+							</b>
+						</Popover>
+					) : (
+						<b>{message.nickname}</b>
+					)}{' '}
+					: {messageContent}
 				</React.Fragment>
 			)}
 		</div>

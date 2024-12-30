@@ -50,11 +50,27 @@ export interface Emoji {
 	uiReversedX: boolean;
 }
 
-export type ChatUserRoleEnum = 'Administrator' | 'Moderator' | 'User' | 'Guest';
+export enum ChatUserRoleEnum {
+	Administrator = 'Administrator',
+	Moderator = 'Moderator',
+	User = 'User',
+	Guest = 'Guest',
+}
 
-export type ChatUserStatusEnum = 'active' | 'inactive' | 'afk';
+export enum ChatUserStatusEnum {
+	Active = 'active',
+	Inactive = 'inactive',
+	Afk = 'afk',
+}
 
-export type ChatMessageTypeEnum = 'User' | 'System';
+export enum ChatMessageTypeEnum {
+	User = 'User',
+	System = 'System',
+}
+
+export interface DeleteChatMessageDeleteData {
+	success: boolean;
+}
 
 export interface GetChatUsersListData {
 	/** @min 0 */
@@ -75,14 +91,16 @@ export type GetLatestMessagesListData = ChatMessage[];
 
 export interface PostDiscordSignupCreateData {
 	bearer: string;
+	user: ChatUser;
 }
 
 export interface PostGuestLoginCreateData {
 	bearer: string;
+	user: ChatUser;
 }
 
 export interface PostLoginWithTokenCreateData {
-	success: boolean;
+	user: ChatUser;
 }
 
 export interface PostLogoutCreateData {
@@ -324,6 +342,31 @@ export class HttpClient<SecurityDataType = unknown> {
  */
 export class SnatApiClient<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
 	api = {
+		/**
+		 * No description
+		 *
+		 * @name DeleteChatMessageDelete
+		 * @request DELETE:/api/delete-chat-message
+		 * @response `200` `DeleteChatMessageDeleteData` Default Response
+		 */
+		deleteChatMessageDelete: (
+			data: {
+				/** @format uuid */
+				messageId: string;
+				banUserByIp?: boolean;
+				removeAllMessagesByIp?: boolean;
+			},
+			params: RequestParams = {}
+		) =>
+			this.request<DeleteChatMessageDeleteData, any>({
+				path: `/api/delete-chat-message`,
+				method: 'DELETE',
+				body: data,
+				type: ContentType.Json,
+				format: 'json',
+				...params,
+			}),
+
 		/**
 		 * No description
 		 *

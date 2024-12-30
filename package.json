@@ -14,7 +14,7 @@
 		"prettier": "prettier --write **/*.{json,js,ts,tsx,scss}",
 		"lint-staged": "lint-staged",
 		"prepare": "/bin/sh -c 'if type git >/dev/null 2>&1; then git config core.hooksPath .git-hooks; else true; fi;'",
-		"generate-snat-client": "swagger-typescript-api --path http://localhost:8000/apidocs/json --responses --extract-response-body --union-enums --extract-enums --api-class-name SnatApiClient --output ./src/api --name snat.ts"
+		"generate-snat-client": "swagger-typescript-api --path http://localhost:8000/apidocs/json --responses --extract-response-body --extract-enums --api-class-name SnatApiClient --output ./src/api --name snat.ts"
 	},
 	"lint-staged": {
 		"*.{json,js,ts,tsx,scss}": [
@@ -25,6 +25,7 @@
 		"@vidstack/react": "1.12.12",
 		"clsx": "2.1.1",
 		"dayjs": "1.11.13",
+		"es-toolkit": "1.31.0",
 		"hls.js": "1.5.17",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",

@@ -9,13 +9,13 @@ import { type UserInfo } from '../types';
 import styles from './ChatConnections.module.scss';
 
 type ChatConnectionsProps = {
-	bearerToken: string | undefined;
+	isAuthorized: boolean;
 	users: UserInfo[] | undefined;
 	connectionsCount: number | undefined;
 };
 
 export const ChatConnections: React.FC<ChatConnectionsProps> = ({
-	bearerToken,
+	isAuthorized,
 	users,
 	connectionsCount,
 }) => {
@@ -24,7 +24,7 @@ export const ChatConnections: React.FC<ChatConnectionsProps> = ({
 	return (
 		<Popover
 			isOpen={isConnectionsPopoverOpen}
-			containerClassName={styles.connections__popover}
+			containerClassName={styles.chatConnections__popover}
 			positions={['bottom', 'left', 'right', 'top']}
 			align="end"
 			onClickOutside={() => setIsConnectionsPopoverOpen(false)}
@@ -39,8 +39,8 @@ export const ChatConnections: React.FC<ChatConnectionsProps> = ({
 			}>
 			<div
 				className={styles.chatConnections__badge}
-				data-clickable={bearerToken ? '' : null}
-				onClick={() => bearerToken && setIsConnectionsPopoverOpen(!isConnectionsPopoverOpen)}>
+				data-clickable={isAuthorized ? '' : null}
+				onClick={() => isAuthorized && setIsConnectionsPopoverOpen(!isConnectionsPopoverOpen)}>
 				<div title="Подключения">
 					<span className={styles.chatConnections__badge__dot}>
 						<IconCircle />
