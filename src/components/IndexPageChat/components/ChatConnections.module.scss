@@ -5,16 +5,22 @@
 	&__popover {
 		width: 225px;
 		max-height: 250px;
-		padding: 7.5px;
 
 		background-color: rgb(0, 0, 0, 0.5);
 
-		font-size: 20px;
+		font-family: var(--roboto-font), Arial, sans-serif;
+		font-size: 16px;
+		font-weight: 400;
+
 		color: #fff;
 		text-align: right;
 
 		overflow-x: hidden !important;
 		overflow-y: auto !important;
+
+		& > div {
+			padding: 7.5px;
+		}
 
 		ul {
 			list-style: none;
