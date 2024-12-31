@@ -319,6 +319,7 @@ export const Chat: React.FC = () => {
 								type="text"
 								name="message"
 								placeholder="Сообщение"
+								autoComplete="off"
 								autoFocus
 								required
 								disabled={!isConnected}
