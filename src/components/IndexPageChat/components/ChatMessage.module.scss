@@ -1,6 +1,18 @@
 @use '../../../styles/mixins';
 @use '../../../styles/links-style';
 
+@keyframes padoru {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translate(2px, 1px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .chatMessage {
 	position: relative;
 
@@ -30,6 +42,10 @@
 
 		&[data-style*='reversed'] {
 			transform: scaleX(-1);
+		}
+
+		&[alt*="padoru"] {
+			animation: padoru .2s linear infinite;
 		}
 	}
 
