@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 
 import type { ReactComponent } from '@/types';
 
@@ -9,14 +9,14 @@ import { NewYearSnowContext } from './NewYearSnowContext';
 const StorageItemName = 'nyan_new_year_snow_2024';
 
 export const NewYearSnowContextProvider: ReactComponent = ({ children }) => {
-	const [IsNewYearSnowEnabled, setIsNewYearSnowEnabled] = useState(true);
+	const [IsNewYearSnowEnabled, setIsNewYearSnowEnabled] = React.useState(false);
 
-	useEffect(() => {
-		const currentStorageValue = storageGet<'true' | 'false'>(StorageItemName, 'true');
-		setIsNewYearSnowEnabled(currentStorageValue === 'true');
+	React.useEffect(() => {
+		const currentStorageValue = storageGet<'true' | 'false'>(StorageItemName, 'false');
+		setIsNewYearSnowEnabled(currentStorageValue === 'false');
 	}, []);
 
-	const handleIsNewYearSnowEnabledChange = useCallback((isNewYearSnowEnabled: boolean) => {
+	const handleIsNewYearSnowEnabledChange = React.useCallback((isNewYearSnowEnabled: boolean) => {
 		setIsNewYearSnowEnabled(isNewYearSnowEnabled);
 		storageSet(StorageItemName, String(isNewYearSnowEnabled));
 	}, []);
