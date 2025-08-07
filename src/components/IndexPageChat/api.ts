@@ -1,5 +1,5 @@
 import { SnatApiClient } from '@/api/snat';
 
-import { API_URL } from './constants';
+import { CHAT_API_HOST } from '@/config';
 
-export const apiClient = new SnatApiClient({ baseUrl: API_URL });
+export const apiClient = new SnatApiClient({ baseUrl: CHAT_API_HOST });

@@ -7,14 +7,7 @@ import { Roboto } from 'next/font/google';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-import {
-	Title as ProjectTitle,
-	Description as ProjectDescription,
-	PrimeColor as ProjectColor,
-	Host as ProjectHost,
-	GoogleSiteVerification,
-	YandexVerification,
-} from '@/config';
+import * as config from '@/config';
 
 import { useTheme } from '@/hooks';
 
@@ -29,6 +22,8 @@ import { Header } from '@/components/Header';
 
 import type { MetaTag, HeadLink } from './ContainerTypes';
 import styles from './Container.module.scss';
+
+console.log({ config })
 
 const robotoFont = Roboto({
 	weight: ['400', '500'],
@@ -55,7 +50,7 @@ export const Container: ReactComponent<PropsType> = props => {
 	const [IsSliderOpen, setIsSliderOpen] = useState(false);
 
 	const PageTitle = useMemo(
-		() => `${ProjectTitle} ${pageName ? ` / ${pageName}` : ''}`.trim(),
+		() => `${config.TITLE} ${pageName ? ` / ${pageName}` : ''}`.trim(),
 		[pageName]
 	);
 
@@ -76,7 +71,7 @@ export const Container: ReactComponent<PropsType> = props => {
 	const headerLinks = useMemo(
 		(): HeadLink[] => [
 			...commonHeaderLinks,
-			{ rel: 'canonical', href: `${ProjectHost}${Router.route}` },
+			{ rel: 'canonical', href: new URL(Router.route, config.APP_PUBLIC_URL).href },
 		],
 		[Router.route]
 	);
@@ -116,9 +111,9 @@ export const Container: ReactComponent<PropsType> = props => {
 						__html: JSON.stringify({
 							'@context': 'https://schema.org',
 							'@type': 'WebSite',
-							url: ProjectHost,
-							name: ProjectTitle,
-							description: ProjectDescription,
+							url: config.APP_PUBLIC_URL,
+							name: config.TITLE,
+							description: config.DESCRIPTION,
 						}),
 					}}
 				/>
@@ -156,39 +151,39 @@ export const Container: ReactComponent<PropsType> = props => {
 
 const commonMetaTags: MetaTag[] = [
 	{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
-	{ name: 'description', content: ProjectDescription },
+	{ name: 'description', content: config.DESCRIPTION },
 	{
 		name: 'description',
 		content:
 			'nyan stream, nyanstream, нян стрим, нянстрим, anime, аниме, онлайн телевидение, online tv, аниме смотреть онлайн, мокрые котики, смотреть аниме с субтитрами',
 	},
-	{ name: 'theme-color', content: ProjectColor },
-	{ name: 'google-site-verification', content: GoogleSiteVerification },
-	{ name: 'yandex-verification', content: YandexVerification },
+	{ name: 'theme-color', content: config.APP_PRIME_COLOR },
+	{ name: 'google-site-verification', content: config.GOOGLE_SITE_VERIFICATION_TAG },
+	{ name: 'yandex-verification', content: config.YANDEX_SITE_VERIFICATION_TAG },
 	{
 		name: 'yandex-tableau-widget',
-		content: `logo=${ProjectHost}${ImageLogoTableau.src}, color=${ProjectColor}`,
+		content: `logo=${new URL(ImageLogoTableau.src, config.APP_PUBLIC_URL).href}, color=${config.APP_PRIME_COLOR}`,
 	},
 ];
 
 const commonOpenGraphMetaTags: MetaTag[] = [
 	{ name: 'locale', content: 'ru_RU' },
 	{ name: 'type', content: 'website' },
-	{ name: 'site_name', content: ProjectTitle },
-	{ name: 'url', content: ProjectHost },
-	{ name: 'description', content: ProjectDescription },
-	{ name: 'image', content: `${ProjectHost}${ImageShare.src}` },
+	{ name: 'site_name', content: config.TITLE },
+	{ name: 'url', content: config.APP_PUBLIC_URL },
+	{ name: 'description', content: config.DESCRIPTION },
+	{ name: 'image', content: new URL(ImageShare.src, config.APP_PUBLIC_URL).href },
 ];
 
 const commonTwitterMetaTags: MetaTag[] = [
-	{ name: 'description', content: ProjectDescription },
+	{ name: 'description', content: config.DESCRIPTION },
 	{ name: 'card', content: 'summary_large_image' },
-	{ name: 'image', content: `${ProjectHost}${ImageShare.src}` },
+	{ name: 'image', content: new URL(ImageShare.src, config.APP_PUBLIC_URL).href },
 ];
 
 const commonHeaderLinks: HeadLink[] = [
 	{ rel: 'shortcut icon', href: ImageFavicon.src },
-	{ rel: 'sitemap', href: `${ProjectHost}/sitemap.xml` },
+	{ rel: 'sitemap', href: new URL('sitemap.xml', config.APP_PUBLIC_URL).href },
 ];
 
 const commonPreconnectHeadLinks: HeadLink[] = [

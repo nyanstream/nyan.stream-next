@@ -1,4 +1,4 @@
-import { ApiHost } from '@/config';
+import { API_HOST } from '@/config';
 
 import type {
 	ScheduleQueryResponseType,
@@ -7,7 +7,7 @@ import type {
 } from './types';
 
 const API = async <T>(method: string): Promise<T> => {
-	const response = await fetch(`${ApiHost}/api/${method}`, { cache: 'no-store' });
+	const response = await fetch(`${API_HOST}/api/${method}`, { cache: 'no-store' });
 	if (!response.ok) {
 		throw new Error(response.statusText);
 	}

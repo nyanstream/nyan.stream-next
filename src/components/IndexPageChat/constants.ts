@@ -1,3 +1,3 @@
-export const API_URL = 'http://localhost:8000';
+import { CHAT_API_HOST } from '@/config';
 
-export const API_SSE_URL = `${API_URL}/sse`;
+export const API_SSE_URL = new URL('sse', CHAT_API_HOST).href;
