@@ -101,7 +101,7 @@ export const Chat: React.FC = () => {
 		}
 		sseReconnectsCount.current += 1;
 		initializeSseConnection();
-	}, [insertNewMessages]);
+	}, [insertSystemMessage]);
 
 	const initializeSseConnection = React.useCallback(() => {
 		sseConnection.current = new EventSource(API_SSE_URL);
