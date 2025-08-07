@@ -49,8 +49,8 @@ export const PlayerContainer: ReactComponent = () => {
 			case 'twitch-banan':
 				return getTwitchPlayerURL('rcm92587');
 
-			case 'twitch-rulait':
-				return getTwitchPlayerURL('rulait');
+			case 'twitch-e965':
+				return getTwitchPlayerURL('e965');
 		}
 	}, [projectHost, SelectedPlayer]);
 

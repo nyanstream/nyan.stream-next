@@ -70,7 +70,7 @@ export const SettingsContainer: ReactComponent<PropsType> = props => {
 
 							<tr>
 								<td>
-									<label htmlFor="newYearSnow_selector">Включить снег</label>
+									<label htmlFor="newYearSnow_selector">Включить новогодний снег</label>
 								</td>
 								<td>
 									<input
@@ -111,8 +111,8 @@ const Players: SelectOptionType<PlayerType>[] = [
 		text: 'Twitch (rcm92587)',
 	},
 	{
-		value: 'twitch-rulait',
-		text: 'Twitch (ruLait)',
+		value: 'twitch-e965',
+		text: 'Twitch (e965)',
 	},
 ];
 

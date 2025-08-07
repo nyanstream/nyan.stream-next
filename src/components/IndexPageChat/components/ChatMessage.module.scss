@@ -2,15 +2,15 @@
 @use '../../../styles/links-style';
 
 @keyframes padoru {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translate(2px, 1px);
-  }
-  100% {
-    transform: translateX(0);
-  }
+	0% {
+		transform: translateX(0);
+	}
+	50% {
+		transform: translate(2px, 1px);
+	}
+	100% {
+		transform: translateX(0);
+	}
 }
 
 .chatMessage {
@@ -44,8 +44,8 @@
 			transform: scaleX(-1);
 		}
 
-		&[alt*="padoru"] {
-			animation: padoru .2s linear infinite;
+		&[alt*='padoru'] {
+			animation: padoru 0.2s linear infinite;
 		}
 	}
 

@@ -13,7 +13,7 @@ export const NewYearSnowContextProvider: ReactComponent = ({ children }) => {
 
 	React.useEffect(() => {
 		const currentStorageValue = storageGet<'true' | 'false'>(StorageItemName, 'false');
-		setIsNewYearSnowEnabled(currentStorageValue === 'false');
+		setIsNewYearSnowEnabled(currentStorageValue === 'true');
 	}, []);
 
 	const handleIsNewYearSnowEnabledChange = React.useCallback((isNewYearSnowEnabled: boolean) => {
