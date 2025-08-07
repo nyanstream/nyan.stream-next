@@ -32,6 +32,7 @@ import { ChatOauthSignupDialog } from './components/ChatOauthSignupDialog';
 export const Chat: React.FC = () => {
 	const initialRequestDone = React.useRef(false);
 	const sseConnection = React.useRef<EventSource | null>(null);
+	const sseReconnectsCount = React.useRef(0);
 
 	const oauthSignupDialog = React.useRef<HTMLDialogElement | null>(null);
 	const messagesBox = React.useRef<HTMLDivElement | null>(null);
@@ -63,49 +64,55 @@ export const Chat: React.FC = () => {
 		);
 	}, [currentUser?.role]);
 
-	const insertNewMessages = React.useCallback((messages: ChatMessageInfo[], { initial }: { initial?: boolean } = {}) => {
+	const insertNewMessages = React.useCallback((messages: ChatMessageInfo[]) => {
 		setMessages(prevMessages => [...(prevMessages ?? []), ...messages]);
 		setTimeout(() => {
 			if (messagesBox.current) {
 				messagesBox.current.scroll({
 					top: messagesBox.current.scrollHeight,
-					behavior: initial ? 'instant' : 'smooth',
+					behavior: initialRequestDone.current ? 'instant' : 'smooth',
 				});
 			}
 		}, 5);
 	}, []);
 
-	React.useEffect(() => {
-		(async () => {
-			if (initialRequestDone.current) return;
+	const insertSystemMessage = React.useCallback((text: string) => {
+		insertNewMessages([
+			{
+				id: crypto.randomUUID(),
+				createdAt: new Date().toISOString(),
+				type: ChatMessageTypeEnum.System,
+				userId: null,
+				nickname: 'System',
+				text,
+			},
+		]);
+	}, [])
 
-			const [usersData, messagesData, emojis] = await Promise.all([
-				apiClient.api.getChatUsersList().then(response => response.json()),
-				apiClient.api.getLatestMessagesList().then(response => response.json()),
-				apiClient.api.getEmojisList().then(response => response.json()),
-			]);
+	const runSseReconnectActions = React.useCallback(() => {
+		console.log({ reconnect: true, count: sseReconnectsCount.current });
+		if (sseReconnectsCount.current === 5) {
+			insertSystemMessage('Не удалось переподключиться. Перезагрузите страницу.')
+			return;
+		}
 
-			setUsers(usersData.users);
-			setConnectionsCount(usersData.connectionsCount);
-			insertNewMessages(messagesData, { initial: true });
-			setEmojis(emojis);
+		if (sseReconnectsCount.current === 0) {
+			insertSystemMessage('Соединение разорвано. Идёт попытка переподключения.')
+		}
+		sseReconnectsCount.current += 1;
+		initializeSseConnection();
+	}, [insertNewMessages]);
 
-			if (oauthSessionIdFromUrl.current) {
-				oauthSignupDialog.current?.showModal();
-			}
-
-			initialRequestDone.current = true;
-		})();
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	if (!sseConnection.current && messages && users) {
+	const initializeSseConnection = React.useCallback(() => {
 		sseConnection.current = new EventSource(API_SSE_URL);
 		sseConnection.current.addEventListener('message', event => {
 			const messageData = JSON.parse(event.data);
 			if (messageData.type === 'UserConnected' && !connectionId) {
 				setConnectionId(messageData.data.connectionId);
+				if (sseReconnectsCount.current > 0) {
+				sseReconnectsCount.current = 0;
+				insertSystemMessage('Соединение восстановлено.')
+				}
 
 				if (bearerTokenFromUrl.current) {
 					apiClient.api
@@ -164,19 +171,39 @@ export const Chat: React.FC = () => {
 		sseConnection.current.addEventListener('error', () => {
 			sseConnection.current?.close();
 			setConnectionId(undefined);
-
-			// TODO: think of a more elegant way
-			insertNewMessages([
-				{
-					id: crypto.randomUUID(),
-					createdAt: new Date().toISOString(),
-					type: ChatMessageTypeEnum.System,
-					userId: null,
-					nickname: 'System',
-					text: 'Соединение разорвано. Перезагрузите страницу.',
-				},
-			]);
+			setTimeout(() => {
+				runSseReconnectActions();
+			}, 2500);
 		});
+	}, []);
+
+	React.useEffect(() => {
+		(async () => {
+			if (initialRequestDone.current) return;
+
+			const [usersData, messagesData, emojis] = await Promise.all([
+				apiClient.api.getChatUsersList().then(response => response.json()),
+				apiClient.api.getLatestMessagesList().then(response => response.json()),
+				apiClient.api.getEmojisList().then(response => response.json()),
+			]);
+
+			setUsers(usersData.users);
+			setConnectionsCount(usersData.connectionsCount);
+			insertNewMessages(messagesData);
+			setEmojis(emojis);
+
+			if (oauthSessionIdFromUrl.current) {
+				oauthSignupDialog.current?.showModal();
+			}
+
+			initialRequestDone.current = true;
+		})();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	if (!sseConnection.current && messages && users) {
+		initializeSseConnection();
 	}
 
 	const handleLogin = React.useCallback(

@@ -16,6 +16,10 @@
 .chatMessage {
 	position: relative;
 
+	&[data-system] {
+		font-style: italic;
+	}
+
 	b {
 		font-weight: 500;
 	}
