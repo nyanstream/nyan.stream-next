@@ -23,7 +23,7 @@ import { Header } from '@/components/Header';
 import type { MetaTag, HeadLink } from './ContainerTypes';
 import styles from './Container.module.scss';
 
-console.log({ config })
+console.log({ config });
 
 const robotoFont = Roboto({
 	weight: ['400', '500'],
