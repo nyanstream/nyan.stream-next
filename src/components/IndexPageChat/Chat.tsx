@@ -63,16 +63,16 @@ export const Chat: React.FC = () => {
 		);
 	}, [currentUser?.role]);
 
-	const insertNewMessages = React.useCallback((messages: ChatMessageInfo[]) => {
+	const insertNewMessages = React.useCallback((messages: ChatMessageInfo[], { initial }: { initial?: boolean } = {}) => {
 		setMessages(prevMessages => [...(prevMessages ?? []), ...messages]);
 		setTimeout(() => {
 			if (messagesBox.current) {
 				messagesBox.current.scroll({
 					top: messagesBox.current.scrollHeight,
-					behavior: 'instant',
+					behavior: initial ? 'instant' : 'smooth',
 				});
 			}
-		}, 0);
+		}, 5);
 	}, []);
 
 	React.useEffect(() => {
@@ -87,7 +87,7 @@ export const Chat: React.FC = () => {
 
 			setUsers(usersData.users);
 			setConnectionsCount(usersData.connectionsCount);
-			insertNewMessages(messagesData);
+			insertNewMessages(messagesData, { initial: true });
 			setEmojis(emojis);
 
 			if (oauthSessionIdFromUrl.current) {
