@@ -16,7 +16,7 @@ export const PlayerSettingsContextProvider: ReactComponent = ({ children }) => {
 		window.localStorage.setItem(STORAGE_ITEM_NAME, selectedPlayer);
 	}, []);
 
-	const PlayerNodeRef = React.useRef<HTMLDivElement>(null);
+	const PlayerNodeRef = React.useRef<HTMLDivElement | null>(null);
 
 	return (
 		<PlayerSettingsContext.Provider

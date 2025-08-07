@@ -10,7 +10,7 @@ import styles from './ChatOauthSignupDialog.module.scss';
 import { loginOrSignupFormValuesValidationSchema } from '../validation';
 
 type ChatOauthSignupDialogProps = {
-	dialogRef: React.RefObject<HTMLDialogElement>;
+	dialogRef: React.RefObject<HTMLDialogElement | null>;
 	connectionId: string | undefined;
 	oauthSessionId: string | null;
 	setBearerToken: (bearerToken: string) => void;
@@ -37,7 +37,7 @@ export const ChatOauthSignupDialog: React.FC<ChatOauthSignupDialogProps> = ({
 			);
 
 			if (!formValuesParsed.success) {
-				const errorMessages = formValuesParsed.error.errors.map(error => error.message);
+				const errorMessages = formValuesParsed.error.issues.map(issue => issue.message);
 				loginFormInput.current?.setCustomValidity(errorMessages.join(', '));
 				return;
 			}

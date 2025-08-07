@@ -190,7 +190,7 @@ export const Chat: React.FC = () => {
 			);
 
 			if (!formValuesParsed.success) {
-				const errorMessages = formValuesParsed.error.errors.map(error => error.message);
+				const errorMessages = formValuesParsed.error.issues.map(issue => issue.message);
 				loginFormInput.current?.setCustomValidity(errorMessages.join(', '));
 				return;
 			}
@@ -236,7 +236,7 @@ export const Chat: React.FC = () => {
 			);
 
 			if (!formValuesParsed.success) {
-				const errorMessages = formValuesParsed.error.errors.map(error => error.message);
+				const errorMessages = formValuesParsed.error.issues.map(issue => issue.message);
 				sendFormInput.current?.setCustomValidity(errorMessages.join(', '));
 				return;
 			}
