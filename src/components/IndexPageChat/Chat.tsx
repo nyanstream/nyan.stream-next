@@ -76,28 +76,31 @@ export const Chat: React.FC = () => {
 		}, 5);
 	}, []);
 
-	const insertSystemMessage = React.useCallback((text: string) => {
-		insertNewMessages([
-			{
-				id: crypto.randomUUID(),
-				createdAt: new Date().toISOString(),
-				type: ChatMessageTypeEnum.System,
-				userId: null,
-				nickname: 'System',
-				text,
-			},
-		]);
-	}, [])
+	const insertSystemMessage = React.useCallback(
+		(text: string) => {
+			insertNewMessages([
+				{
+					id: crypto.randomUUID(),
+					createdAt: new Date().toISOString(),
+					type: ChatMessageTypeEnum.System,
+					userId: null,
+					nickname: 'System',
+					text,
+				},
+			]);
+		},
+		[insertNewMessages]
+	);
 
 	const runSseReconnectActions = React.useCallback(() => {
 		console.log({ reconnect: true, count: sseReconnectsCount.current });
 		if (sseReconnectsCount.current === 5) {
-			insertSystemMessage('Не удалось переподключиться. Перезагрузите страницу.')
+			insertSystemMessage('Не удалось переподключиться. Перезагрузите страницу.');
 			return;
 		}
 
 		if (sseReconnectsCount.current === 0) {
-			insertSystemMessage('Соединение разорвано. Идёт попытка переподключения.')
+			insertSystemMessage('Соединение разорвано. Идёт попытка переподключения.');
 		}
 		sseReconnectsCount.current += 1;
 		initializeSseConnection();
@@ -110,8 +113,8 @@ export const Chat: React.FC = () => {
 			if (messageData.type === 'UserConnected' && !connectionId) {
 				setConnectionId(messageData.data.connectionId);
 				if (sseReconnectsCount.current > 0) {
-				sseReconnectsCount.current = 0;
-				insertSystemMessage('Соединение восстановлено.')
+					sseReconnectsCount.current = 0;
+					insertSystemMessage('Соединение восстановлено.');
 				}
 
 				if (bearerTokenFromUrl.current) {
