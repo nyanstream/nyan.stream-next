@@ -15,6 +15,7 @@
 
 .chatMessage {
 	position: relative;
+	padding-right: 20px;
 
 	&[data-system] {
 		font-style: italic;
@@ -37,7 +38,7 @@
 	}
 
 	img {
-		max-width: 62px;
+		max-width: 64px;
 		height: auto;
 
 		&[data-style*='color-inverted'] {
