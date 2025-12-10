@@ -6,13 +6,13 @@ import { storageGet, storageSet } from '@/utilities/storage';
 
 import { NewYearSnowContext } from './NewYearSnowContext';
 
-const StorageItemName = 'nyan_new_year_snow_2024';
+const StorageItemName = 'nyan_new_year_snow_2025';
 
 export const NewYearSnowContextProvider: ReactComponent = ({ children }) => {
-	const [IsNewYearSnowEnabled, setIsNewYearSnowEnabled] = React.useState(false);
+	const [IsNewYearSnowEnabled, setIsNewYearSnowEnabled] = React.useState(true);
 
 	React.useEffect(() => {
-		const currentStorageValue = storageGet<'true' | 'false'>(StorageItemName, 'false');
+		const currentStorageValue = storageGet<'true' | 'false'>(StorageItemName, 'true');
 		setIsNewYearSnowEnabled(currentStorageValue === 'true');
 	}, []);
 
