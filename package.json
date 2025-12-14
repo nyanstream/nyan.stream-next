@@ -7,7 +7,7 @@
 	"repository": "github:nyanstream/nyan.stream-next",
 	"license": "MIT",
 	"engines": {
-		"node": ">=22.00.0"
+		"node": "22"
 	},
 	"scripts": {
 		"start": "next",
