@@ -6,6 +6,9 @@
 	"author": "Dmitry <dmitry@cojam.ru> (https://e965.ru)",
 	"repository": "github:nyanstream/nyan.stream-next",
 	"license": "MIT",
+	"engines": {
+		"node": ">=22.00.0"
+	},
 	"scripts": {
 		"start": "next",
 		"build": "next build && next-sitemap --config next-sitemap.config.js",
