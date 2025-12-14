@@ -10,8 +10,8 @@
 		"node": "22"
 	},
 	"scripts": {
-		"start": "next",
-		"build": "next build && next-sitemap --config next-sitemap.config.js",
+		"start": "node .next/standalone/server.js",
+		"build": "next build && next-sitemap --config next-sitemap.config.js && cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/",
 		"dist": "npm run build",
 		"lint": "next lint",
 		"prettier": "prettier --write **/*.{json,js,ts,tsx,scss}",
