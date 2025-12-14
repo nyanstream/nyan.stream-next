@@ -7,4 +7,4 @@ cmd = "npm ci"
 cmd = "npm run dist"
 
 [start]
-cmd = "npm start'
+cmd = "npm start"
