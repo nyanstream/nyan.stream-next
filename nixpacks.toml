@@ -1,4 +1,5 @@
-providers = ["node"]
+[phases.setup]
+nixpkgsArchive = "51ad838b03a05b1de6f9f2a0fffecee64a9788ee"
 
 [phases.install]
 cmd = "npm ci"
