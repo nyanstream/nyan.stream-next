@@ -6,6 +6,3 @@ cmd = "npm ci"
 
 [phases.build]
 cmd = "npm run dist"
-
-[start]
-cmd = "npm start"
